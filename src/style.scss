@@ -1,0 +1,133 @@
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  font: inherit;
+}
+
+/* =HOME SCREEN= */
+
+.home {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+
+  background-color: #303131;
+  color: #ffffff;
+}
+
+/* = HOME CONTENT= */
+
+.home__content {
+  position: relative;
+  z-index: 2;
+
+  width: fit-content;
+  max-width: 90%;
+
+  margin-left: 15%;
+  padding-top: 25vh;
+}
+
+/* = IT'S PLAY TIME= */
+.home__subtitle {
+  margin: 0 0 25px;
+
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+.home__title {
+  display: block;
+
+  width: min(900px, 100%);
+  height: auto;
+}
+
+.home__play-button {
+  display: block;
+
+  margin: 85px auto 0;
+  padding: 0;
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+
+  transition: transform 0.2s ease;
+}
+
+.home__play-button img {
+  display: block;
+
+  width: 230px;
+  height: auto;
+}
+
+.home__play-button:hover {
+  transform: scale(1.05);
+}
+
+.home__controller {
+  position: absolute;
+  z-index: 1;
+
+  left: -70px;
+  bottom: -100px;
+
+  width: 420px;
+  height: auto;
+
+  opacity: 0.05;
+
+  pointer-events: none;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+@media (max-width: 768px) {
+  .home__content {
+    margin-left: 8%;
+    padding-top: 30vh;
+  }
+
+  .home__subtitle {
+    font-size: 22px;
+  }
+
+  .home__title {
+    width: 100%;
+  }
+
+  .home__play-button {
+    margin-top: 60px;
+  }
+
+  .home__play-button img {
+    width: 180px;
+  }
+
+  .home__controller {
+    width: 300px;
+    left: -60px;
+    bottom: -80px;
+  }
+}

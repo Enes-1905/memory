@@ -1,24 +1,49 @@
 import './style.scss';
-import controllerIcon from './assets/stadia_controller.svg';
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <main class="home">
-    <img
-      class="home__controller"
-      src="${controllerIcon}"
-      alt=""
-    >
+const home = document.querySelector<HTMLElement>('.home');
 
-    <div class="home__content">
-      <p class="home__eyebrow">It's play time.</p>
+const playButton = document.querySelector<HTMLButtonElement>(
+  '.home__play-button'
+);
 
-      <h1 class="home__title">Ready to play?</h1>
+const title = document.querySelector<HTMLImageElement>(
+  '.home__title'
+);
 
-      <button class="home__play-button" type="button">
-        <span>🎮</span>
-        <span>Play</span>
-        <span>→</span>
-      </button>
-    </div>
-  </main>
-`;
+const controller = document.querySelector<HTMLImageElement>(
+  '.home__controller'
+);
+
+const subtitle = document.querySelector<HTMLElement>(
+  '.home__subtitle'
+);
+
+if (!home) {
+  console.error('Home-Element wurde nicht gefunden.');
+}
+
+if (!playButton) {
+  console.error('Play-Button wurde nicht gefunden.');
+}
+
+if (!title) {
+  console.error('Titel-SVG wurde nicht gefunden.');
+}
+
+if (!controller) {
+  console.error('Controller-SVG wurde nicht gefunden.');
+}
+
+if (!subtitle) {
+  console.error('Untertitel wurde nicht gefunden.');
+}
+
+if (playButton) {
+  playButton.addEventListener('click', () => {
+    console.log('Play-Button wurde geklickt.');
+
+    // Hier wird später das Memory-Spiel gestartet.
+  });
+}
+
+console.log('Memory wurde erfolgreich geladen.');
