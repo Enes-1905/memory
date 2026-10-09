@@ -1,3 +1,6 @@
+/* ==========================================
+   GRUNDEINSTELLUNGEN
+========================================== */
 
 * {
   box-sizing: border-box;
@@ -18,7 +21,9 @@ button {
   font: inherit;
 }
 
-/* =HOME SCREEN= */
+/* ==========================================
+   HOME SCREEN
+========================================== */
 
 .home {
   position: relative;
@@ -30,34 +35,38 @@ button {
   color: #ffffff;
 }
 
-/* = HOME CONTENT= */
+/* ==========================================
+   TEXTBEREICH – FIGMA
+========================================== */
 
 .home__content {
   position: relative;
   z-index: 2;
 
   width: fit-content;
-  max-width: 90%;
+  max-width: calc(100% - 32px);
 
-  margin-left: 15%;
-  padding-top: 25vh;
+  /* Figma: Links 225px, Oben 339px */
+  margin-left: 225px;
+  padding-top: 339px;
 }
 
-/* = IT'S PLAY TIME= */
-.home__subtitle {
-  margin: 0 0 25px;
-
-  font-size: 32px;
-  line-height: 1.2;
-  font-weight: 400;
-}
+/* ==========================================
+   READY TO PLAY – FIGMA SVG
+========================================== */
 
 .home__title {
   display: block;
 
-  width: min(900px, 100%);
+  /* Figma: Breite 991px */
+  width: 991px;
+  max-width: 100%;
   height: auto;
 }
+
+/* ==========================================
+   PLAY BUTTON – FIGMA SVG
+========================================== */
 
 .home__play-button {
   display: block;
@@ -69,13 +78,11 @@ button {
   background: transparent;
 
   cursor: pointer;
-
   transition: transform 0.2s ease;
 }
 
 .home__play-button img {
   display: block;
-
   width: 230px;
   height: auto;
 }
@@ -84,33 +91,39 @@ button {
   transform: scale(1.05);
 }
 
+/* ==========================================
+   STADIA CONTROLLER – FIGMA
+========================================== */
+
 .home__controller {
   position: absolute;
   z-index: 1;
 
-  left: -70px;
+  /* Figma: Links -88px */
+  left: -88px;
+
+  /* Unten verankert, damit er sichtbar bleibt */
   bottom: -100px;
 
-  width: 420px;
+  /* Figma: Breite 414,31px */
+  width: 414.31px;
   height: auto;
 
+  /* Figma: Deckkraft 5 % */
   opacity: 0.05;
 
   pointer-events: none;
 }
 
 /* ==========================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN – SMARTPHONES
 ========================================== */
 
 @media (max-width: 768px) {
   .home__content {
     margin-left: 8%;
     padding-top: 30vh;
-  }
-
-  .home__subtitle {
-    font-size: 22px;
+    max-width: 84%;
   }
 
   .home__title {
@@ -126,8 +139,8 @@ button {
   }
 
   .home__controller {
-    width: 300px;
     left: -60px;
     bottom: -80px;
+    width: 300px;
   }
 }
