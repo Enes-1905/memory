@@ -7,23 +7,21 @@
   </head>
 
   <body>
+
     <main class="home">
-
       <div class="home__content">
-
         <img
           class="home__title"
           src="/src/assets/Text.svg"
           alt="Ready to play?"
         />
 
-        <button class="home__play-button" type="button">
+        <button class="home__play-button" type="button" aria-label="Play">
           <img
             src="/src/assets/Primary button.svg"
-            alt="Play"
+            alt=""
           />
         </button>
-
       </div>
 
       <img
@@ -32,8 +30,143 @@
         alt=""
         aria-hidden="true"
       />
-
     </main>
+
+    <section class="settings" hidden>
+      <div class="settings__container">
+
+        <!-- Settings-Überschrift aus Figma -->
+        <img
+          class="settings__headline"
+          src="/src/assets/Headline.svg"
+          alt="Settings"
+        />
+
+        <div class="settings__layout">
+
+          <!-- LINKE SEITE -->
+          <div class="settings__options">
+
+            <!-- GAME THEMES -->
+            <fieldset class="settings__group">
+              <legend class="settings__group-title">
+                <img src="/src/assets/palette.svg" alt="" />
+                <span>Game themes</span>
+              </legend>
+
+              <label class="settings__option">
+                <input
+                  type="radio"
+                  name="theme"
+                  value="code"
+                  checked
+                />
+                <span>Code vibes theme</span>
+              </label>
+
+              <label class="settings__option">
+                <input
+                  type="radio"
+                  name="theme"
+                  value="gaming"
+                />
+                <span>Gaming theme</span>
+              </label>
+            </fieldset>
+
+            <!-- CHOOSE PLAYER-->
+            <fieldset class="settings__group">
+              <legend class="settings__group-title">
+                <img src="/src/assets/choose.svg" alt="" />
+                <span>Choose player</span>
+              </legend>
+
+              <label class="settings__option">
+                <input type="radio" name="player" value="blue" checked />
+                <span>Blue</span>
+              </label>
+
+              <label class="settings__option">
+                <input type="radio" name="player" value="orange" />
+                <span>Orange</span>
+              </label>
+            </fieldset>
+
+            <!-- BOARD SIZE -->
+            <fieldset class="settings__group">
+              <legend class="settings__group-title">
+                <img src="/src/assets/board.svg" alt="" />
+                <span>Board size</span>
+              </legend>
+
+              <label class="settings__option">
+                <input type="radio" name="boardSize" value="16" checked />
+                <span>16 cards</span>
+              </label>
+
+              <label class="settings__option">
+                <input type="radio" name="boardSize" value="24" />
+                <span>24 cards</span>
+              </label>
+
+              <label class="settings__option">
+                <input type="radio" name="boardSize" value="36" />
+                <span>36 cards</span>
+              </label>
+            </fieldset>
+
+          </div>
+
+          <!-- RECHTE SEITE -->
+          <div class="settings__right">
+
+            <!-- Themen-Vorschau -->
+            <img
+              class="settings__preview"
+              src="/src/assets/codetheme.svg"
+              alt="Vorschau: Code vibes theme"
+            />
+
+            <!-- Untere Leiste -->
+            <div class="settings__footer">
+
+              <span>Game theme</span>
+
+              <img
+                class="settings__divider"
+                src="/src/assets/Line 6.svg"
+                alt=""
+              />
+
+              <span>Player</span>
+
+              <img
+                class="settings__divider"
+                src="/src/assets/Line 6.svg"
+                alt=""
+              />
+
+              <span>Board size</span>
+
+              <img
+                class="settings__divider"
+                src="/src/assets/Line 6.svg"
+                alt=""
+              />
+
+              <button
+                class="settings__start"
+                type="button"
+                aria-label="Start game"
+              >
+                <img src="/src/assets/start.svg" alt="" />
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <script type="module" src="/src/main.ts"></script>
   </body>

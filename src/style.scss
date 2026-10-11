@@ -18,6 +18,11 @@ button {
   font: inherit;
 }
 
+/* Versteckte Seiten wirklich ausblenden */
+[hidden] {
+  display: none !important;
+}
+
 /* = HOME SCREEN= */
 
 .home {
@@ -30,8 +35,6 @@ button {
   color: #ffffff;
 }
 
-
-
 .home__content {
   position: relative;
   z-index: 2;
@@ -39,17 +42,12 @@ button {
   width: fit-content;
   max-width: calc(100% - 32px);
 
-  
   margin-left: 225px;
   padding-top: 339px;
 }
 
-/* =READY TO PLAY – FIGMA SVG= */
-
 .home__title {
   display: block;
-
- 
   width: 991px;
   max-width: 100%;
   height: auto;
@@ -81,27 +79,199 @@ button {
 .home__play-button:hover img {
   content: url('./assets/Property 1=hover.svg');
 }
-/*= STADIA CONTROLLER – FIGMA= */
 
 .home__controller {
   position: absolute;
   z-index: 1;
 
   left: -88px;
-
   bottom: -100px;
 
   width: 414.31px;
   height: auto;
 
   opacity: 0.05;
-
   pointer-events: none;
 }
 
-/* =  RESPONSIVE DESIGN – SMARTPHONES= */
+/* =SETTINGS SCREEN= */
+
+.settings {
+  min-height: 100vh;
+  background: #ffffff;
+  color: #303131;
+  padding: 110px 8% 80px;
+}
+
+.settings__container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Settings-Überschrift */
+.settings__headline {
+  display: block;
+  width: 260px;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 55px;
+}
+
+/* Zwei Spalten */
+.settings__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 90px;
+  align-items: start;
+}
+
+/* = LINKE SEITE= */
+.settings__options {
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+}
+
+.settings__group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.settings__group-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-bottom: 15px;
+  padding: 0;
+
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.settings__group-title img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.settings__option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin: 0 0 12px 40px;
+
+  font-size: 19px;
+  cursor: pointer;
+}
+
+.settings__option input {
+  width: 19px;
+  height: 19px;
+  margin: 0;
+
+  accent-color: #303131;
+  cursor: pointer;
+}
+
+.settings__option:has(input:checked) span {
+  font-weight: 700;
+}
+
+/* = RECHTE SEITE= */
+.settings__right {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
+/* Themen-Vorschau */
+.settings__preview {
+  display: block;
+  width: 100%;
+  max-width: 470px;
+  height: auto;
+  border-radius: 16px;
+}
+
+/* Untere Leiste */
+.settings__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  width: 100%;
+  max-width: 550px;
+
+  padding: 14px 16px;
+  background: #f5f5f5;
+
+  white-space: nowrap;
+}
+
+.settings__footer span {
+  font-size: 17px;
+}
+
+.settings__divider {
+  display: block;
+  width: 12px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.settings__start {
+  display: block;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  transition: transform 0.2s ease;
+}
+
+.settings__start img {
+  display: block;
+  width: 120px;
+  height: auto;
+}
+
+.settings__start:hover {
+  transform: scale(1.05);
+}
+
+/* = RESPONSIVE DESIGN= */
+@media (max-width: 900px) {
+  .settings {
+    padding: 70px 6% 50px;
+  }
+
+  .settings__layout {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .settings__right {
+    align-items: flex-start;
+  }
+
+  .settings__preview {
+    max-width: 470px;
+  }
+
+  .settings__footer {
+    max-width: 550px;
+  }
+}
 
 @media (max-width: 768px) {
+  /* HOME */
   .home__content {
     margin-left: 8%;
     padding-top: 30vh;
@@ -124,5 +294,32 @@ button {
     left: -60px;
     bottom: -80px;
     width: 300px;
+  }
+
+  /* SETTINGS */
+  .settings__headline {
+    width: 220px;
+  }
+
+  .settings__group-title {
+    font-size: 21px;
+  }
+
+  .settings__option {
+    font-size: 17px;
+  }
+
+  .settings__footer {
+    flex-wrap: wrap;
+    justify-content: center;
+    white-space: normal;
+  }
+
+  .settings__footer span {
+    font-size: 15px;
+  }
+
+  .settings__start img {
+    width: 110px;
   }
 }
