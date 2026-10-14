@@ -1,325 +1,132 @@
+/* ==========================================
+   MEMORY GAME
+========================================== */
 
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  width: 100%;
-  min-height: 100%;
-}
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-button {
-  font: inherit;
-}
-
-/* Versteckte Seiten wirklich ausblenden */
-[hidden] {
-  display: none !important;
-}
-
-/* = HOME SCREEN= */
-
-.home {
-  position: relative;
-  width: 100%;
+.game {
   min-height: 100vh;
-  overflow: hidden;
-
+  padding: 36px 7% 60px;
   background-color: #303131;
-  color: #ffffff;
+  color: white;
 }
 
-.home__content {
-  position: relative;
-  z-index: 2;
-
-  width: fit-content;
-  max-width: calc(100% - 32px);
-
-  margin-left: 225px;
-  padding-top: 339px;
+.game__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  max-width: 1180px;
+  margin: 0 auto 42px;
 }
 
-.home__title {
-  display: block;
-  width: 991px;
-  max-width: 100%;
-  height: auto;
+.game__scores {
+  display: flex;
+  gap: 18px;
+  padding: 14px 18px;
+  background-color: #405451;
 }
 
-.home__play-button {
-  display: block;
-  margin: 85px auto 0;
-  padding: 0;
+.game__score {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 20px;
+  font-weight: bold;
+}
 
+.game__score img {
+  width: 22px;
+  height: 22px;
+}
+
+.game__score--blue {
+  color: #29b6f6;
+}
+
+.game__score--orange {
+  color: #ff913c;
+}
+
+.game__current-player {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+}
+
+.game__current-icon {
+  width: 26px;
+  height: 26px;
+}
+
+.game__exit {
   border: none;
+  padding: 0;
   background: transparent;
   cursor: pointer;
-
-  transition: transform 0.2s ease;
-  transform-origin: center;
 }
 
-.home__play-button img {
+.game__exit img {
   display: block;
-  width: 230px;
+  width: 190px;
   height: auto;
 }
 
-.home__play-button:hover {
-  transform: scale(1.06);
-}
-
-.home__play-button:hover img {
-  content: url('./assets/Property 1=hover.svg');
-}
-
-.home__controller {
-  position: absolute;
-  z-index: 1;
-
-  left: -88px;
-  bottom: -100px;
-
-  width: 414.31px;
-  height: auto;
-
-  opacity: 0.05;
-  pointer-events: none;
-}
-
-/* =SETTINGS SCREEN= */
-
-.settings {
-  min-height: 100vh;
-  background: #ffffff;
-  color: #303131;
-  padding: 110px 8% 80px;
-}
-
-.settings__container {
-  width: 100%;
-  max-width: 1200px;
+.game__board {
+  display: grid;
+  grid-template-columns: repeat(4, 110px);
+  gap: 14px;
+  width: max-content;
   margin: 0 auto;
 }
 
-/* Settings-Überschrift */
-.settings__headline {
-  display: block;
-  width: 260px;
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 55px;
-}
-
-/* Zwei Spalten */
-.settings__layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 90px;
-  align-items: start;
-}
-
-/* = LINKE SEITE= */
-.settings__options {
-  display: flex;
-  flex-direction: column;
-  gap: 45px;
-}
-
-.settings__group {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  min-width: 0;
-}
-
-.settings__group-title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  margin-bottom: 15px;
-  padding: 0;
-
-  font-size: 23px;
-  font-weight: 700;
-}
-
-.settings__group-title img {
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
-}
-
-.settings__option {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  margin: 0 0 12px 40px;
-
-  font-size: 19px;
-  cursor: pointer;
-}
-
-.settings__option input {
-  width: 19px;
-  height: 19px;
-  margin: 0;
-
-  accent-color: #303131;
-  cursor: pointer;
-}
-
-.settings__option:has(input:checked) span {
-  font-weight: 700;
-}
-
-/* = RECHTE SEITE= */
-.settings__right {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  align-items: center;
-}
-
-/* Themen-Vorschau */
-.settings__preview {
-  display: block;
-  width: 100%;
-  max-width: 470px;
-  height: auto;
-  border-radius: 16px;
-}
-
-/* Untere Leiste */
-.settings__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-
-  width: 100%;
-  max-width: 550px;
-
-  padding: 14px 16px;
-  background: #f5f5f5;
-
-  white-space: nowrap;
-}
-
-.settings__footer span {
-  font-size: 17px;
-}
-
-.settings__divider {
-  display: block;
-  width: 12px;
-  height: 48px;
-  object-fit: contain;
-}
-
-.settings__start {
-  display: block;
+.game__card {
+  width: 110px;
+  height: 110px;
   padding: 0;
   border: none;
   background: transparent;
   cursor: pointer;
-
   transition: transform 0.2s ease;
 }
 
-.settings__start img {
+.game__card img {
   display: block;
-  width: 120px;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-.settings__start:hover {
-  transform: scale(1.05);
+.game__card:hover {
+  transform: scale(1.04);
 }
 
-/* = RESPONSIVE DESIGN= */
-@media (max-width: 900px) {
-  .settings {
-    padding: 70px 6% 50px;
-  }
-
-  .settings__layout {
-    grid-template-columns: 1fr;
-    gap: 50px;
-  }
-
-  .settings__right {
-    align-items: flex-start;
-  }
-
-  .settings__preview {
-    max-width: 470px;
-  }
-
-  .settings__footer {
-    max-width: 550px;
-  }
+/* Versteckte Seiten ausblenden */
+.home[hidden],
+.settings[hidden],
+.game[hidden] {
+  display: none;
 }
 
 @media (max-width: 768px) {
-  /* HOME */
-  .home__content {
-    margin-left: 8%;
-    padding-top: 30vh;
-    max-width: 84%;
+  .game {
+    padding: 24px 12px;
   }
 
-  .home__title {
-    width: 100%;
-  }
-
-  .home__play-button {
-    margin-top: 60px;
-  }
-
-  .home__play-button img {
-    width: 180px;
-  }
-
-  .home__controller {
-    left: -60px;
-    bottom: -80px;
-    width: 300px;
-  }
-
-  /* SETTINGS */
-  .settings__headline {
-    width: 220px;
-  }
-
-  .settings__group-title {
-    font-size: 21px;
-  }
-
-  .settings__option {
-    font-size: 17px;
-  }
-
-  .settings__footer {
+  .game__header {
     flex-wrap: wrap;
     justify-content: center;
-    white-space: normal;
+    gap: 16px;
   }
 
-  .settings__footer span {
-    font-size: 15px;
+  .game__board {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    width: min(100%, 480px);
   }
 
-  .settings__start img {
-    width: 110px;
+  .game__card {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
   }
 }
