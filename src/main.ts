@@ -209,12 +209,33 @@ function renderBoard() {
     button.dataset.index = String(index);
     button.setAttribute('aria-label', 'Verdeckte Memory-Karte');
 
-    const image = document.createElement('img');
+    const inner = document.createElement('span');
+    inner.className = 'game__card-inner';
 
-    image.src = cardBack;
-    image.alt = '';
+    // Verdeckte Seite
+    const back = document.createElement('span');
+    back.className = 'game__card-back';
 
-    button.appendChild(image);
+    const backImage = document.createElement('img');
+    backImage.src = cardBack;
+    backImage.alt = '';
+
+    back.appendChild(backImage);
+
+    // Aufgedeckte Seite
+    const front = document.createElement('span');
+    front.className = 'game__card-front';
+
+    const frontImage = document.createElement('img');
+    frontImage.src = card.image;
+    frontImage.alt = '';
+
+    front.appendChild(frontImage);
+
+    inner.appendChild(back);
+    inner.appendChild(front);
+
+    button.appendChild(inner);
 
     button.addEventListener('click', () => {
       flipCard(index);
@@ -231,11 +252,7 @@ function updateCard(index: number, revealed: boolean) {
     `.game__card[data-index="${index}"]`
   );
 
-  const image = button?.querySelector('img');
-
-  if (!button || !image) return;
-
-  image.src = revealed ? cards[index].image : cardBack;
+  if (!button) return;
 
   button.classList.toggle('game__card--flipped', revealed);
 
@@ -252,10 +269,9 @@ function flipCard(index: number) {
 
   if (!card || card.matched) return;
 
-  // Dieselbe Karte darf nicht zweimal aufgedeckt werden.
   if (flippedCards.includes(index)) return;
 
-  // Maximal zwei Karten gleichzeitig.
+ 
   if (flippedCards.length >= 2) return;
 
   flippedCards.push(index);
@@ -271,9 +287,18 @@ function flipCard(index: number) {
 
   if (firstCard.pairId === secondCard.pairId) {
 
-
     firstCard.matched = true;
     secondCard.matched = true;
+      const firstButton = board?.querySelector<HTMLButtonElement>(
+    `.game__card[data-index="${firstIndex}"]`
+  );
+
+  const secondButton = board?.querySelector<HTMLButtonElement>(
+    `.game__card[data-index="${secondIndex}"]`
+  );
+
+  firstButton?.classList.add('game__card--matched');
+  secondButton?.classList.add('game__card--matched');
 
     if (currentPlayer === 'blue') {
       blueScore++;
@@ -301,8 +326,7 @@ function flipCard(index: number) {
     const session = gameSession;
 
     setTimeout(() => {
-      // Verhindert, dass ein altes Timeout
-      // ein neu gestartetes Spiel verändert.
+      
       if (session !== gameSession) return;
 
       updateCard(firstIndex, false);
