@@ -1,3 +1,6 @@
+/* ==========================================
+   GRUNDEINSTELLUNGEN
+========================================== */
 
 * {
   box-sizing: border-box;
@@ -22,7 +25,10 @@ button {
   display: none !important;
 }
 
-/* =  HOME SCREEN= */
+/* ==========================================
+   HOME SCREEN
+========================================== */
+
 .home {
   position: relative;
 
@@ -103,7 +109,9 @@ button {
   pointer-events: none;
 }
 
-/* =  SETTINGS SCREEN= */
+/* ==========================================
+   SETTINGS SCREEN
+========================================== */
 
 .settings {
   min-height: 100vh;
@@ -142,7 +150,9 @@ button {
   align-items: start;
 }
 
-/* = SETTINGS = */
+/* ==========================================
+   SETTINGS – LINKE SEITE
+========================================== */
 
 .settings__options {
   display: flex;
@@ -207,7 +217,9 @@ button {
   font-weight: 700;
 }
 
-/* = SETTINGS – RECHTE SEITE= */
+/* ==========================================
+   SETTINGS – RECHTE SEITE
+========================================== */
 
 .settings__right {
   display: flex;
@@ -284,7 +296,10 @@ button {
   transform: scale(1.05);
 }
 
-/*= MEMORY GAME= */
+/* ==========================================
+   MEMORY GAME
+========================================== */
+
 .game {
   width: 100%;
   min-height: 100vh;
@@ -295,7 +310,9 @@ button {
   color: #ffffff;
 }
 
-/* =GAME HEADER= */
+/* ==========================================
+   GAME HEADER
+========================================== */
 
 .game__header {
   display: flex;
@@ -348,7 +365,7 @@ button {
   color: #ff913c;
 }
 
-/*  SPIELER */
+/* AKTUELLER SPIELER */
 
 .game__current-player {
   display: flex;
@@ -392,21 +409,27 @@ button {
   transform: scale(1.04);
 }
 
-/* =MEMORY BOARD= */
+/* ==========================================
+   MEMORY BOARD – FIGMA 16 KARTEN
+========================================== */
 
 .game__board {
   display: grid;
 
   grid-template-columns: repeat(4, minmax(0, 1fr));
 
-  gap: 12px;
+  /* Figma: 16 px Abstand */
+  gap: 16px;
 
-  width: min(100%, 480px);
+  /* Figma: 4 x 120 px + 3 x 16 px = 528 px */
+  width: min(100%, 528px);
 
   margin: 0 auto;
 }
 
-/* = MEMORY CARD – 3D FLIP= */
+/* ==========================================
+   MEMORY CARD – 3D FLIP
+========================================== */
 
 .game__card {
   position: relative;
@@ -427,6 +450,8 @@ button {
   transition: transform 0.2s ease;
 }
 
+/* INNERER TEIL DER KARTE */
+
 .game__card-inner {
   position: relative;
   display: block;
@@ -438,6 +463,8 @@ button {
 
   transition: transform 0.6s ease;
 }
+
+/* KARTE UM 180 GRAD DREHEN */
 
 .game__card--flipped .game__card-inner {
   transform: rotateY(180deg);
@@ -463,14 +490,18 @@ button {
 }
 
 /* VERDECKTE SEITE */
+
 .game__card-back {
   transform: rotateY(0deg);
 }
+
 /* AUFGEDECKTE SEITE */
 
 .game__card-front {
   transform: rotateY(180deg);
 }
+
+/* KARTENBILDER */
 
 .game__card-back img,
 .game__card-front img {
@@ -481,6 +512,8 @@ button {
 
   object-fit: contain;
 }
+
+/* HOVER NUR BEI VERDECKTEN KARTEN */
 
 .game__card:not(.game__card--flipped):hover {
   transform: scale(1.04);
@@ -496,12 +529,16 @@ button {
   transform: none;
 }
 
+/* TASTATURFOKUS */
+
 .game__card:focus-visible {
   outline: 3px solid #f0ea6e;
   outline-offset: 3px;
 }
 
-/* = RESPONSIVE – KLEINE DESKTOPS= */
+/* ==========================================
+   RESPONSIVE – KLEINE DESKTOPS
+========================================== */
 
 @media (max-height: 700px) and (min-width: 769px) {
   .game {
@@ -513,13 +550,21 @@ button {
     margin-bottom: 20px;
   }
 
+  /*
+    Auf niedrigen Bildschirmen wird das
+    Spielfeld verkleinert, damit es passt.
+  */
+
   .game__board {
     width: min(100%, 440px);
     gap: 10px;
   }
 }
 
-/* =RESPONSIVE – TABLETS= */
+/* ==========================================
+   RESPONSIVE – TABLETS
+========================================== */
+
 @media (max-width: 900px) {
   .settings {
     padding: 70px 6% 50px;
@@ -555,7 +600,9 @@ button {
   }
 }
 
-/* =RESPONSIVE = */
+/* ==========================================
+   RESPONSIVE – SMARTPHONES
+========================================== */
 
 @media (max-width: 768px) {
 
@@ -616,6 +663,8 @@ button {
     width: 110px;
   }
 
+  /* MEMORY GAME */
+
   .game {
     padding: 24px 12px;
   }
@@ -657,7 +706,7 @@ button {
   }
 
   .game__board {
-    width: min(100%, 480px);
+    width: min(100%, 528px);
 
     grid-template-columns: repeat(4, minmax(0, 1fr));
 
@@ -670,7 +719,10 @@ button {
   }
 }
 
-/* = VERSTECKTE SEITEN= */
+/* ==========================================
+   VERSTECKTE SEITEN
+========================================== */
+
 .home[hidden],
 .settings[hidden],
 .game[hidden] {
