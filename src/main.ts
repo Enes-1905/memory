@@ -20,6 +20,18 @@ const exitButton = document.querySelector<HTMLButtonElement>(
   '.game__exit'
 );
 
+const exitOverlay = document.querySelector<HTMLElement>(
+  '.game__exit-overlay'
+);
+
+const backToGameButton = document.querySelector<HTMLButtonElement>(
+  '.game__back-button'
+);
+
+const confirmExitButton = document.querySelector<HTMLButtonElement>(
+  '.game__confirm-exit'
+);
+
 const board = document.querySelector<HTMLElement>('.game__board');
 
 const blueScoreElement = document.querySelector<HTMLElement>('#score-blue');
@@ -28,6 +40,10 @@ const orangeScoreElement = document.querySelector<HTMLElement>('#score-orange');
 const currentPlayerIcon = document.querySelector<HTMLImageElement>(
   '.game__current-icon'
 );
+
+/* ==========================================
+   KARTEN
+========================================== */
 
 const codeCards = [
   '/src/assets/Property 26.svg',  // Git
@@ -65,6 +81,10 @@ let orangeScore = 0;
 let isChecking = false;
 let gameSession = 0;
 
+/* ==========================================
+   HOME → SETTINGS
+========================================== */
+
 playButton?.addEventListener('click', () => {
   if (!home || !settings) return;
 
@@ -73,6 +93,10 @@ playButton?.addEventListener('click', () => {
 
   window.scrollTo(0, 0);
 });
+
+/* ==========================================
+   THEME-VORSCHAU
+========================================== */
 
 function showThemePreview(theme: string) {
   if (!preview) return;
@@ -122,6 +146,10 @@ function getSelectedValue(name: string): string | undefined {
   )?.value;
 }
 
+/* ==========================================
+   KARTEN MISCHEN
+========================================== */
+
 function shuffleCards(cardList: MemoryCard[]): MemoryCard[] {
   const shuffled = [...cardList];
 
@@ -136,6 +164,10 @@ function shuffleCards(cardList: MemoryCard[]): MemoryCard[] {
 
   return shuffled;
 }
+
+/* ==========================================
+   PUNKTETAFEL
+========================================== */
 
 function updateScoreboard() {
   if (blueScoreElement) {
@@ -160,6 +192,10 @@ function switchPlayer() {
 
   updateScoreboard();
 }
+
+/* ==========================================
+   MEMORY-KARTEN ERSTELLEN
+========================================== */
 
 function createCards(images: string[], cardCount: number): MemoryCard[] {
   const pairCount = cardCount / 2;
@@ -196,6 +232,10 @@ function createCards(images: string[], cardCount: number): MemoryCard[] {
   return shuffleCards(cardPairs);
 }
 
+/* ==========================================
+   SPIELFELD RENDERN
+========================================== */
+
 function renderBoard() {
   if (!board) return;
 
@@ -212,7 +252,7 @@ function renderBoard() {
     const inner = document.createElement('span');
     inner.className = 'game__card-inner';
 
-    // Verdeckte Seite
+    // Rückseite
     const back = document.createElement('span');
     back.className = 'game__card-back';
 
@@ -222,7 +262,7 @@ function renderBoard() {
 
     back.appendChild(backImage);
 
-    // Aufgedeckte Seite
+    // Vorderseite
     const front = document.createElement('span');
     front.className = 'game__card-front';
 
@@ -245,6 +285,10 @@ function renderBoard() {
   });
 }
 
+/* ==========================================
+   KARTE DREHEN
+========================================== */
+
 function updateCard(index: number, revealed: boolean) {
   if (!board) return;
 
@@ -262,8 +306,12 @@ function updateCard(index: number, revealed: boolean) {
   );
 }
 
+/* ==========================================
+   SPIELLOGIK
+========================================== */
+
 function flipCard(index: number) {
-  if (isChecking) return;
+  if (isChecking || (exitOverlay && !exitOverlay.hidden)) return;
 
   const card = cards[index];
 
@@ -271,7 +319,6 @@ function flipCard(index: number) {
 
   if (flippedCards.includes(index)) return;
 
- 
   if (flippedCards.length >= 2) return;
 
   flippedCards.push(index);
@@ -286,19 +333,19 @@ function flipCard(index: number) {
   const secondCard = cards[secondIndex];
 
   if (firstCard.pairId === secondCard.pairId) {
-
     firstCard.matched = true;
     secondCard.matched = true;
-      const firstButton = board?.querySelector<HTMLButtonElement>(
-    `.game__card[data-index="${firstIndex}"]`
-  );
 
-  const secondButton = board?.querySelector<HTMLButtonElement>(
-    `.game__card[data-index="${secondIndex}"]`
-  );
+    const firstButton = board?.querySelector<HTMLButtonElement>(
+      `.game__card[data-index="${firstIndex}"]`
+    );
 
-  firstButton?.classList.add('game__card--matched');
-  secondButton?.classList.add('game__card--matched');
+    const secondButton = board?.querySelector<HTMLButtonElement>(
+      `.game__card[data-index="${secondIndex}"]`
+    );
+
+    firstButton?.classList.add('game__card--matched');
+    secondButton?.classList.add('game__card--matched');
 
     if (currentPlayer === 'blue') {
       blueScore++;
@@ -310,23 +357,23 @@ function flipCard(index: number) {
 
     flippedCards = [];
 
-  
-
     if (cards.every((item) => item.matched)) {
+      const session = gameSession;
+
       setTimeout(() => {
+        if (session !== gameSession) return;
+
         alert(
           `Spiel beendet!\nBlue: ${blueScore}\nOrange: ${orangeScore}`
         );
       }, 300);
     }
   } else {
-   
     isChecking = true;
 
     const session = gameSession;
 
     setTimeout(() => {
-      
       if (session !== gameSession) return;
 
       updateCard(firstIndex, false);
@@ -340,6 +387,10 @@ function flipCard(index: number) {
   }
 }
 
+/* ==========================================
+   SPIEL STARTEN
+========================================== */
+
 startButton?.addEventListener('click', () => {
   if (!settings || !game || !board) return;
 
@@ -347,7 +398,6 @@ startButton?.addEventListener('click', () => {
   const player = getSelectedValue('player') ?? 'blue';
   const boardSize = Number(getSelectedValue('boardSize') ?? '16');
 
- 
   if (theme !== 'code') {
     alert('Die Gaming-Karten bauen wir als Nächstes ein.');
     return;
@@ -375,6 +425,10 @@ startButton?.addEventListener('click', () => {
   updateScoreboard();
   renderBoard();
 
+  if (exitOverlay) {
+    exitOverlay.hidden = true;
+  }
+
   settings.hidden = true;
   game.hidden = false;
 
@@ -387,15 +441,46 @@ startButton?.addEventListener('click', () => {
   });
 });
 
+/* ==========================================
+   EXIT-BESTÄTIGUNG
+========================================== */
+
+// Exit im Header: Nur Bestätigungsfenster öffnen
 exitButton?.addEventListener('click', () => {
-  if (!settings || !game) return;
+  if (!exitOverlay) return;
+
+  exitOverlay.hidden = false;
+  backToGameButton?.focus();
+});
+
+// Back to game: Spiel fortsetzen
+backToGameButton?.addEventListener('click', () => {
+  if (!exitOverlay) return;
+
+  exitOverlay.hidden = true;
+  exitButton?.focus();
+});
+
+// Exit game im Dialog: Spiel wirklich verlassen
+confirmExitButton?.addEventListener('click', () => {
+  if (!settings || !game || !exitOverlay) return;
 
   gameSession++;
+
+  exitOverlay.hidden = true;
 
   game.hidden = true;
   settings.hidden = false;
 
   window.scrollTo(0, 0);
+});
+
+// Escape schließt den Dialog
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && exitOverlay && !exitOverlay.hidden) {
+    exitOverlay.hidden = true;
+    exitButton?.focus();
+  }
 });
 
 console.log('Memory wurde erfolgreich geladen.');
