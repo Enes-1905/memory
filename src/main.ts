@@ -1,5 +1,9 @@
 import './style.scss';
 
+/* ==========================================
+   HTML-ELEMENTE
+========================================== */
+
 const home = document.querySelector<HTMLElement>('.home');
 const settings = document.querySelector<HTMLElement>('.settings');
 const game = document.querySelector<HTMLElement>('.game');
@@ -20,16 +24,15 @@ const exitButton = document.querySelector<HTMLButtonElement>(
   '.game__exit'
 );
 
-const exitOverlay = document.querySelector<HTMLElement>(
-  '.game__exit-overlay'
-);
+// Neues Exit-Popup aus unserer index.html
+const exitModal = document.querySelector<HTMLElement>('#exit-modal');
 
 const backToGameButton = document.querySelector<HTMLButtonElement>(
-  '.game__back-button'
+  '.exit-modal__back'
 );
 
 const confirmExitButton = document.querySelector<HTMLButtonElement>(
-  '.game__confirm-exit'
+  '.exit-modal__confirm'
 );
 
 const board = document.querySelector<HTMLElement>('.game__board');
@@ -79,6 +82,8 @@ let blueScore = 0;
 let orangeScore = 0;
 
 let isChecking = false;
+
+// Verhindert, dass alte Timer ein neues Spiel verändern.
 let gameSession = 0;
 
 /* ==========================================
@@ -311,7 +316,9 @@ function updateCard(index: number, revealed: boolean) {
 ========================================== */
 
 function flipCard(index: number) {
-  if (isChecking || (exitOverlay && !exitOverlay.hidden)) return;
+  // Während der Prüfung oder bei geöffnetem Popup
+  // dürfen keine weiteren Karten aufgedeckt werden.
+  if (isChecking || (exitModal && !exitModal.hidden)) return;
 
   const card = cards[index];
 
@@ -325,6 +332,7 @@ function flipCard(index: number) {
 
   updateCard(index, true);
 
+  // Warten, bis zwei Karten aufgedeckt sind.
   if (flippedCards.length !== 2) return;
 
   const [firstIndex, secondIndex] = flippedCards;
@@ -333,6 +341,7 @@ function flipCard(index: number) {
   const secondCard = cards[secondIndex];
 
   if (firstCard.pairId === secondCard.pairId) {
+    // Richtiges Paar gefunden.
     firstCard.matched = true;
     secondCard.matched = true;
 
@@ -347,6 +356,7 @@ function flipCard(index: number) {
     firstButton?.classList.add('game__card--matched');
     secondButton?.classList.add('game__card--matched');
 
+    // Punkt für den aktuellen Spieler.
     if (currentPlayer === 'blue') {
       blueScore++;
     } else {
@@ -357,6 +367,7 @@ function flipCard(index: number) {
 
     flippedCards = [];
 
+    // Alle Paare gefunden?
     if (cards.every((item) => item.matched)) {
       const session = gameSession;
 
@@ -369,6 +380,7 @@ function flipCard(index: number) {
       }, 300);
     }
   } else {
+    // Falsches Paar: Nach einer Sekunde zurückdrehen.
     isChecking = true;
 
     const session = gameSession;
@@ -398,11 +410,13 @@ startButton?.addEventListener('click', () => {
   const player = getSelectedValue('player') ?? 'blue';
   const boardSize = Number(getSelectedValue('boardSize') ?? '16');
 
+  // Aktuell ist nur das Code-Theme fertig.
   if (theme !== 'code') {
     alert('Die Gaming-Karten bauen wir als Nächstes ein.');
     return;
   }
 
+  // Aktuell sind acht Kartenpaare vorhanden.
   if (boardSize !== 16) {
     alert('Für 24 und 36 Karten brauchen wir noch weitere Kartenmotive.');
     return;
@@ -425,8 +439,9 @@ startButton?.addEventListener('click', () => {
   updateScoreboard();
   renderBoard();
 
-  if (exitOverlay) {
-    exitOverlay.hidden = true;
+  // Sicherheitshalber das Popup schließen.
+  if (exitModal) {
+    exitModal.hidden = true;
   }
 
   settings.hidden = true;
@@ -442,32 +457,33 @@ startButton?.addEventListener('click', () => {
 });
 
 /* ==========================================
-   EXIT-BESTÄTIGUNG
+   EXIT-POPUP
 ========================================== */
 
-// Exit im Header: Nur Bestätigungsfenster öffnen
+// Exit-Button oben rechts: Popup öffnen.
 exitButton?.addEventListener('click', () => {
-  if (!exitOverlay) return;
+  if (!exitModal) return;
 
-  exitOverlay.hidden = false;
+  exitModal.hidden = false;
   backToGameButton?.focus();
 });
 
-// Back to game: Spiel fortsetzen
+// Back to game: Popup schließen und weiterspielen.
 backToGameButton?.addEventListener('click', () => {
-  if (!exitOverlay) return;
+  if (!exitModal) return;
 
-  exitOverlay.hidden = true;
+  exitModal.hidden = true;
   exitButton?.focus();
 });
 
-// Exit game im Dialog: Spiel wirklich verlassen
+// Exit game im Popup: Spiel verlassen.
 confirmExitButton?.addEventListener('click', () => {
-  if (!settings || !game || !exitOverlay) return;
+  if (!settings || !game || !exitModal) return;
 
+  // Alte Timer dürfen das nächste Spiel nicht beeinflussen.
   gameSession++;
 
-  exitOverlay.hidden = true;
+  exitModal.hidden = true;
 
   game.hidden = true;
   settings.hidden = false;
@@ -475,10 +491,10 @@ confirmExitButton?.addEventListener('click', () => {
   window.scrollTo(0, 0);
 });
 
-// Escape schließt den Dialog
+// Escape-Taste schließt das Popup.
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && exitOverlay && !exitOverlay.hidden) {
-    exitOverlay.hidden = true;
+  if (event.key === 'Escape' && exitModal && !exitModal.hidden) {
+    exitModal.hidden = true;
     exitButton?.focus();
   }
 });
