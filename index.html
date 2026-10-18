@@ -7,10 +7,7 @@
   </head>
 
   <body>
-    <!-- ==========================================
-         HOME SCREEN
-    ========================================== -->
-
+    <!-- HOME -->
     <main class="home">
       <div class="home__content">
         <img
@@ -19,15 +16,8 @@
           alt="Ready to play?"
         />
 
-        <button
-          class="home__play-button"
-          type="button"
-          aria-label="Play"
-        >
-          <img
-            src="/src/assets/Primary button.svg"
-            alt=""
-          />
+        <button class="home__play-button" type="button" aria-label="Play">
+          <img src="/src/assets/Primary button.svg" alt="" />
         </button>
       </div>
 
@@ -39,15 +29,9 @@
       />
     </main>
 
-    <!-- ==========================================
-         SETTINGS SCREEN
-    ========================================== -->
-
+    <!-- SETTINGS -->
     <section class="settings" hidden>
       <div class="settings__container">
-
-        <!-- SETTINGS ÜBERSCHRIFT -->
-
         <img
           class="settings__headline"
           src="/src/assets/Headline.svg"
@@ -55,226 +39,110 @@
         />
 
         <div class="settings__layout">
-
-          <!-- ======================================
-               LINKE SEITE
-          ====================================== -->
-
           <div class="settings__options">
-
             <!-- GAME THEMES -->
-
             <fieldset class="settings__group">
               <legend class="settings__group-title">
-                <img
-                  src="/src/assets/palette.svg"
-                  alt=""
-                />
+                <img src="/src/assets/palette.svg" alt="" />
                 <span>Game themes</span>
               </legend>
 
               <label class="settings__option">
-                <input
-                  type="radio"
-                  name="theme"
-                  value="code"
-                  checked
-                />
+                <input type="radio" name="theme" value="code" checked />
                 <span>Code vibes theme</span>
               </label>
 
               <label class="settings__option">
-                <input
-                  type="radio"
-                  name="theme"
-                  value="gaming"
-                />
+                <input type="radio" name="theme" value="gaming" />
                 <span>Gaming theme</span>
               </label>
             </fieldset>
 
             <!-- CHOOSE PLAYER -->
-
             <fieldset class="settings__group">
               <legend class="settings__group-title">
-                <img
-                  src="/src/assets/choose.svg"
-                  alt=""
-                />
+                <img src="/src/assets/choose.svg" alt="" />
                 <span>Choose player</span>
               </legend>
 
               <label class="settings__option">
-                <input
-                  type="radio"
-                  name="player"
-                  value="blue"
-                  checked
-                />
+                <input type="radio" name="player" value="blue" checked />
                 <span>Blue</span>
               </label>
 
               <label class="settings__option">
-                <input
-                  type="radio"
-                  name="player"
-                  value="orange"
-                />
+                <input type="radio" name="player" value="orange" />
                 <span>Orange</span>
               </label>
             </fieldset>
 
             <!-- BOARD SIZE -->
-
             <fieldset class="settings__group">
               <legend class="settings__group-title">
-                <img
-                  src="/src/assets/board.svg"
-                  alt=""
-                />
+                <img src="/src/assets/board.svg" alt="" />
                 <span>Board size</span>
               </legend>
 
               <label class="settings__option">
-                <input
-                  type="radio"
-                  name="boardSize"
-                  value="16"
-                  checked
-                />
+                <input type="radio" name="boardSize" value="16" checked />
                 <span>16 cards</span>
               </label>
 
               <label class="settings__option">
-                <input
-                  type="radio"
-                  name="boardSize"
-                  value="24"
-                />
+                <input type="radio" name="boardSize" value="24" />
                 <span>24 cards</span>
               </label>
 
               <label class="settings__option">
-                <input
-                  type="radio"
-                  name="boardSize"
-                  value="36"
-                />
+                <input type="radio" name="boardSize" value="36" />
                 <span>36 cards</span>
               </label>
             </fieldset>
           </div>
 
-          <!-- ======================================
-               RECHTE SEITE
-          ====================================== -->
-
           <div class="settings__right">
-
-            <!-- THEME VORSCHAU -->
-
             <img
               class="settings__preview"
               src="/src/assets/codetheme.svg"
               alt="Vorschau: Code vibes theme"
             />
 
-            <!-- SETTINGS FOOTER -->
-
             <div class="settings__footer">
-
               <span>Game theme</span>
-
-              <img
-                class="settings__divider"
-                src="/src/assets/Line 6.svg"
-                alt=""
-              />
+              <img class="settings__divider" src="/src/assets/Line 6.svg" alt="" />
 
               <span>Player</span>
-
-              <img
-                class="settings__divider"
-                src="/src/assets/Line 6.svg"
-                alt=""
-              />
+              <img class="settings__divider" src="/src/assets/Line 6.svg" alt="" />
 
               <span>Board size</span>
+              <img class="settings__divider" src="/src/assets/Line 6.svg" alt="" />
 
-              <img
-                class="settings__divider"
-                src="/src/assets/Line 6.svg"
-                alt=""
-              />
-
-              <!-- START GAME -->
-
-              <button
-                class="settings__start"
-                type="button"
-                aria-label="Start game"
-              >
-                <img
-                  src="/src/assets/start.svg"
-                  alt=""
-                />
+              <button class="settings__start" type="button" aria-label="Start game">
+                <img src="/src/assets/start.svg" alt="" />
               </button>
-
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==========================================
-         MEMORY GAME
-    ========================================== -->
-
+    <!-- MEMORY GAME -->
     <section class="game" hidden>
-
-      <!-- GAME HEADER -->
-
       <header class="game__header">
-
-        <!-- PUNKTEANZEIGE -->
-
         <div class="game__scores">
-
-          <!-- BLUE -->
-
           <div class="game__score game__score--blue">
-            <img
-              src="/src/assets/label 1.svg"
-              alt=""
-            />
-
-            <span>
-              Blue
-              <strong id="score-blue">0</strong>
-            </span>
+            <img src="/src/assets/label 1.svg" alt="" />
+            <span>Blue <strong id="score-blue">0</strong></span>
           </div>
-
-          <!-- ORANGE -->
 
           <div class="game__score game__score--orange">
-            <img
-              src="/src/assets/label.svg"
-              alt=""
-            />
-
-            <span>
-              Orange
-              <strong id="score-orange">0</strong>
-            </span>
+            <img src="/src/assets/label.svg" alt="" />
+            <span>Orange <strong id="score-orange">0</strong></span>
           </div>
-
         </div>
-
-        <!-- AKTUELLER SPIELER -->
 
         <div class="game__current-player">
           <span>Current player:</span>
-
           <img
             class="game__current-icon"
             src="/src/assets/label 1.svg"
@@ -282,34 +150,16 @@
           />
         </div>
 
-        <!-- EXIT GAME BUTTON OBEN RECHTS -->
-
-        <button
-          class="game__exit"
-          type="button"
-          aria-label="Exit game"
-        >
-          <img
-            src="/src/assets/secondary button.svg"
-            alt=""
-          />
+        <button class="game__exit" type="button" aria-label="Exit game">
+          <img src="/src/assets/secondary button.svg" alt="" />
         </button>
-
       </header>
 
-      <!-- ======================================
-           MEMORY SPIELFELD
-           16 KARTEN WERDEN DURCH TYPESCRIPT ERZEUGT
-      ====================================== -->
-
+      <!-- Karten werden durch TypeScript erstellt -->
       <div class="game__board"></div>
-
     </section>
 
-    <!-- ==========================================
-         EXIT GAME POPUP
-    ========================================== -->
-
+    <!-- EXIT GAME POPUP -->
     <div
       class="exit-modal"
       id="exit-modal"
@@ -319,58 +169,63 @@
       hidden
     >
       <div class="exit-modal__content">
-
-        <!-- FRAGE -->
-
-        <h2
-          class="exit-modal__title"
-          id="exit-modal-title"
-        >
+        <h2 class="exit-modal__title" id="exit-modal-title">
           Are you sure you want to quit the game?
         </h2>
 
-        <!-- BUTTONS -->
-
         <div class="exit-modal__buttons">
-
-          <!-- BACK TO GAME -->
-
           <button
             class="exit-modal__back"
             type="button"
             aria-label="Back to game"
           >
-            <img
-              src="/src/assets/back1.svg"
-              alt=""
-            />
+            <img src="/src/assets/back1.svg" alt="" />
           </button>
-
-          <!-- EXIT GAME BESTÄTIGEN -->
 
           <button
             class="exit-modal__confirm"
             type="button"
             aria-label="Exit game"
           >
-            <img
-              src="/src/assets/exit.svg"
-              alt=""
-            />
+            <img src="/src/assets/exit.svg" alt="" />
           </button>
-
         </div>
       </div>
     </div>
 
-    <!-- ==========================================
-         TYPESCRIPT
-    ========================================== -->
+    <!-- GAME OVER SCREEN -->
+    <section class="game-over" hidden>
+      <div class="game-over__content">
+        <!-- Figma-Überschrift -->
+        <img
+          class="game-over__title"
+          src="/src/assets/game over.svg"
+          alt="Game over"
+        />
 
-    <script
-      type="module"
-      src="/src/main.ts"
-    ></script>
+        <!-- Finale Punkteanzeige -->
+        <div class="game-over__results">
+          <p class="game-over__subtitle">Final score</p>
 
+          <div class="game-over__scores">
+            <div class="game-over__score game-over__score--blue">
+              <img src="/src/assets/label 1.svg" alt="" />
+              <span>
+                Blue <strong id="final-score-blue">0</strong>
+              </span>
+            </div>
+
+            <div class="game-over__score game-over__score--orange">
+              <img src="/src/assets/label.svg" alt="" />
+              <span>
+                Orange <strong id="final-score-orange">0</strong>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

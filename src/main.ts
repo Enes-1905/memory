@@ -7,6 +7,7 @@ import './style.scss';
 const home = document.querySelector<HTMLElement>('.home');
 const settings = document.querySelector<HTMLElement>('.settings');
 const game = document.querySelector<HTMLElement>('.game');
+const gameOver = document.querySelector<HTMLElement>('.game-over');
 
 const playButton = document.querySelector<HTMLButtonElement>(
   '.home__play-button'
@@ -39,6 +40,13 @@ const board = document.querySelector<HTMLElement>('.game__board');
 
 const blueScoreElement = document.querySelector<HTMLElement>('#score-blue');
 const orangeScoreElement = document.querySelector<HTMLElement>('#score-orange');
+
+const finalBlueScoreElement = document.querySelector<HTMLElement>(
+  '#final-score-blue'
+);
+const finalOrangeScoreElement = document.querySelector<HTMLElement>(
+  '#final-score-orange'
+);
 
 const currentPlayerIcon = document.querySelector<HTMLImageElement>(
   '.game__current-icon'
@@ -369,14 +377,13 @@ function flipCard(index: number) {
 
     // Alle Paare gefunden?
     if (cards.every((item) => item.matched)) {
+      isChecking = true;
       const session = gameSession;
 
       setTimeout(() => {
         if (session !== gameSession) return;
 
-        alert(
-          `Spiel beendet!\nBlue: ${blueScore}\nOrange: ${orangeScore}`
-        );
+        showGameOver();
       }, 300);
     }
   } else {
@@ -397,6 +404,27 @@ function flipCard(index: number) {
       switchPlayer();
     }, 1000);
   }
+}
+
+/* ==========================================
+   GAME OVER ANZEIGEN
+========================================== */
+
+function showGameOver() {
+  if (!game || !gameOver) return;
+
+  if (finalBlueScoreElement) {
+    finalBlueScoreElement.textContent = String(blueScore);
+  }
+
+  if (finalOrangeScoreElement) {
+    finalOrangeScoreElement.textContent = String(orangeScore);
+  }
+
+  game.hidden = true;
+  gameOver.hidden = false;
+
+  window.scrollTo(0, 0);
 }
 
 /* ==========================================
@@ -445,6 +473,7 @@ startButton?.addEventListener('click', () => {
   }
 
   settings.hidden = true;
+  if (gameOver) gameOver.hidden = true;
   game.hidden = false;
 
   window.scrollTo(0, 0);

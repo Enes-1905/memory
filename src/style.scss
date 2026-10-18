@@ -469,6 +469,77 @@ button {
   outline-offset: 4px;
 }
 
+/* GAME OVER SCREEN */
+
+.game-over {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 70px 24px;
+  background-color: #303131;
+  color: #ffffff;
+}
+
+.game-over__content {
+  width: 100%;
+  max-width: 990.5px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.game-over__title {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.game-over__results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  margin-top: 124px;
+}
+
+.game-over__subtitle {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.game-over__scores {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 18px 28px;
+  background-color: #405451;
+}
+
+.game-over__score {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.game-over__score img {
+  display: block;
+  width: 26px;
+  height: 26px;
+}
+
+.game-over__score--blue {
+  color: #29b6f6;
+}
+
+.game-over__score--orange {
+  color: #ff913c;
+}
+
 /* RESPONSIVE – KLEINE DESKTOPS */
 
 @media (max-height: 700px) and (min-width: 769px) {
@@ -599,6 +670,29 @@ button {
     width: 100%;
     aspect-ratio: 1;
   }
+  /* GAME OVER */
+  .game-over {
+    padding: 48px 20px;
+  }
+  .game-over__results {
+    margin-top: 64px;
+    gap: 18px;
+  }
+  .game-over__subtitle {
+    font-size: 26px;
+  }
+  .game-over__scores {
+    gap: 16px;
+    padding: 14px 18px;
+  }
+  .game-over__score {
+    font-size: 18px;
+  }
+  .game-over__score img {
+    width: 22px;
+    height: 22px;
+  }
+
   /* EXIT-POPUP */
   .exit-modal__content { min-height: auto; padding: 30px 20px; }
   .exit-modal__title { font-size: 22px; }
@@ -611,4 +705,5 @@ button {
 .home[hidden],
 .settings[hidden],
 .game[hidden],
+.game-over[hidden],
 .exit-modal[hidden] { display: none !important; }
