@@ -1,6 +1,4 @@
-/* ==========================================
-   GRUNDEINSTELLUNGEN
-========================================== */
+/* GRUNDEINSTELLUNGEN */
 
 * {
   box-sizing: border-box;
@@ -25,16 +23,13 @@ button {
   display: none !important;
 }
 
-/* ==========================================
-   HOME SCREEN
-========================================== */
+/* HOME SCREEN */
 
 .home {
   position: relative;
   width: 100%;
   min-height: 100vh;
   overflow: hidden;
-
   background-color: #303131;
   color: #ffffff;
 }
@@ -42,10 +37,8 @@ button {
 .home__content {
   position: relative;
   z-index: 2;
-
   width: fit-content;
   max-width: calc(100% - 32px);
-
   margin-left: 225px;
   padding-top: 339px;
 }
@@ -61,11 +54,9 @@ button {
   display: block;
   margin: 85px auto 0;
   padding: 0;
-
   border: none;
   background: transparent;
   cursor: pointer;
-
   transition: transform 0.2s ease;
   transform-origin: center;
 }
@@ -87,25 +78,19 @@ button {
 .home__controller {
   position: absolute;
   z-index: 1;
-
   left: -88px;
   bottom: -100px;
-
   width: 414.31px;
   height: auto;
-
   opacity: 0.05;
   pointer-events: none;
 }
 
-/* ==========================================
-   SETTINGS SCREEN
-========================================== */
+/* SETTINGS SCREEN */
 
 .settings {
   min-height: 100vh;
   padding: 110px 8% 80px;
-
   background: #ffffff;
   color: #303131;
 }
@@ -150,10 +135,8 @@ button {
   display: flex;
   align-items: center;
   gap: 12px;
-
   margin-bottom: 15px;
   padding: 0;
-
   font-size: 23px;
   font-weight: 700;
 }
@@ -168,9 +151,7 @@ button {
   display: flex;
   align-items: center;
   gap: 12px;
-
   margin: 0 0 12px 40px;
-
   font-size: 19px;
   cursor: pointer;
 }
@@ -179,7 +160,6 @@ button {
   width: 19px;
   height: 19px;
   margin: 0;
-
   accent-color: #303131;
   cursor: pointer;
 }
@@ -210,13 +190,10 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-
   width: 100%;
   max-width: 550px;
-
   padding: 14px 16px;
   background: #f5f5f5;
-
   white-space: nowrap;
 }
 
@@ -234,11 +211,9 @@ button {
 .settings__start {
   display: block;
   padding: 0;
-
   border: none;
   background: transparent;
   cursor: pointer;
-
   transition: transform 0.2s ease;
 }
 
@@ -252,15 +227,12 @@ button {
   transform: scale(1.05);
 }
 
-/* ==========================================
-   MEMORY GAME
-========================================== */
+/* MEMORY GAME */
 
 .game {
   width: 100%;
   min-height: 100vh;
   padding: 24px 5% 40px;
-
   background-color: #303131;
   color: #ffffff;
 }
@@ -272,10 +244,8 @@ button {
   justify-content: space-between;
   align-items: center;
   gap: 24px;
-
   width: 100%;
   max-width: 1180px;
-
   margin: 0 auto 30px;
 }
 
@@ -283,7 +253,6 @@ button {
   display: flex;
   align-items: center;
   gap: 18px;
-
   padding: 14px 18px;
   background-color: #405451;
 }
@@ -292,7 +261,6 @@ button {
   display: flex;
   align-items: center;
   gap: 6px;
-
   font-size: 20px;
   font-weight: bold;
 }
@@ -328,13 +296,10 @@ button {
   display: block;
   padding: 0;
   border: none;
-
   background: transparent;
   cursor: pointer;
-
-  transition: transform 0.2s ease;
+  transition: box-shadow 0.25s ease;
 }
-
 .game__exit img {
   display: block;
   width: 190px;
@@ -342,51 +307,43 @@ button {
 }
 
 .game__exit:hover {
-  transform: scale(1.04);
+  transform: none;
+  box-shadow:
+    0 0 0 1px #5cd6c4,
+    0 0 10px rgba(92, 214, 196, 0.65),
+    0 0 22px rgba(223, 229, 104, 0.45);
 }
 
-/* ==========================================
-   MEMORY BOARD – FIGMA 16 KARTEN
-========================================== */
+/* MEMORY BOARD – FIGMA 16 KARTEN */
 
 .game__board {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-
   gap: 16px;
   width: min(100%, 528px);
-
   margin: 0 auto;
 }
 
-/* ==========================================
-   MEMORY CARD – 3D FLIP
-========================================== */
+/* MEMORY CARD – 3D FLIP */
 
 .game__card {
   position: relative;
   display: block;
-
   width: 100%;
   aspect-ratio: 1;
-
   padding: 0;
   border: none;
   background: transparent;
-
   cursor: pointer;
   perspective: 1000px;
-
   transition: transform 0.2s ease;
 }
 
 .game__card-inner {
   position: relative;
   display: block;
-
   width: 100%;
   height: 100%;
-
   transform-style: preserve-3d;
   transition: transform 0.6s ease;
 }
@@ -399,15 +356,11 @@ button {
 .game__card-front {
   position: absolute;
   display: flex;
-
   inset: 0;
-
   align-items: center;
   justify-content: center;
-
   width: 100%;
   height: 100%;
-
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
@@ -445,408 +398,217 @@ button {
   outline-offset: 3px;
 }
 
-/* ==========================================
-   EXIT-BESTÄTIGUNGSFENSTER
-========================================== */
-
-.game__exit-overlay {
-  position: fixed;
-  z-index: 1000;
-
-  inset: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 20px;
-
-  background: rgba(0, 0, 0, 0.25);
-}
-
-.game__exit-dialog {
-  width: 100%;
-  max-width: 480px;
-
-  min-height: 240px;
-
-  padding: 38px 30px 35px;
-
-  background: #ffffff;
-  color: #303131;
-
-  text-align: center;
-}
-
-.game__exit-dialog h2 {
-  max-width: 420px;
-  margin: 0 auto;
-
-  font-size: 26px;
-  line-height: 1.35;
-  font-weight: 700;
-}
-
-.game__exit-actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 20px;
-
-  margin-top: 45px;
-}
-
-.game__back-button,
-.game__confirm-exit {
-  display: block;
-  padding: 0;
-  border: none;
-
-  background: transparent;
-  cursor: pointer;
-
-  transition: transform 0.2s ease;
-}
-
-.game__back-button img,
-.game__confirm-exit img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-.game__back-button:hover,
-.game__confirm-exit:hover {
-  transform: scale(1.04);
-}
-
-.game__back-button:focus-visible,
-.game__confirm-exit:focus-visible {
-  outline: 3px solid #303131;
-  outline-offset: 4px;
-}
-
-/* ==========================================
-   RESPONSIVE – KLEINE DESKTOPS
-========================================== */
-
-@media (max-height: 700px) and (min-width: 769px) {
-  .game {
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
-
-  .game__header {
-    margin-bottom: 20px;
-  }
-
-  .game__board {
-    width: min(100%, 440px);
-    gap: 10px;
-  }
-}
-
-/* ==========================================
-   RESPONSIVE – TABLETS
-========================================== */
-
-@media (max-width: 900px) {
-  .settings {
-    padding: 70px 6% 50px;
-  }
-
-  .settings__layout {
-    grid-template-columns: 1fr;
-    gap: 50px;
-  }
-
-  .settings__right {
-    align-items: flex-start;
-  }
-
-  .settings__preview {
-    max-width: 470px;
-  }
-
-  .settings__footer {
-    max-width: 550px;
-  }
-
-  .game__header {
-    gap: 16px;
-  }
-
-  .game__current-player {
-    font-size: 18px;
-  }
-
-  .game__exit img {
-    width: 160px;
-  }
-}
-
-/* ==========================================
-   RESPONSIVE – SMARTPHONES
-========================================== */
-
-@media (max-width: 768px) {
-  /* HOME */
-
-  .home__content {
-    margin-left: 8%;
-    padding-top: 30vh;
-    max-width: 84%;
-  }
-
-  .home__title {
-    width: 100%;
-  }
-
-  .home__play-button {
-    margin-top: 60px;
-  }
-
-  .home__play-button img {
-    width: 180px;
-  }
-
-  .home__controller {
-    left: -60px;
-    bottom: -80px;
-    width: 300px;
-  }
-
-  /* SETTINGS */
-
-  .settings__headline {
-    width: 220px;
-  }
-
-  .settings__group-title {
-    font-size: 21px;
-  }
-
-  .settings__option {
-    font-size: 17px;
-  }
-
-  .settings__footer {
-    flex-wrap: wrap;
-    justify-content: center;
-    white-space: normal;
-  }
-
-  .settings__footer span {
-    font-size: 15px;
-  }
-
-  .settings__start img {
-    width: 110px;
-  }
-
-  /* GAME */
-
-  .game {
-    padding: 24px 12px;
-  }
-
-  .game__header {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px;
-
-    margin-bottom: 30px;
-  }
-
-  .game__scores {
-    gap: 12px;
-    padding: 10px 12px;
-  }
-
-  .game__score {
-    font-size: 16px;
-  }
-
-  .game__score img {
-    width: 18px;
-    height: 18px;
-  }
-
-  .game__current-player {
-    font-size: 17px;
-  }
-
-  .game__current-icon {
-    width: 22px;
-    height: 22px;
-  }
-
-  .game__exit img {
-    width: 145px;
-  }
-
-  .game__board {
-    width: min(100%, 528px);
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 8px;
-  }
-
-  .game__card {
-    width: 100%;
-    aspect-ratio: 1;
-  }
-
-  /* EXIT-DIALOG */
-
-  .game__exit-dialog {
-    padding: 30px 20px;
-    min-height: auto;
-  }
-
-  .game__exit-dialog h2 {
-    font-size: 22px;
-  }
-
-  .game__exit-actions {
-    gap: 12px;
-    margin-top: 30px;
-  }
-
-  .game__back-button,
-  .game__confirm-exit {
-    max-width: 48%;
-  }
-}
-
-/* ==========================================
-   VERSTECKTE SEITEN
-========================================== */
-
-.home[hidden],
-.settings[hidden],
-.game[hidden],
-.game__exit-overlay[hidden] {
-  display: none !important;
-}
-/* ==========================================
-   NEUES EXIT GAME POPUP
-========================================== */
-
+/* EXIT-POPUP */
 .exit-modal {
   position: fixed;
   inset: 0;
   z-index: 1000;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 20px;
-
-  background-color: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.25);
 }
-
 .exit-modal__content {
   width: 100%;
   max-width: 480px;
   min-height: 240px;
-
   padding: 38px 30px 35px;
 
   background-color: #ffffff;
   color: #303131;
-
   text-align: center;
+
+  transform: translateY(0);
+  transition: transform 0.45s ease-in-out;
 }
 
+.exit-modal.is-entering .exit-modal__content,
+.exit-modal.is-leaving .exit-modal__content {
+  transform: translateY(-120vh);
+}
 .exit-modal__title {
   max-width: 420px;
   margin: 0 auto;
-
   font-size: 26px;
   line-height: 1.35;
   font-weight: 700;
 }
-
 .exit-modal__buttons {
   display: flex;
   align-items: center;
   justify-content: center;
-
   gap: 20px;
   margin-top: 45px;
 }
-
 .exit-modal__back,
 .exit-modal__confirm {
   display: block;
-
+  flex: 0 1 162px;
+  width: 162px;
+  height: 50px;
   padding: 0;
-  border: none;
+  border: 0;
   background: transparent;
-
   cursor: pointer;
-
   transition: transform 0.2s ease;
 }
-
-.exit-modal__back {
-  width: 162px;
-}
-
-.exit-modal__confirm {
-  width: 132px;
-}
-
 .exit-modal__back img,
 .exit-modal__confirm img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: fill;
 }
-
-/* Figma-Hover: back1.svg → back2.svg */
-
-.exit-modal__back:hover img {
-  content: url('./assets/back2.svg');
-}
-
+.exit-modal__back:hover img { content: url('./assets/back2.svg'); }
 .exit-modal__back:hover,
-.exit-modal__confirm:hover {
-  transform: scale(1.04);
-}
-
+.exit-modal__confirm:hover { transform: scale(1.04); }
 .exit-modal__back:focus-visible,
 .exit-modal__confirm:focus-visible {
   outline: 3px solid #39c9b5;
   outline-offset: 4px;
 }
 
-/* ==========================================
-   EXIT POPUP – SMARTPHONE
-========================================== */
+/* RESPONSIVE – KLEINE DESKTOPS */
 
-@media (max-width: 480px) {
-  .exit-modal__content {
-    min-height: auto;
-    padding: 30px 18px;
+@media (max-height: 700px) and (min-width: 769px) {
+  .game {
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
-
-  .exit-modal__title {
-    font-size: 21px;
+  .game__header {
+    margin-bottom: 20px;
   }
-
-  .exit-modal__buttons {
-    gap: 12px;
-    margin-top: 30px;
-  }
-
-  .exit-modal__back {
-    width: 145px;
-  }
-
-  .exit-modal__confirm {
-    width: 120px;
+  .game__board {
+    width: min(100%, 440px);
+    gap: 10px;
   }
 }
+
+/* RESPONSIVE – TABLETS */
+
+@media (max-width: 900px) {
+  .settings {
+    padding: 70px 6% 50px;
+  }
+  .settings__layout {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  .settings__right {
+    align-items: flex-start;
+  }
+  .settings__preview {
+    max-width: 470px;
+  }
+  .settings__footer {
+    max-width: 550px;
+  }
+  .game__header {
+    gap: 16px;
+  }
+  .game__current-player {
+    font-size: 18px;
+  }
+  .game__exit img {
+    width: 160px;
+  }
+}
+
+/* RESPONSIVE – SMARTPHONES */
+
+@media (max-width: 768px) {
+  /* HOME */
+  .home__content {
+    margin-left: 8%;
+    padding-top: 30vh;
+    max-width: 84%;
+  }
+  .home__title {
+    width: 100%;
+  }
+  .home__play-button {
+    margin-top: 60px;
+  }
+  .home__play-button img {
+    width: 180px;
+  }
+  .home__controller {
+    left: -60px;
+    bottom: -80px;
+    width: 300px;
+  }
+  /* SETTINGS */
+  .settings__headline {
+    width: 220px;
+  }
+  .settings__group-title {
+    font-size: 21px;
+  }
+  .settings__option {
+    font-size: 17px;
+  }
+  .settings__footer {
+    flex-wrap: wrap;
+    justify-content: center;
+    white-space: normal;
+  }
+  .settings__footer span {
+    font-size: 15px;
+  }
+  .settings__start img {
+    width: 110px;
+  }
+  /* GAME */
+  .game {
+    padding: 24px 12px;
+  }
+  .game__header {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+  .game__scores {
+    gap: 12px;
+    padding: 10px 12px;
+  }
+  .game__score {
+    font-size: 16px;
+  }
+  .game__score img {
+    width: 18px;
+    height: 18px;
+  }
+  .game__current-player {
+    font-size: 17px;
+  }
+  .game__current-icon {
+    width: 22px;
+    height: 22px;
+  }
+  .game__exit img {
+    width: 145px;
+  }
+  .game__board {
+    width: min(100%, 528px);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .game__card {
+    width: 100%;
+    aspect-ratio: 1;
+  }
+  /* EXIT-POPUP */
+  .exit-modal__content { min-height: auto; padding: 30px 20px; }
+  .exit-modal__title { font-size: 22px; }
+  .exit-modal__buttons { gap: 12px; margin-top: 30px; }
+  .exit-modal__back,
+  .exit-modal__confirm { flex-basis: 145px; width: 145px; height: 45px; }
+}
+
+/* VERSTECKTE SEITEN */
+.home[hidden],
+.settings[hidden],
+.game[hidden],
+.exit-modal[hidden] { display: none !important; }

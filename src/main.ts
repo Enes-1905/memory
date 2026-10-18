@@ -455,48 +455,76 @@ startButton?.addEventListener('click', () => {
     boardSize,
   });
 });
-
 /* ==========================================
-   EXIT-POPUP
+   EXIT-POPUP MIT SLIDE-ANIMATION
 ========================================== */
 
-// Exit-Button oben rechts: Popup öffnen.
-exitButton?.addEventListener('click', () => {
-  if (!exitModal) return;
+const EXIT_ANIMATION_DURATION = 450;
 
+let exitAnimationTimeout: number | undefined;
+
+function openExitModal() {
+  if (!exitModal || !exitModal.hidden) return;
+
+  window.clearTimeout(exitAnimationTimeout);
+
+  exitModal.classList.add('is-entering');
   exitModal.hidden = false;
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      exitModal.classList.remove('is-entering');
+    });
+  });
+
   backToGameButton?.focus();
+}
+
+function closeExitModal(leaveGame: boolean) {
+  if (!exitModal || exitModal.hidden) return;
+
+  window.clearTimeout(exitAnimationTimeout);
+
+  exitModal.classList.remove('is-entering');
+  exitModal.classList.add('is-leaving');
+
+  exitAnimationTimeout = window.setTimeout(() => {
+    exitModal.hidden = true;
+    exitModal.classList.remove('is-leaving');
+
+    if (leaveGame) {
+      if (!settings || !game) return;
+
+      gameSession++;
+
+      game.hidden = true;
+      settings.hidden = false;
+
+      window.scrollTo(0, 0);
+    } else {
+      exitButton?.focus();
+    }
+  }, EXIT_ANIMATION_DURATION);
+}
+
+// Popup öffnen
+exitButton?.addEventListener('click', () => {
+  openExitModal();
 });
 
-// Back to game: Popup schließen und weiterspielen.
+// Zurück zum Spiel
 backToGameButton?.addEventListener('click', () => {
-  if (!exitModal) return;
-
-  exitModal.hidden = true;
-  exitButton?.focus();
+  closeExitModal(false);
 });
 
-// Exit game im Popup: Spiel verlassen.
+// Spiel verlassen
 confirmExitButton?.addEventListener('click', () => {
-  if (!settings || !game || !exitModal) return;
-
-  // Alte Timer dürfen das nächste Spiel nicht beeinflussen.
-  gameSession++;
-
-  exitModal.hidden = true;
-
-  game.hidden = true;
-  settings.hidden = false;
-
-  window.scrollTo(0, 0);
+  closeExitModal(true);
 });
 
-// Escape-Taste schließt das Popup.
+// Escape schließt das Popup
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && exitModal && !exitModal.hidden) {
-    exitModal.hidden = true;
-    exitButton?.focus();
+    closeExitModal(false);
   }
 });
-
-console.log('Memory wurde erfolgreich geladen.');
