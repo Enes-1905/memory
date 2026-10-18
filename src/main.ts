@@ -9,6 +9,14 @@ const settings = document.querySelector<HTMLElement>('.settings');
 const game = document.querySelector<HTMLElement>('.game');
 const gameOver = document.querySelector<HTMLElement>('.game-over');
 
+const winnerScreen = document.querySelector<HTMLElement>('.winner');
+const winnerName = document.querySelector<HTMLElement>('#winner-name');
+const winnerPlayer = document.querySelector<HTMLImageElement>('#winner-player');
+
+const backToStartButton = document.querySelector<HTMLButtonElement>(
+  '.winner__back'
+);
+
 const playButton = document.querySelector<HTMLButtonElement>(
   '.home__play-button'
 );
@@ -25,7 +33,6 @@ const exitButton = document.querySelector<HTMLButtonElement>(
   '.game__exit'
 );
 
-// Neues Exit-Popup aus unserer index.html
 const exitModal = document.querySelector<HTMLElement>('#exit-modal');
 
 const backToGameButton = document.querySelector<HTMLButtonElement>(
@@ -38,12 +45,18 @@ const confirmExitButton = document.querySelector<HTMLButtonElement>(
 
 const board = document.querySelector<HTMLElement>('.game__board');
 
-const blueScoreElement = document.querySelector<HTMLElement>('#score-blue');
-const orangeScoreElement = document.querySelector<HTMLElement>('#score-orange');
+const blueScoreElement = document.querySelector<HTMLElement>(
+  '#score-blue'
+);
+
+const orangeScoreElement = document.querySelector<HTMLElement>(
+  '#score-orange'
+);
 
 const finalBlueScoreElement = document.querySelector<HTMLElement>(
   '#final-score-blue'
 );
+
 const finalOrangeScoreElement = document.querySelector<HTMLElement>(
   '#final-score-orange'
 );
@@ -378,6 +391,7 @@ function flipCard(index: number) {
     // Alle Paare gefunden?
     if (cards.every((item) => item.matched)) {
       isChecking = true;
+
       const session = gameSession;
 
       setTimeout(() => {
@@ -425,7 +439,81 @@ function showGameOver() {
   gameOver.hidden = false;
 
   window.scrollTo(0, 0);
+
+  // Finalen Punktestand 3 Sekunden anzeigen.
+  const session = gameSession;
+
+  window.setTimeout(() => {
+    if (session !== gameSession) return;
+
+    showWinner();
+  }, 3000);
 }
+
+/* ==========================================
+   GEWINNER ANZEIGEN
+========================================== */
+
+function showWinner() {
+  if (!gameOver || !winnerScreen || !winnerName || !winnerPlayer) return;
+
+  if (blueScore > orangeScore) {
+    winnerName.textContent = 'BLUE PLAYER';
+    winnerName.className = 'winner__name winner__name--blue';
+
+    winnerPlayer.src = '/src/assets/blueplayer.svg';
+    winnerPlayer.alt = 'Blue player';
+    winnerPlayer.hidden = false;
+  } else if (orangeScore > blueScore) {
+    winnerName.textContent = 'ORANGE PLAYER';
+    winnerName.className = 'winner__name winner__name--orange';
+
+    winnerPlayer.src = '/src/assets/orangeplayer.svg';
+    winnerPlayer.alt = 'Orange player';
+    winnerPlayer.hidden = false;
+  } else {
+    // Bei Gleichstand gibt es keinen einzelnen Gewinner.
+    winnerName.textContent = "IT'S A DRAW!";
+    winnerName.className = 'winner__name winner__name--draw';
+
+    winnerPlayer.hidden = true;
+  }
+
+  gameOver.hidden = true;
+
+  winnerScreen.classList.remove('winner--visible');
+  winnerScreen.hidden = false;
+
+  window.scrollTo(0, 0);
+
+  // Im nächsten Frame die Slide-in-Animation starten.
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      winnerScreen.classList.add('winner--visible');
+    });
+  });
+}
+
+/* ==========================================
+   ZURÜCK ZUM START
+========================================== */
+
+backToStartButton?.addEventListener('click', () => {
+  if (!home || !settings || !game || !gameOver || !winnerScreen) return;
+
+  // Alte Timer dürfen keine neue Ansicht mehr öffnen.
+  gameSession++;
+
+  winnerScreen.hidden = true;
+  winnerScreen.classList.remove('winner--visible');
+
+  gameOver.hidden = true;
+  game.hidden = true;
+  settings.hidden = true;
+  home.hidden = false;
+
+  window.scrollTo(0, 0);
+});
 
 /* ==========================================
    SPIEL STARTEN
@@ -473,7 +561,16 @@ startButton?.addEventListener('click', () => {
   }
 
   settings.hidden = true;
-  if (gameOver) gameOver.hidden = true;
+
+  if (gameOver) {
+    gameOver.hidden = true;
+  }
+
+  if (winnerScreen) {
+    winnerScreen.hidden = true;
+    winnerScreen.classList.remove('winner--visible');
+  }
+
   game.hidden = false;
 
   window.scrollTo(0, 0);
@@ -484,6 +581,7 @@ startButton?.addEventListener('click', () => {
     boardSize,
   });
 });
+
 /* ==========================================
    EXIT-POPUP MIT SLIDE-ANIMATION
 ========================================== */
