@@ -17,7 +17,6 @@ const backToStartButton = document.querySelector<HTMLButtonElement>(
   '.winner__back'
 );
 
-// DRAW-Screen bei einem Unentschieden
 const drawScreen = document.querySelector<HTMLElement>('.draw');
 
 const drawBackButton = document.querySelector<HTMLButtonElement>(
@@ -73,29 +72,42 @@ const currentPlayerIcon = document.querySelector<HTMLImageElement>(
 );
 
 /* ==========================================
+   NEU: SETTINGS-ZUSAMMENFASSUNG
+========================================== */
+
+// Diese drei Elemente befinden sich in der
+// grauen Leiste unter dem Vorschaubild.
+
+const selectedThemeElement = document.querySelector<HTMLElement>(
+  '#selected-theme'
+);
+
+const selectedPlayerElement = document.querySelector<HTMLElement>(
+  '#selected-player'
+);
+
+const selectedBoardSizeElement = document.querySelector<HTMLElement>(
+  '#selected-board-size'
+);
+
+/* ==========================================
    KARTEN – CODE THEME
 ========================================== */
 
-// Insgesamt 18 verschiedene SVG-Dateien.
-//
-// 16 Karten: Die ersten 8 Motive.
-// 24 Karten: Die ersten 12 Motive.
-// 36 Karten: Alle 18 Motive.
-//
-// Die bisherigen 8 Motive bleiben unverändert.
-// Die zusätzlichen 10 SVGs stammen aus deinem
-// vorhandenen src/assets-Ordner.
+// 16 Karten = 8 Motive
+// 24 Karten = 12 Motive
+// 36 Karten = 18 Motive
 
 const codeCards = [
   // Bisherige 8 Kartenmotive
-  '/src/assets/Property 26.svg',  // Git
-  '/src/assets/Property 19.svg',  // TypeScript
-  '/src/assets/Front (2).svg',    // Angular
-  '/src/assets/Front.svg',        // HTML5
-  '/src/assets/Property 221.svg', // CSS3
-  '/src/assets/Property 22.svg',  // Django
-  '/src/assets/Property 20.svg',  // JavaScript
-  '/src/assets/Property 21.svg',  // VS Code
+  '/src/assets/Property 26.svg',
+  '/src/assets/Property 19.svg',
+  '/src/assets/Front (2).svg',
+  '/src/assets/Front.svg',
+  '/src/assets/Property 221.svg',
+  '/src/assets/Property 22.svg',
+  '/src/assets/Property 20.svg',
+  '/src/assets/Property 21.svg',
 
   // Weitere 4 Motive für 24 Karten
   '/src/assets/Property 23.svg',
@@ -161,6 +173,9 @@ playButton?.addEventListener('click', () => {
   home.hidden = true;
   settings.hidden = false;
 
+  // Zusammenfassung beim Öffnen aktualisieren.
+  updateSettingsSummary();
+
   window.scrollTo(0, 0);
 });
 
@@ -182,6 +197,80 @@ function showThemePreview(theme: string) {
   }
 }
 
+/* ==========================================
+   AUSGEWÄHLTE EINSTELLUNG AUSLESEN
+========================================== */
+
+function getSelectedValue(name: string): string | undefined {
+  return document.querySelector<HTMLInputElement>(
+    `input[name="${name}"]:checked`
+  )?.value;
+}
+
+/* ==========================================
+   NEU: SETTINGS-LEISTE AKTUALISIEREN
+========================================== */
+
+// Die Funktion liest die ausgewählten Radio-Buttons
+// aus und zeigt ihre Werte unter dem Vorschaubild an.
+
+function updateSettingsSummary() {
+  const theme = getSelectedValue('theme') ?? 'code';
+  const player = getSelectedValue('player') ?? 'blue';
+  const boardSize = getSelectedValue('boardSize') ?? '16';
+
+  /* ------------------------------------------
+     GAME THEME
+  ------------------------------------------ */
+
+  if (selectedThemeElement) {
+    selectedThemeElement.textContent =
+      theme === 'gaming' ? 'Gaming' : 'Code vibes';
+  }
+
+  /* ------------------------------------------
+     PLAYER
+  ------------------------------------------ */
+
+  if (selectedPlayerElement) {
+    selectedPlayerElement.textContent =
+      player === 'orange' ? 'Orange' : 'Blue';
+  }
+
+  /* ------------------------------------------
+     BOARD SIZE
+  ------------------------------------------ */
+
+  if (selectedBoardSizeElement) {
+    selectedBoardSizeElement.textContent =
+      `${boardSize} cards`;
+  }
+}
+
+/* ==========================================
+   NEU: EINSTELLUNGEN LIVE ÜBERWACHEN
+========================================== */
+
+// Reagiert auf alle drei Einstellungsgruppen:
+// theme, player und boardSize.
+
+const settingsInputs = document.querySelectorAll<HTMLInputElement>(
+  'input[name="theme"], input[name="player"], input[name="boardSize"]'
+);
+
+settingsInputs.forEach((input) => {
+  input.addEventListener('change', () => {
+    updateSettingsSummary();
+  });
+});
+
+// Bereits beim Laden die Standardwerte anzeigen.
+updateSettingsSummary();
+
+/* ==========================================
+   THEME-VORSCHAU BEI AUSWAHL UND HOVER
+========================================== */
+
 const themeInputs = document.querySelectorAll<HTMLInputElement>(
   'input[name="theme"]'
 );
@@ -200,31 +289,15 @@ themeInputs.forEach((input) => {
   });
 
   label?.addEventListener('mouseleave', () => {
-    const selectedTheme = document.querySelector<HTMLInputElement>(
-      'input[name="theme"]:checked'
-    );
+    const selectedTheme = getSelectedValue('theme') ?? 'code';
 
-    if (selectedTheme) {
-      showThemePreview(selectedTheme.value);
-    }
+    showThemePreview(selectedTheme);
   });
 });
 
 /* ==========================================
-   AUSGEWÄHLTE EINSTELLUNG AUSLESEN
-========================================== */
-
-function getSelectedValue(name: string): string | undefined {
-  return document.querySelector<HTMLInputElement>(
-    `input[name="${name}"]:checked`
-  )?.value;
-}
-
-/* ==========================================
    SPIELFELDGRÖSSE PRÜFEN
 ========================================== */
-
-// Nur die drei vorgesehenen Kartenzahlen erlauben.
 
 function getBoardSize(): BoardSize {
   const selectedValue = Number(
@@ -909,6 +982,9 @@ function closeExitModal(leaveGame: boolean) {
 
       // Zurück zu den Einstellungen.
       settings.hidden = false;
+
+      // Zusammenfassung erneut synchronisieren.
+      updateSettingsSummary();
 
       window.scrollTo(0, 0);
     } else {
