@@ -17,6 +17,13 @@ const backToStartButton = document.querySelector<HTMLButtonElement>(
   '.winner__back'
 );
 
+// DRAW-Screen bei einem Unentschieden
+const drawScreen = document.querySelector<HTMLElement>('.draw');
+
+const drawBackButton = document.querySelector<HTMLButtonElement>(
+  '.draw__back'
+);
+
 const playButton = document.querySelector<HTMLButtonElement>(
   '.home__play-button'
 );
@@ -446,7 +453,12 @@ function showGameOver() {
   window.setTimeout(() => {
     if (session !== gameSession) return;
 
-    showWinner();
+    // Bei Gleichstand DRAW anzeigen, sonst Winner.
+    if (blueScore === orangeScore) {
+      showDraw();
+    } else {
+      showWinner();
+    }
   }, 3000);
 }
 
@@ -464,19 +476,13 @@ function showWinner() {
     winnerPlayer.src = '/src/assets/blueplayer.svg';
     winnerPlayer.alt = 'Blue player';
     winnerPlayer.hidden = false;
-  } else if (orangeScore > blueScore) {
+  } else {
     winnerName.textContent = 'ORANGE PLAYER';
     winnerName.className = 'winner__name winner__name--orange';
 
     winnerPlayer.src = '/src/assets/orangeplayer.svg';
     winnerPlayer.alt = 'Orange player';
     winnerPlayer.hidden = false;
-  } else {
-    // Bei Gleichstand gibt es keinen einzelnen Gewinner.
-    winnerName.textContent = "IT'S A DRAW!";
-    winnerName.className = 'winner__name winner__name--draw';
-
-    winnerPlayer.hidden = true;
   }
 
   gameOver.hidden = true;
@@ -495,25 +501,67 @@ function showWinner() {
 }
 
 /* ==========================================
+   DRAW-SCREEN ANZEIGEN
+========================================== */
+
+function showDraw() {
+  if (!gameOver || !drawScreen) return;
+
+  // Game Over ausblenden.
+  gameOver.hidden = true;
+
+  // DRAW-Screen für die Animation vorbereiten.
+  drawScreen.classList.remove('draw--visible');
+  drawScreen.hidden = false;
+
+  window.scrollTo(0, 0);
+
+  // Die Animation startet im nächsten Frame.
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      drawScreen.classList.add('draw--visible');
+    });
+  });
+}
+
+/* ==========================================
    ZURÜCK ZUM START
 ========================================== */
 
-backToStartButton?.addEventListener('click', () => {
-  if (!home || !settings || !game || !gameOver || !winnerScreen) return;
+function backToStart() {
+  if (!home || !settings || !game || !gameOver) return;
 
   // Alte Timer dürfen keine neue Ansicht mehr öffnen.
   gameSession++;
 
-  winnerScreen.hidden = true;
-  winnerScreen.classList.remove('winner--visible');
+  // Winner-Screen zurücksetzen.
+  if (winnerScreen) {
+    winnerScreen.hidden = true;
+    winnerScreen.classList.remove('winner--visible');
+  }
 
+  // DRAW-Screen zurücksetzen.
+  if (drawScreen) {
+    drawScreen.hidden = true;
+    drawScreen.classList.remove('draw--visible');
+  }
+
+  // Andere Screens ausblenden.
   gameOver.hidden = true;
   game.hidden = true;
   settings.hidden = true;
+
+  // Home-Screen anzeigen.
   home.hidden = false;
 
   window.scrollTo(0, 0);
-});
+}
+
+// Back-to-start auf dem Winner-Screen
+backToStartButton?.addEventListener('click', backToStart);
+
+// Back-to-start auf dem DRAW-Screen
+drawBackButton?.addEventListener('click', backToStart);
 
 /* ==========================================
    SPIEL STARTEN
@@ -569,6 +617,12 @@ startButton?.addEventListener('click', () => {
   if (winnerScreen) {
     winnerScreen.hidden = true;
     winnerScreen.classList.remove('winner--visible');
+  }
+
+  // DRAW-Screen bei einem neuen Spiel zurücksetzen.
+  if (drawScreen) {
+    drawScreen.hidden = true;
+    drawScreen.classList.remove('draw--visible');
   }
 
   game.hidden = false;

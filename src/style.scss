@@ -956,3 +956,143 @@ button {
 .exit-modal[hidden] {
   display: none !important;
 }
+/* ==========================================
+   DRAW SCREEN
+========================================== */
+
+.draw {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 60px 24px;
+
+  overflow: hidden;
+
+  background-color: #303131;
+
+  // Der Screen startet oberhalb des sichtbaren Bereichs.
+  transform: translateY(-100%);
+
+  // Gleiche Animation wie beim Winner-Screen.
+  transition: transform 0.6s ease-in-out;
+}
+
+/* DRAW SLIDE-IN ANIMATION */
+
+.draw--visible {
+  transform: translateY(0);
+}
+
+/* DRAW INHALT */
+
+.draw__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: 419.97px;
+
+  min-height: 602.88px;
+
+  margin: 0 auto;
+
+  text-align: center;
+}
+
+/* IT'S A DRAW SCHRIFTZUG */
+
+.draw__title {
+  display: block;
+
+  width: 100%;
+  max-width: 419.97px;
+  height: auto;
+
+  object-fit: contain;
+}
+
+/* TÜRKISE WAAGE */
+
+.draw__icon {
+  display: block;
+
+  width: 220px;
+  max-width: 100%;
+  height: auto;
+
+  object-fit: contain;
+}
+
+/* BACK TO START BUTTON */
+
+.draw__back {
+  display: block;
+
+  padding: 0;
+  border: none;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transition: transform 0.2s ease;
+}
+
+.draw__back img {
+  display: block;
+
+  width: 182px;
+  max-width: 100%;
+  height: auto;
+}
+
+.draw__back:hover {
+  transform: scale(1.05);
+}
+
+.draw__back:focus-visible {
+  outline: 3px solid #39c9b5;
+  outline-offset: 5px;
+}
+
+/* ==========================================
+   DRAW – RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+  .draw {
+    padding: 70px 20px 40px;
+  }
+
+  .draw__content {
+    max-width: 100%;
+    min-height: min(602.88px, 75vh);
+  }
+
+  .draw__title {
+    max-width: 340px;
+  }
+
+  .draw__icon {
+    width: 170px;
+  }
+
+  .draw__back img {
+    width: 160px;
+  }
+}
+
+/* ==========================================
+   DRAW – VERSTECKTER SCREEN
+========================================== */
+
+.draw[hidden] {
+  display: none !important;
+}
