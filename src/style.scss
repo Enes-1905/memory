@@ -324,18 +324,72 @@ button {
 }
 
 /* ==========================================
-   MEMORY BOARD – FIGMA 16 KARTEN
+   MEMORY BOARD – ALLE SPIELFELDGRÖSSEN
 ========================================== */
+
+/*
+  Die main.ts setzt automatisch:
+
+  data-size="16"
+  data-size="24"
+  data-size="36"
+
+  Dadurch erhält jede Kartenzahl ihr
+  eigenes Spielfeld-Layout.
+*/
 
 .game__board {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
-  width: min(100%, 528px);
+  width: 100%;
   margin: 0 auto;
 }
 
-/* MEMORY CARD – 3D FLIP */
+/* ==========================================
+   16 KARTEN – 4 SPALTEN × 4 ZEILEN
+========================================== */
+
+.game__board[data-size="16"] {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  width: min(100%, 528px);
+}
+
+/* ==========================================
+   24 KARTEN – 6 SPALTEN × 4 ZEILEN
+========================================== */
+
+.game__board[data-size="24"] {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+  width: min(100%, 750.35px);
+}
+
+/* ==========================================
+   36 KARTEN – FIGMA DESIGN
+========================================== */
+
+/*
+  Figma:
+  Breite: 750.35px
+  Höhe: 750px
+  Spalten: 6
+  Zeilen: 6
+  Spaltenabstand: 6px
+  Zeilenabstand: 6px
+
+  Jede Karte ist ungefähr 120px groß.
+*/
+
+.game__board[data-size="36"] {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+  width: min(100%, 750.35px);
+}
+
+/* ==========================================
+   MEMORY CARD – 3D FLIP
+========================================== */
 
 .game__card {
   position: relative;
@@ -689,6 +743,95 @@ button {
 }
 
 /* ==========================================
+   DRAW SCREEN
+========================================== */
+
+.draw {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 60px 24px;
+  overflow: hidden;
+  background-color: #303131;
+
+  // DRAW startet oberhalb des Bildschirms.
+  transform: translateY(-100%);
+
+  // Slide-in-Animation: 600 ms.
+  transition: transform 0.6s ease-in-out;
+}
+
+/* DRAW SLIDE-IN ANIMATION */
+
+.draw--visible {
+  transform: translateY(0);
+}
+
+/* DRAW INHALT */
+
+.draw__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 419.97px;
+  min-height: 602.88px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* IT'S A DRAW SCHRIFTZUG */
+
+.draw__title {
+  display: block;
+  width: 100%;
+  max-width: 419.97px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* TÜRKISE WAAGE */
+
+.draw__icon {
+  display: block;
+  width: 220px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* BACK TO START BUTTON */
+
+.draw__back {
+  display: block;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.draw__back img {
+  display: block;
+  width: 182px;
+  max-width: 100%;
+  height: auto;
+}
+
+.draw__back:hover {
+  transform: scale(1.05);
+}
+
+.draw__back:focus-visible {
+  outline: 3px solid #39c9b5;
+  outline-offset: 5px;
+}
+
+/* ==========================================
    RESPONSIVE – KLEINE DESKTOPS
 ========================================== */
 
@@ -702,7 +845,8 @@ button {
     margin-bottom: 20px;
   }
 
-  .game__board {
+  /* Nur das 16er-Spielfeld verkleinern. */
+  .game__board[data-size="16"] {
     width: min(100%, 440px);
     gap: 10px;
   }
@@ -752,7 +896,6 @@ button {
 ========================================== */
 
 @media (max-width: 768px) {
-
   /* HOME */
 
   .home__content {
@@ -847,10 +990,29 @@ button {
     width: 145px;
   }
 
-  .game__board {
-    width: min(100%, 528px);
+  /* 16 KARTEN */
+
+  .game__board[data-size="16"] {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: min(100%, 528px);
     gap: 8px;
+  }
+
+  /* 24 KARTEN */
+
+  .game__board[data-size="24"] {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    width: 100%;
+    gap: 6px;
+  }
+
+  /* 36 KARTEN */
+
+  .game__board[data-size="36"] {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: repeat(6, minmax(0, 1fr));
+    width: 100%;
+    gap: 6px;
   }
 
   .game__card {
@@ -942,131 +1104,9 @@ button {
   .winner__back img {
     width: 160px;
   }
-}
 
-/* ==========================================
-   VERSTECKTE SEITEN
-========================================== */
+  /* DRAW SCREEN */
 
-.home[hidden],
-.settings[hidden],
-.game[hidden],
-.game-over[hidden],
-.winner[hidden],
-.exit-modal[hidden] {
-  display: none !important;
-}
-/* ==========================================
-   DRAW SCREEN
-========================================== */
-
-.draw {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  min-height: 100vh;
-
-  padding: 60px 24px;
-
-  overflow: hidden;
-
-  background-color: #303131;
-
-  // Der Screen startet oberhalb des sichtbaren Bereichs.
-  transform: translateY(-100%);
-
-  // Gleiche Animation wie beim Winner-Screen.
-  transition: transform 0.6s ease-in-out;
-}
-
-/* DRAW SLIDE-IN ANIMATION */
-
-.draw--visible {
-  transform: translateY(0);
-}
-
-/* DRAW INHALT */
-
-.draw__content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-
-  width: 100%;
-  max-width: 419.97px;
-
-  min-height: 602.88px;
-
-  margin: 0 auto;
-
-  text-align: center;
-}
-
-/* IT'S A DRAW SCHRIFTZUG */
-
-.draw__title {
-  display: block;
-
-  width: 100%;
-  max-width: 419.97px;
-  height: auto;
-
-  object-fit: contain;
-}
-
-/* TÜRKISE WAAGE */
-
-.draw__icon {
-  display: block;
-
-  width: 220px;
-  max-width: 100%;
-  height: auto;
-
-  object-fit: contain;
-}
-
-/* BACK TO START BUTTON */
-
-.draw__back {
-  display: block;
-
-  padding: 0;
-  border: none;
-
-  background: transparent;
-
-  cursor: pointer;
-
-  transition: transform 0.2s ease;
-}
-
-.draw__back img {
-  display: block;
-
-  width: 182px;
-  max-width: 100%;
-  height: auto;
-}
-
-.draw__back:hover {
-  transform: scale(1.05);
-}
-
-.draw__back:focus-visible {
-  outline: 3px solid #39c9b5;
-  outline-offset: 5px;
-}
-
-/* ==========================================
-   DRAW – RESPONSIVE
-========================================== */
-
-@media (max-width: 768px) {
   .draw {
     padding: 70px 20px 40px;
   }
@@ -1090,9 +1130,15 @@ button {
 }
 
 /* ==========================================
-   DRAW – VERSTECKTER SCREEN
+   VERSTECKTE SEITEN
 ========================================== */
 
-.draw[hidden] {
+.home[hidden],
+.settings[hidden],
+.game[hidden],
+.game-over[hidden],
+.winner[hidden],
+.draw[hidden],
+.exit-modal[hidden] {
   display: none !important;
 }

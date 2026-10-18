@@ -73,10 +73,21 @@ const currentPlayerIcon = document.querySelector<HTMLImageElement>(
 );
 
 /* ==========================================
-   KARTEN
+   KARTEN – CODE THEME
 ========================================== */
 
+// Insgesamt 18 verschiedene SVG-Dateien.
+//
+// 16 Karten: Die ersten 8 Motive.
+// 24 Karten: Die ersten 12 Motive.
+// 36 Karten: Alle 18 Motive.
+//
+// Die bisherigen 8 Motive bleiben unverändert.
+// Die zusätzlichen 10 SVGs stammen aus deinem
+// vorhandenen src/assets-Ordner.
+
 const codeCards = [
+  // Bisherige 8 Kartenmotive
   '/src/assets/Property 26.svg',  // Git
   '/src/assets/Property 19.svg',  // TypeScript
   '/src/assets/Front (2).svg',    // Angular
@@ -85,14 +96,36 @@ const codeCards = [
   '/src/assets/Property 22.svg',  // Django
   '/src/assets/Property 20.svg',  // JavaScript
   '/src/assets/Property 21.svg',  // VS Code
+
+  // Weitere 4 Motive für 24 Karten
+  '/src/assets/Property 23.svg',
+  '/src/assets/Property 24.svg',
+  '/src/assets/Property 25.svg',
+  '/src/assets/Front (1).svg',
+
+  // Weitere 6 Motive für 36 Karten
+  '/src/assets/Front (3).svg',
+  '/src/assets/Front (4).svg',
+  '/src/assets/Front (5).svg',
+  '/src/assets/Front (6).svg',
+  '/src/assets/Front (7).svg',
+  '/src/assets/Front (8).svg',
 ];
 
+// Rückseite aller Memory-Karten
 const cardBack = '/src/assets/Property 18.svg';
 
+// Spielersymbole
 const blueIcon = '/src/assets/label 1.svg';
 const orangeIcon = '/src/assets/label.svg';
 
+/* ==========================================
+   TYPEN
+========================================== */
+
 type Player = 'blue' | 'orange';
+
+type BoardSize = 16 | 24 | 36;
 
 interface MemoryCard {
   id: number;
@@ -100,6 +133,10 @@ interface MemoryCard {
   pairId: number;
   matched: boolean;
 }
+
+/* ==========================================
+   SPIELVARIABLEN
+========================================== */
 
 let cards: MemoryCard[] = [];
 let flippedCards: number[] = [];
@@ -173,10 +210,36 @@ themeInputs.forEach((input) => {
   });
 });
 
+/* ==========================================
+   AUSGEWÄHLTE EINSTELLUNG AUSLESEN
+========================================== */
+
 function getSelectedValue(name: string): string | undefined {
   return document.querySelector<HTMLInputElement>(
     `input[name="${name}"]:checked`
   )?.value;
+}
+
+/* ==========================================
+   SPIELFELDGRÖSSE PRÜFEN
+========================================== */
+
+// Nur die drei vorgesehenen Kartenzahlen erlauben.
+
+function getBoardSize(): BoardSize {
+  const selectedValue = Number(
+    getSelectedValue('boardSize') ?? '16'
+  );
+
+  if (
+    selectedValue === 16 ||
+    selectedValue === 24 ||
+    selectedValue === 36
+  ) {
+    return selectedValue;
+  }
+
+  return 16;
 }
 
 /* ==========================================
@@ -220,6 +283,10 @@ function updateScoreboard() {
   }
 }
 
+/* ==========================================
+   SPIELER WECHSELN
+========================================== */
+
 function switchPlayer() {
   currentPlayer = currentPlayer === 'blue' ? 'orange' : 'blue';
 
@@ -230,9 +297,17 @@ function switchPlayer() {
    MEMORY-KARTEN ERSTELLEN
 ========================================== */
 
-function createCards(images: string[], cardCount: number): MemoryCard[] {
+function createCards(
+  images: string[],
+  cardCount: BoardSize
+): MemoryCard[] {
+  // 16 Karten = 8 Paare
+  // 24 Karten = 12 Paare
+  // 36 Karten = 18 Paare
+
   const pairCount = cardCount / 2;
 
+  // Prüfen, ob genügend Motive vorhanden sind.
   if (images.length < pairCount) {
     console.warn(
       `Für ${cardCount} Karten fehlen noch Motive. ` +
@@ -242,11 +317,13 @@ function createCards(images: string[], cardCount: number): MemoryCard[] {
     return [];
   }
 
+  // Nur die benötigte Anzahl an Motiven verwenden.
   const selectedImages = images.slice(0, pairCount);
 
   const cardPairs: MemoryCard[] = [];
 
   selectedImages.forEach((image, pairId) => {
+    // Erste Karte eines Paares
     cardPairs.push({
       id: pairId * 2,
       image,
@@ -254,6 +331,7 @@ function createCards(images: string[], cardCount: number): MemoryCard[] {
       matched: false,
     });
 
+    // Zweite Karte desselben Paares
     cardPairs.push({
       id: pairId * 2 + 1,
       image,
@@ -262,6 +340,7 @@ function createCards(images: string[], cardCount: number): MemoryCard[] {
     });
   });
 
+  // Alle Karten zufällig mischen.
   return shuffleCards(cardPairs);
 }
 
@@ -272,7 +351,16 @@ function createCards(images: string[], cardCount: number): MemoryCard[] {
 function renderBoard() {
   if (!board) return;
 
+  // Altes Spielfeld entfernen.
   board.innerHTML = '';
+
+  // Kartenzahl an SCSS übergeben.
+  //
+  // 16 Karten: data-size="16"
+  // 24 Karten: data-size="24"
+  // 36 Karten: data-size="36"
+
+  board.dataset.size = String(cards.length);
 
   cards.forEach((card, index) => {
     const button = document.createElement('button');
@@ -280,12 +368,19 @@ function renderBoard() {
     button.type = 'button';
     button.className = 'game__card';
     button.dataset.index = String(index);
-    button.setAttribute('aria-label', 'Verdeckte Memory-Karte');
+
+    button.setAttribute(
+      'aria-label',
+      'Verdeckte Memory-Karte'
+    );
 
     const inner = document.createElement('span');
     inner.className = 'game__card-inner';
 
-    // Rückseite
+    /* ------------------------------------------
+       KARTENRÜCKSEITE
+    ------------------------------------------ */
+
     const back = document.createElement('span');
     back.className = 'game__card-back';
 
@@ -295,7 +390,10 @@ function renderBoard() {
 
     back.appendChild(backImage);
 
-    // Vorderseite
+    /* ------------------------------------------
+       KARTENVORDERSEITE
+    ------------------------------------------ */
+
     const front = document.createElement('span');
     front.className = 'game__card-front';
 
@@ -305,11 +403,16 @@ function renderBoard() {
 
     front.appendChild(frontImage);
 
+    /* ------------------------------------------
+       KARTE ZUSAMMENBAUEN
+    ------------------------------------------ */
+
     inner.appendChild(back);
     inner.appendChild(front);
 
     button.appendChild(inner);
 
+    // Karte beim Anklicken umdrehen.
     button.addEventListener('click', () => {
       flipCard(index);
     });
@@ -319,7 +422,7 @@ function renderBoard() {
 }
 
 /* ==========================================
-   KARTE DREHEN
+   KARTE AKTUALISIEREN
 ========================================== */
 
 function updateCard(index: number, revealed: boolean) {
@@ -331,11 +434,16 @@ function updateCard(index: number, revealed: boolean) {
 
   if (!button) return;
 
-  button.classList.toggle('game__card--flipped', revealed);
+  button.classList.toggle(
+    'game__card--flipped',
+    revealed
+  );
 
   button.setAttribute(
     'aria-label',
-    revealed ? 'Aufgedeckte Memory-Karte' : 'Verdeckte Memory-Karte'
+    revealed
+      ? 'Aufgedeckte Memory-Karte'
+      : 'Verdeckte Memory-Karte'
   );
 }
 
@@ -346,21 +454,30 @@ function updateCard(index: number, revealed: boolean) {
 function flipCard(index: number) {
   // Während der Prüfung oder bei geöffnetem Popup
   // dürfen keine weiteren Karten aufgedeckt werden.
-  if (isChecking || (exitModal && !exitModal.hidden)) return;
+
+  if (
+    isChecking ||
+    (exitModal && !exitModal.hidden)
+  ) {
+    return;
+  }
 
   const card = cards[index];
 
+  // Ungültige oder bereits gefundene Karte ignorieren.
   if (!card || card.matched) return;
 
+  // Dieselbe Karte darf nicht zweimal ausgewählt werden.
   if (flippedCards.includes(index)) return;
 
+  // Maximal zwei Karten gleichzeitig aufdecken.
   if (flippedCards.length >= 2) return;
 
   flippedCards.push(index);
 
   updateCard(index, true);
 
-  // Warten, bis zwei Karten aufgedeckt sind.
+  // Auf die zweite Karte warten.
   if (flippedCards.length !== 2) return;
 
   const [firstIndex, secondIndex] = flippedCards;
@@ -368,8 +485,11 @@ function flipCard(index: number) {
   const firstCard = cards[firstIndex];
   const secondCard = cards[secondIndex];
 
+  /* ------------------------------------------
+     RICHTIGES PAAR
+  ------------------------------------------ */
+
   if (firstCard.pairId === secondCard.pairId) {
-    // Richtiges Paar gefunden.
     firstCard.matched = true;
     secondCard.matched = true;
 
@@ -395,7 +515,13 @@ function flipCard(index: number) {
 
     flippedCards = [];
 
-    // Alle Paare gefunden?
+    /* ------------------------------------------
+       PRÜFEN, OB DAS SPIEL BEENDET IST
+    ------------------------------------------ */
+
+    // Funktioniert automatisch für:
+    // 8, 12 und 18 gefundene Paare.
+
     if (cards.every((item) => item.matched)) {
       isChecking = true;
 
@@ -408,7 +534,10 @@ function flipCard(index: number) {
       }, 300);
     }
   } else {
-    // Falsches Paar: Nach einer Sekunde zurückdrehen.
+    /* ------------------------------------------
+       FALSCHES PAAR
+    ------------------------------------------ */
+
     isChecking = true;
 
     const session = gameSession;
@@ -416,12 +545,14 @@ function flipCard(index: number) {
     setTimeout(() => {
       if (session !== gameSession) return;
 
+      // Beide Karten wieder umdrehen.
       updateCard(firstIndex, false);
       updateCard(secondIndex, false);
 
       flippedCards = [];
       isChecking = false;
 
+      // Spieler wechseln.
       switchPlayer();
     }, 1000);
   }
@@ -434,6 +565,7 @@ function flipCard(index: number) {
 function showGameOver() {
   if (!game || !gameOver) return;
 
+  // Finalen Punktestand übertragen.
   if (finalBlueScoreElement) {
     finalBlueScoreElement.textContent = String(blueScore);
   }
@@ -442,7 +574,10 @@ function showGameOver() {
     finalOrangeScoreElement.textContent = String(orangeScore);
   }
 
+  // Spielfeld ausblenden.
   game.hidden = true;
+
+  // Game-Over-Screen anzeigen.
   gameOver.hidden = false;
 
   window.scrollTo(0, 0);
@@ -453,10 +588,11 @@ function showGameOver() {
   window.setTimeout(() => {
     if (session !== gameSession) return;
 
-    // Bei Gleichstand DRAW anzeigen, sonst Winner.
+    // Bei Gleichstand DRAW anzeigen.
     if (blueScore === orangeScore) {
       showDraw();
     } else {
+      // Sonst Gewinner anzeigen.
       showWinner();
     }
   }, 3000);
@@ -467,32 +603,53 @@ function showGameOver() {
 ========================================== */
 
 function showWinner() {
-  if (!gameOver || !winnerScreen || !winnerName || !winnerPlayer) return;
+  if (
+    !gameOver ||
+    !winnerScreen ||
+    !winnerName ||
+    !winnerPlayer
+  ) {
+    return;
+  }
+
+  /* ------------------------------------------
+     BLUE PLAYER GEWINNT
+  ------------------------------------------ */
 
   if (blueScore > orangeScore) {
     winnerName.textContent = 'BLUE PLAYER';
-    winnerName.className = 'winner__name winner__name--blue';
+
+    winnerName.className =
+      'winner__name winner__name--blue';
 
     winnerPlayer.src = '/src/assets/blueplayer.svg';
     winnerPlayer.alt = 'Blue player';
     winnerPlayer.hidden = false;
   } else {
+    /* ------------------------------------------
+       ORANGE PLAYER GEWINNT
+    ------------------------------------------ */
+
     winnerName.textContent = 'ORANGE PLAYER';
-    winnerName.className = 'winner__name winner__name--orange';
+
+    winnerName.className =
+      'winner__name winner__name--orange';
 
     winnerPlayer.src = '/src/assets/orangeplayer.svg';
     winnerPlayer.alt = 'Orange player';
     winnerPlayer.hidden = false;
   }
 
+  // Game Over ausblenden.
   gameOver.hidden = true;
 
+  // Winner-Screen vorbereiten.
   winnerScreen.classList.remove('winner--visible');
   winnerScreen.hidden = false;
 
   window.scrollTo(0, 0);
 
-  // Im nächsten Frame die Slide-in-Animation starten.
+  // Slide-in-Animation starten.
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       winnerScreen.classList.add('winner--visible');
@@ -516,7 +673,7 @@ function showDraw() {
 
   window.scrollTo(0, 0);
 
-  // Die Animation startet im nächsten Frame.
+  // Slide-in-Animation starten.
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       drawScreen.classList.add('draw--visible');
@@ -534,6 +691,133 @@ function backToStart() {
   // Alte Timer dürfen keine neue Ansicht mehr öffnen.
   gameSession++;
 
+  /* ------------------------------------------
+     WINNER ZURÜCKSETZEN
+  ------------------------------------------ */
+
+  if (winnerScreen) {
+    winnerScreen.hidden = true;
+    winnerScreen.classList.remove('winner--visible');
+  }
+
+  /* ------------------------------------------
+     DRAW ZURÜCKSETZEN
+  ------------------------------------------ */
+
+  if (drawScreen) {
+    drawScreen.hidden = true;
+    drawScreen.classList.remove('draw--visible');
+  }
+
+  /* ------------------------------------------
+     ANDERE SCREENS AUSBLENDEN
+  ------------------------------------------ */
+
+  gameOver.hidden = true;
+  game.hidden = true;
+  settings.hidden = true;
+
+  // Home-Screen anzeigen.
+  home.hidden = false;
+
+  window.scrollTo(0, 0);
+}
+
+// Back-to-start auf dem Winner-Screen.
+backToStartButton?.addEventListener(
+  'click',
+  backToStart
+);
+
+// Back-to-start auf dem DRAW-Screen.
+drawBackButton?.addEventListener(
+  'click',
+  backToStart
+);
+
+/* ==========================================
+   SPIEL STARTEN
+========================================== */
+
+startButton?.addEventListener('click', () => {
+  if (!settings || !game || !board) return;
+
+  /* ------------------------------------------
+     EINSTELLUNGEN AUSLESEN
+  ------------------------------------------ */
+
+  const theme = getSelectedValue('theme') ?? 'code';
+
+  const player = getSelectedValue('player') ?? 'blue';
+
+  const boardSize = getBoardSize();
+
+  /* ------------------------------------------
+     THEME PRÜFEN
+  ------------------------------------------ */
+
+  // Aktuell ist nur das Code-Theme fertig.
+  if (theme !== 'code') {
+    alert('Die Gaming-Karten bauen wir als Nächstes ein.');
+    return;
+  }
+
+  /* ------------------------------------------
+     NEUES SPIEL VORBEREITEN
+  ------------------------------------------ */
+
+  gameSession++;
+
+  // Karten passend zur ausgewählten Größe erstellen.
+  cards = createCards(codeCards, boardSize);
+
+  if (cards.length === 0) {
+    alert('Für diese Spielfeldgröße fehlen Kartenmotive.');
+    return;
+  }
+
+  // Startspieler festlegen.
+  currentPlayer = player === 'orange' ? 'orange' : 'blue';
+
+  // Punktestand zurücksetzen.
+  blueScore = 0;
+  orangeScore = 0;
+
+  // Aufgedeckte Karten zurücksetzen.
+  flippedCards = [];
+
+  // Kartenprüfung zurücksetzen.
+  isChecking = false;
+
+  /* ------------------------------------------
+     SPIELFELD AUFBAUEN
+  ------------------------------------------ */
+
+  updateScoreboard();
+
+  renderBoard();
+
+  /* ------------------------------------------
+     ALTE SCREENS ZURÜCKSETZEN
+  ------------------------------------------ */
+
+  // Exit-Popup schließen.
+  if (exitModal) {
+    exitModal.hidden = true;
+    exitModal.classList.remove(
+      'is-entering',
+      'is-leaving'
+    );
+  }
+
+  // Settings ausblenden.
+  settings.hidden = true;
+
+  // Game Over ausblenden.
+  if (gameOver) {
+    gameOver.hidden = true;
+  }
+
   // Winner-Screen zurücksetzen.
   if (winnerScreen) {
     winnerScreen.hidden = true;
@@ -546,84 +830,9 @@ function backToStart() {
     drawScreen.classList.remove('draw--visible');
   }
 
-  // Andere Screens ausblenden.
-  gameOver.hidden = true;
-  game.hidden = true;
-  settings.hidden = true;
-
-  // Home-Screen anzeigen.
-  home.hidden = false;
-
-  window.scrollTo(0, 0);
-}
-
-// Back-to-start auf dem Winner-Screen
-backToStartButton?.addEventListener('click', backToStart);
-
-// Back-to-start auf dem DRAW-Screen
-drawBackButton?.addEventListener('click', backToStart);
-
-/* ==========================================
-   SPIEL STARTEN
-========================================== */
-
-startButton?.addEventListener('click', () => {
-  if (!settings || !game || !board) return;
-
-  const theme = getSelectedValue('theme') ?? 'code';
-  const player = getSelectedValue('player') ?? 'blue';
-  const boardSize = Number(getSelectedValue('boardSize') ?? '16');
-
-  // Aktuell ist nur das Code-Theme fertig.
-  if (theme !== 'code') {
-    alert('Die Gaming-Karten bauen wir als Nächstes ein.');
-    return;
-  }
-
-  // Aktuell sind acht Kartenpaare vorhanden.
-  if (boardSize !== 16) {
-    alert('Für 24 und 36 Karten brauchen wir noch weitere Kartenmotive.');
-    return;
-  }
-
-  gameSession++;
-
-  cards = createCards(codeCards, boardSize);
-
-  if (cards.length === 0) return;
-
-  currentPlayer = player === 'orange' ? 'orange' : 'blue';
-
-  blueScore = 0;
-  orangeScore = 0;
-
-  flippedCards = [];
-  isChecking = false;
-
-  updateScoreboard();
-  renderBoard();
-
-  // Sicherheitshalber das Popup schließen.
-  if (exitModal) {
-    exitModal.hidden = true;
-  }
-
-  settings.hidden = true;
-
-  if (gameOver) {
-    gameOver.hidden = true;
-  }
-
-  if (winnerScreen) {
-    winnerScreen.hidden = true;
-    winnerScreen.classList.remove('winner--visible');
-  }
-
-  // DRAW-Screen bei einem neuen Spiel zurücksetzen.
-  if (drawScreen) {
-    drawScreen.hidden = true;
-    drawScreen.classList.remove('draw--visible');
-  }
+  /* ------------------------------------------
+     SPIEL ANZEIGEN
+  ------------------------------------------ */
 
   game.hidden = false;
 
@@ -633,6 +842,8 @@ startButton?.addEventListener('click', () => {
     theme,
     player,
     boardSize,
+    cardCount: cards.length,
+    pairCount: cards.length / 2,
   });
 });
 
@@ -644,12 +855,18 @@ const EXIT_ANIMATION_DURATION = 450;
 
 let exitAnimationTimeout: number | undefined;
 
+/* ==========================================
+   EXIT-POPUP ÖFFNEN
+========================================== */
+
 function openExitModal() {
   if (!exitModal || !exitModal.hidden) return;
 
   window.clearTimeout(exitAnimationTimeout);
 
+  exitModal.classList.remove('is-leaving');
   exitModal.classList.add('is-entering');
+
   exitModal.hidden = false;
 
   requestAnimationFrame(() => {
@@ -660,6 +877,10 @@ function openExitModal() {
 
   backToGameButton?.focus();
 }
+
+/* ==========================================
+   EXIT-POPUP SCHLIESSEN
+========================================== */
 
 function closeExitModal(leaveGame: boolean) {
   if (!exitModal || exitModal.hidden) return;
@@ -673,39 +894,62 @@ function closeExitModal(leaveGame: boolean) {
     exitModal.hidden = true;
     exitModal.classList.remove('is-leaving');
 
+    /* ------------------------------------------
+       SPIEL VERLASSEN
+    ------------------------------------------ */
+
     if (leaveGame) {
       if (!settings || !game) return;
 
+      // Alte Timer stoppen.
       gameSession++;
 
+      // Spiel ausblenden.
       game.hidden = true;
+
+      // Zurück zu den Einstellungen.
       settings.hidden = false;
 
       window.scrollTo(0, 0);
     } else {
+      /* ------------------------------------------
+         ZURÜCK ZUM SPIEL
+      ------------------------------------------ */
+
       exitButton?.focus();
     }
   }, EXIT_ANIMATION_DURATION);
 }
 
-// Popup öffnen
+/* ==========================================
+   EXIT-BUTTONS
+========================================== */
+
+// Popup öffnen.
 exitButton?.addEventListener('click', () => {
   openExitModal();
 });
 
-// Zurück zum Spiel
+// Zurück zum Spiel.
 backToGameButton?.addEventListener('click', () => {
   closeExitModal(false);
 });
 
-// Spiel verlassen
+// Spiel verlassen.
 confirmExitButton?.addEventListener('click', () => {
   closeExitModal(true);
 });
 
-// Escape schließt das Popup
+/* ==========================================
+   ESCAPE SCHLIESST DAS POPUP
+========================================== */
+
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && exitModal && !exitModal.hidden) {
+  if (
+    event.key === 'Escape' &&
+    exitModal &&
+    !exitModal.hidden
+  ) {
     closeExitModal(false);
   }
 });
