@@ -1,0 +1,311 @@
+/* ==========================================
+   RESPONSIVE – KLEINE DESKTOPS
+========================================== */
+
+@media (max-height: 700px) and (min-width: 769px) {
+  .game {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .game__header {
+    margin-bottom: 20px;
+  }
+
+  /* Nur das 16er-Spielfeld verkleinern. */
+  .game__board[data-size="16"] {
+    width: min(100%, 440px);
+    gap: 10px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE – TABLETS
+========================================== */
+
+@media (max-width: 900px) {
+  .settings {
+    padding: 70px 6% 50px;
+  }
+
+  .settings__layout {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .settings__right {
+    align-items: flex-start;
+  }
+
+  .settings__preview {
+    max-width: 470px;
+  }
+
+  .settings__footer {
+    max-width: 550px;
+  }
+
+  .game__header {
+    gap: 16px;
+  }
+
+  .game__current-player {
+    font-size: 18px;
+  }
+
+  .game__exit img {
+    width: 160px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE – SMARTPHONES
+========================================== */
+
+@media (max-width: 768px) {
+  /* HOME */
+
+  .home__content {
+    margin-left: 8%;
+    padding-top: 30vh;
+    max-width: 84%;
+  }
+
+  .home__title {
+    width: 100%;
+  }
+
+  .home__play-button {
+    margin-top: 60px;
+  }
+
+  .home__play-button img {
+    width: 180px;
+  }
+
+  .home__controller {
+    left: -60px;
+    bottom: -80px;
+    width: 300px;
+  }
+
+  /* SETTINGS */
+
+  .settings__headline {
+    width: 220px;
+  }
+
+  .settings__group-title {
+    font-size: 21px;
+  }
+
+  .settings__option {
+    font-size: 17px;
+  }
+
+  .settings__footer {
+    flex-wrap: wrap;
+    justify-content: center;
+    white-space: normal;
+  }
+
+  .settings__footer span {
+    font-size: 15px;
+  }
+
+  .settings__start img {
+    width: 110px;
+  }
+
+  /* MEMORY GAME */
+
+  .game {
+    padding: 24px 12px;
+  }
+
+  .game__header {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+
+  .game__scores {
+    gap: 12px;
+    padding: 10px 12px;
+  }
+
+  .game__score {
+    font-size: 16px;
+  }
+
+  .game__score img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .game__current-player {
+    font-size: 17px;
+  }
+
+  .game__current-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .game__exit img {
+    width: 145px;
+  }
+
+  /* 16 KARTEN */
+
+  .game__board[data-size="16"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: min(100%, 528px);
+    gap: 8px;
+  }
+
+  /* 24 KARTEN */
+
+  .game__board[data-size="24"] {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    width: 100%;
+    gap: 6px;
+  }
+
+  /* 36 KARTEN */
+
+  .game__board[data-size="36"] {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: repeat(6, minmax(0, 1fr));
+    width: 100%;
+    gap: 6px;
+  }
+
+  .game__card {
+    width: 100%;
+    aspect-ratio: 1;
+  }
+
+  /* GAME OVER */
+
+  .game-over {
+    padding: 48px 20px;
+  }
+
+  .game-over__results {
+    margin-top: 64px;
+    gap: 18px;
+  }
+
+  .game-over__subtitle {
+    font-size: 26px;
+  }
+
+  .game-over__scores {
+    gap: 16px;
+    padding: 14px 18px;
+  }
+
+  .game-over__score {
+    font-size: 18px;
+  }
+
+  .game-over__score img {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* EXIT-POPUP */
+
+  .exit-modal__content {
+    min-height: auto;
+    padding: 30px 20px;
+  }
+
+  .exit-modal__title {
+    font-size: 22px;
+  }
+
+  .exit-modal__buttons {
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .exit-modal__back,
+  .exit-modal__confirm {
+    flex-basis: 145px;
+    width: 145px;
+    height: 45px;
+  }
+
+  /* WINNER SCREEN */
+
+  .winner {
+    padding: 100px 20px 40px;
+  }
+
+  .winner__confetti {
+    width: 140%;
+    max-width: none;
+  }
+
+  .winner__subtitle {
+    font-size: 26px;
+  }
+
+  .winner__name {
+    font-size: clamp(26px, 7vw, 38px);
+  }
+
+  .winner__player {
+    width: 140px;
+    height: 180px;
+    margin-top: 45px;
+  }
+
+  .winner__back {
+    margin-top: 40px;
+  }
+
+  .winner__back img {
+    width: 160px;
+  }
+
+  /* DRAW SCREEN */
+
+  .draw {
+    padding: 70px 20px 40px;
+  }
+
+  .draw__content {
+    max-width: 100%;
+    min-height: min(602.88px, 75vh);
+  }
+
+  .draw__title {
+    max-width: 340px;
+  }
+
+  .draw__icon {
+    width: 170px;
+  }
+
+  .draw__back img {
+    width: 160px;
+  }
+}
+
+/* ==========================================
+   VERSTECKTE SEITEN
+========================================== */
+
+.home[hidden],
+.settings[hidden],
+.game[hidden],
+.game-over[hidden],
+.winner[hidden],
+.draw[hidden],
+.exit-modal[hidden] {
+  display: none !important;
+}

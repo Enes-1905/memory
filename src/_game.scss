@@ -1,0 +1,241 @@
+/* ==========================================
+   MEMORY GAME
+========================================== */
+
+.game {
+  width: 100%;
+  min-height: 100vh;
+  padding: 24px 5% 40px;
+  background-color: #303131;
+  color: #ffffff;
+}
+
+/* GAME HEADER */
+
+.game__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto 30px;
+}
+
+.game__scores {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 18px;
+  background-color: #405451;
+}
+
+.game__score {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.game__score img {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+.game__score--blue {
+  color: #29b6f6;
+}
+
+.game__score--orange {
+  color: #ff913c;
+}
+
+.game__current-player {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+}
+
+.game__current-icon {
+  display: block;
+  width: 26px;
+  height: 26px;
+}
+
+.game__exit {
+  display: block;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: box-shadow 0.25s ease;
+}
+
+.game__exit img {
+  display: block;
+  width: 190px;
+  height: auto;
+}
+
+.game__exit:hover {
+  transform: none;
+  box-shadow:
+    0 0 0 1px #5cd6c4,
+    0 0 10px rgba(92, 214, 196, 0.65),
+    0 0 22px rgba(223, 229, 104, 0.45);
+}
+
+/* ==========================================
+   MEMORY BOARD – ALLE SPIELFELDGRÖSSEN
+========================================== */
+
+/*
+  Die main.ts setzt automatisch:
+
+  data-size="16"
+  data-size="24"
+  data-size="36"
+
+  Dadurch erhält jede Kartenzahl ihr
+  eigenes Spielfeld-Layout.
+*/
+
+.game__board {
+  display: grid;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   16 KARTEN – 4 SPALTEN × 4 ZEILEN
+========================================== */
+
+.game__board[data-size="16"] {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  width: min(100%, 528px);
+}
+
+/* ==========================================
+   24 KARTEN – 6 SPALTEN × 4 ZEILEN
+========================================== */
+
+.game__board[data-size="24"] {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+  width: min(100%, 750.35px);
+}
+
+/* ==========================================
+   36 KARTEN – FIGMA DESIGN
+========================================== */
+
+/*
+  Figma:
+  Breite: 750.35px
+  Höhe: 750px
+  Spalten: 6
+  Zeilen: 6
+  Spaltenabstand: 6px
+  Zeilenabstand: 6px
+
+  Jede Karte ist ungefähr 120px groß.
+*/
+
+.game__board[data-size="36"] {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: auto;
+  width: 100%;
+  height: auto;
+  gap: 6px;
+}
+
+.game__board[data-size="36"] .game__card {
+  height: auto;
+  aspect-ratio: 105 / 120;
+}
+
+/* ==========================================
+   MEMORY CARD – 3D FLIP
+========================================== */
+.game__card {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  perspective: 1000px;
+  transition: transform 0.2s ease;
+}
+.game__board[data-size="36"] .game__card {
+  aspect-ratio: auto;
+  height: 120px;
+}
+
+
+
+.game__card-inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+.game__card--flipped .game__card-inner {
+  transform: rotateY(180deg);
+}
+
+.game__card-back,
+.game__card-front {
+  position: absolute;
+  display: flex;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.game__card-back {
+  transform: rotateY(0deg);
+}
+
+.game__card-front {
+  transform: rotateY(180deg);
+}
+
+.game__card-back img,
+.game__card-front img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.game__card:not(.game__card--flipped):hover {
+  transform: scale(1.04);
+}
+
+.game__card--matched {
+  cursor: default;
+}
+
+.game__card--matched:hover {
+  transform: none;
+}
+
+.game__card:focus-visible {
+  outline: 3px solid #f0ea6e;
+  outline-offset: 3px;
+}
+

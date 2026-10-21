@@ -1,0 +1,86 @@
+/* ==========================================
+   EXIT-POPUP
+========================================== */
+
+.exit-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.exit-modal__content {
+  width: 100%;
+  max-width: 480px;
+  min-height: 240px;
+  padding: 38px 30px 35px;
+  background-color: #ffffff;
+  color: #303131;
+  text-align: center;
+  transform: translateY(0);
+  transition: transform 0.45s ease-in-out;
+}
+
+/* EXIT SLIDE-ANIMATION */
+
+.exit-modal.is-entering .exit-modal__content,
+.exit-modal.is-leaving .exit-modal__content {
+  transform: translateY(-120vh);
+}
+
+.exit-modal__title {
+  max-width: 420px;
+  margin: 0 auto;
+  font-size: 26px;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.exit-modal__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 45px;
+}
+
+.exit-modal__back,
+.exit-modal__confirm {
+  display: block;
+  flex: 0 1 162px;
+  width: 162px;
+  height: 50px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.exit-modal__back img,
+.exit-modal__confirm img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.exit-modal__back:hover img {
+  content: url('./assets/back2.svg');
+}
+
+.exit-modal__back:hover,
+.exit-modal__confirm:hover {
+  transform: scale(1.04);
+}
+
+.exit-modal__back:focus-visible,
+.exit-modal__confirm:focus-visible {
+  outline: 3px solid #39c9b5;
+  outline-offset: 4px;
+}
+

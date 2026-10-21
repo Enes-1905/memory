@@ -1,0 +1,65 @@
+/* ==========================================
+   HOME SCREEN
+========================================== */
+
+.home {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: #303131;
+  color: #ffffff;
+}
+
+.home__content {
+  position: relative;
+  z-index: 2;
+  width: fit-content;
+  max-width: calc(100% - 32px);
+  margin-left: 225px;
+  padding-top: 339px;
+}
+
+.home__title {
+  display: block;
+  width: 991px;
+  max-width: 100%;
+  height: auto;
+}
+
+.home__play-button {
+  display: block;
+  margin: 85px auto 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  transform-origin: center;
+}
+
+.home__play-button img {
+  display: block;
+  width: 230px;
+  height: auto;
+}
+
+.home__play-button:hover {
+  transform: scale(1.06);
+}
+
+.home__play-button:hover img {
+  content: url('./assets/Property 1=hover.svg');
+}
+
+.home__controller {
+  position: absolute;
+  z-index: 1;
+  left: -88px;
+  bottom: -100px;
+  width: 414.31px;
+  height: auto;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
