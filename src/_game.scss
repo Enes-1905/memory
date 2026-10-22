@@ -92,16 +92,6 @@
    MEMORY BOARD – ALLE SPIELFELDGRÖSSEN
 ========================================== */
 
-/*
-  Die main.ts setzt automatisch:
-
-  data-size="16"
-  data-size="24"
-  data-size="36"
-
-  Dadurch erhält jede Kartenzahl ihr
-  eigenes Spielfeld-Layout.
-*/
 
 .game__board {
   display: grid;
@@ -132,18 +122,6 @@
 /* ==========================================
    36 KARTEN – FIGMA DESIGN
 ========================================== */
-
-/*
-  Figma:
-  Breite: 750.35px
-  Höhe: 750px
-  Spalten: 6
-  Zeilen: 6
-  Spaltenabstand: 6px
-  Zeilenabstand: 6px
-
-  Jede Karte ist ungefähr 120px groß.
-*/
 
 .game__board[data-size="36"] {
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -239,3 +217,85 @@
   outline-offset: 3px;
 }
 
+/* ==========================================
+   GAMING THEME – 16 KARTEN
+========================================== */
+.game--gaming {
+  .game__board[data-size="16"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 1px;
+    row-gap: 1px;
+    width: min(100%, 423px);
+  }
+
+  .game__board[data-size="16"] .game__card {
+    aspect-ratio: 105 / 120;
+  }
+
+  .game__board[data-size="16"] .game__card img {
+    object-fit: fill;
+  }
+}
+/* ==========================================
+   GAMING THEME – BACKGROUND
+========================================== */
+
+.game--gaming {
+  background-color: #294e60;
+}
+/* ==========================================
+   GAMING THEME – HEADER
+========================================== */
+
+.game--gaming {
+
+  .game__header {
+    max-width: 1219px;
+    min-height: 104px;
+    padding: 20px 24px;
+    background-color: #535e79;
+    border-radius: 8px;
+    margin-bottom: 54px;
+  }
+
+  .game__scores {
+    background-color: #ffffff;
+    border-radius: 6px;
+    padding: 12px 16px;
+    gap: 18px;
+  }
+
+  .game__score {
+    font-size: 20px;
+    gap: 6px;
+  }
+
+  .game__score--blue {
+    color: #008cff;
+  }
+
+  .game__score--orange {
+    color: #ff6b00;
+  }
+
+  .game__current-player {
+    font-size: 28px;
+    font-weight: 500;
+    gap: 12px;
+  }
+
+  .game__current-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .game__exit {
+    border: none;
+    background: transparent;
+  }
+
+  .game__exit img {
+    width: 190px;
+    height: auto;
+  }
+}

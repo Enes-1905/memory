@@ -88,6 +88,8 @@ const gamingCardBack = '/src/assets/Property 1.svg';
 
 const blueIcon = '/src/assets/label 1.svg';
 const orangeIcon = '/src/assets/label.svg';
+const gamingBlueIcon = '/src/assets/chess_pawnblue.svg';
+const gamingOrangeIcon = '/src/assets/chesspawn.svg';
 
 /* ==========================================
    TYPEN UND SPIELVARIABLEN
@@ -275,7 +277,6 @@ function createCards(images: string[], cardCount: BoardSize): MemoryCard[] {
 
   return shuffleCards(cardPairs);
 }
-
 /* ==========================================
    PUNKTE UND SPIELERWECHSEL
 ========================================== */
@@ -289,9 +290,44 @@ function updateScoreboard() {
     orangeScoreElement.textContent = String(orangeScore);
   }
 
+  const isGamingTheme = currentTheme === 'gaming';
+
+  // Symbole in der Punkteanzeige
+  const blueScoreIcon = document.querySelector<HTMLImageElement>(
+    '.game__score-icon--blue'
+  );
+
+  const orangeScoreIcon = document.querySelector<HTMLImageElement>(
+    '.game__score-icon--orange'
+  );
+
+  if (blueScoreIcon) {
+    blueScoreIcon.src = isGamingTheme
+      ? gamingBlueIcon
+      : blueIcon;
+  }
+
+  if (orangeScoreIcon) {
+    orangeScoreIcon.src = isGamingTheme
+      ? gamingOrangeIcon
+      : orangeIcon;
+  }
+
+  // Symbol des aktuellen Spielers
   if (currentPlayerIcon) {
-    currentPlayerIcon.src = currentPlayer === 'blue' ? blueIcon : orangeIcon;
-    currentPlayerIcon.alt = currentPlayer === 'blue' ? 'Blue' : 'Orange';
+    if (currentPlayer === 'blue') {
+      currentPlayerIcon.src = isGamingTheme
+        ? gamingBlueIcon
+        : blueIcon;
+
+      currentPlayerIcon.alt = 'Blue';
+    } else {
+      currentPlayerIcon.src = isGamingTheme
+        ? gamingOrangeIcon
+        : orangeIcon;
+
+      currentPlayerIcon.alt = 'Orange';
+    }
   }
 }
 
@@ -611,7 +647,16 @@ startButton?.addEventListener('click', () => {
 currentTheme = theme;
 currentPlayer = player;
 
-game.classList.toggle('game--gaming', currentTheme === 'gaming');
+const exitButtonIcon = document.querySelector<HTMLImageElement>(
+  '.game__exit img'
+);
+
+if (exitButtonIcon) {
+  exitButtonIcon.src =
+    currentTheme === 'gaming'
+      ? '/src/assets/gametheme.svg'
+      : '/src/assets/secondary button.svg';
+}
 
 const selectedCards = currentTheme === 'gaming' ? gamingCards : codeCards;
 
