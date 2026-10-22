@@ -277,6 +277,7 @@ function createCards(images: string[], cardCount: BoardSize): MemoryCard[] {
 
   return shuffleCards(cardPairs);
 }
+
 /* ==========================================
    PUNKTE UND SPIELERWECHSEL
 ========================================== */
@@ -302,19 +303,27 @@ function updateScoreboard() {
   );
 
   if (blueScoreIcon) {
-    blueScoreIcon.src = isGamingTheme
-      ? gamingBlueIcon
-      : blueIcon;
+    blueScoreIcon.src = isGamingTheme ? gamingBlueIcon : blueIcon;
   }
 
   if (orangeScoreIcon) {
-    orangeScoreIcon.src = isGamingTheme
-      ? gamingOrangeIcon
-      : orangeIcon;
+    orangeScoreIcon.src = isGamingTheme ? gamingOrangeIcon : orangeIcon;
   }
 
   // Symbol des aktuellen Spielers
   if (currentPlayerIcon) {
+    // Hintergrundfarbe der Schachfigur
+    currentPlayerIcon.classList.toggle(
+      'game__current-icon--blue',
+      isGamingTheme && currentPlayer === 'blue'
+    );
+
+    currentPlayerIcon.classList.toggle(
+      'game__current-icon--orange',
+      isGamingTheme && currentPlayer === 'orange'
+    );
+
+    // Passendes Spielersymbol anzeigen
     if (currentPlayer === 'blue') {
       currentPlayerIcon.src = isGamingTheme
         ? gamingBlueIcon
@@ -646,6 +655,7 @@ startButton?.addEventListener('click', () => {
 
 currentTheme = theme;
 currentPlayer = player;
+game.classList.toggle('game--gaming', currentTheme === 'gaming');
 
 const exitButtonIcon = document.querySelector<HTMLImageElement>(
   '.game__exit img'
