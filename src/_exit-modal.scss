@@ -194,3 +194,7 @@
     outline-offset: 4px;
   }
 }
+/* Gaming: Yes, quit game – Hover */
+.exit-modal--gaming .exit-modal__confirm:hover img {
+  content: url('/src/assets/game_theme_hover.svg');
+}
