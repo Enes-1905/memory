@@ -1,7 +1,6 @@
 /* ==========================================
-   EXIT-POPUP
+   EXIT-POPUP – CODE VIBES (unverändertes Verhalten)
 ========================================== */
-
 .exit-modal {
   position: fixed;
   inset: 0;
@@ -12,6 +11,8 @@
   padding: 20px;
   background: rgba(0, 0, 0, 0.25);
 }
+
+.exit-modal[hidden] { display: none; }
 
 .exit-modal__content {
   width: 100%;
@@ -24,8 +25,6 @@
   transform: translateY(0);
   transition: transform 0.45s ease-in-out;
 }
-
-/* EXIT SLIDE-ANIMATION */
 
 .exit-modal.is-entering .exit-modal__content,
 .exit-modal.is-leaving .exit-modal__content {
@@ -55,7 +54,7 @@
   width: 162px;
   height: 50px;
   padding: 0;
-  border: 0;
+  border: none;
   background: transparent;
   cursor: pointer;
   transition: transform 0.2s ease;
@@ -69,12 +68,13 @@
   object-fit: fill;
 }
 
-.exit-modal__back:hover img {
+/* Die bestehende Code-Vibes-Hovergrafik bleibt erhalten. */
+.exit-modal:not(.exit-modal--gaming) .exit-modal__back:hover img {
   content: url('./assets/back2.svg');
 }
 
-.exit-modal__back:hover,
-.exit-modal__confirm:hover {
+.exit-modal:not(.exit-modal--gaming) .exit-modal__back:hover,
+.exit-modal:not(.exit-modal--gaming) .exit-modal__confirm:hover {
   transform: scale(1.04);
 }
 
@@ -84,3 +84,113 @@
   outline-offset: 4px;
 }
 
+/* ==========================================
+   GAMING THEME
+========================================== */
+.exit-modal--gaming {
+  background: rgba(0, 0, 0, 0.25);
+
+  .exit-modal__content {
+    box-sizing: border-box;
+    width: 450px;
+    max-width: calc(100vw - 40px);
+    min-height: 230px;
+    padding: 30px 20px 28px;
+    background-color: #eef4f7;
+    color: #294e60;
+    border-radius: 20px;
+    text-align: center;
+  }
+
+  .exit-modal__title {
+    max-width: 420px;
+    margin: 0 auto;
+    font-size: 28px;
+    line-height: 1.3;
+    font-weight: 600;
+    color: #294e60;
+  }
+
+  .exit-modal__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 40px;
+  }
+
+  /* Zwei SVGs liegen exakt übereinander; kein Laden beim Hover. */
+  .exit-modal__back {
+    position: relative;
+    box-sizing: border-box;
+    display: block;
+    flex: 0 0 201px;
+    width: 201px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    overflow: hidden;
+    cursor: pointer;
+    transform: none;
+    transition: none;
+  }
+
+  .exit-modal__back img.exit-modal__back-default,
+  .exit-modal__back img.exit-modal__back-hover {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 201px;
+    height: 44px;
+    max-width: none;
+    max-height: none;
+    object-fit: fill;
+    transform: none;
+    transition: none;
+    content: normal;
+    pointer-events: none;
+  }
+
+  .exit-modal__back img.exit-modal__back-hover { visibility: hidden; }
+  .exit-modal__back:hover img.exit-modal__back-default { visibility: hidden; }
+  .exit-modal__back:hover img.exit-modal__back-hover { visibility: visible; }
+
+  .exit-modal__confirm {
+    box-sizing: border-box;
+    display: block;
+    flex: 0 0 176px;
+    width: 176px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    overflow: hidden;
+    cursor: pointer;
+    transform: none;
+    transition: none;
+  }
+
+  .exit-modal__confirm img {
+    display: block;
+    width: 176px;
+    height: 44px;
+    object-fit: fill;
+    transform: none;
+    transition: none;
+  }
+
+  .exit-modal__back:hover,
+  .exit-modal__confirm:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .exit-modal__back:focus-visible,
+  .exit-modal__confirm:focus-visible {
+    outline: 3px solid #ff1677;
+    outline-offset: 4px;
+  }
+}

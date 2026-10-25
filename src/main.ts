@@ -11,31 +11,62 @@ const gameOver = document.querySelector<HTMLElement>('.game-over');
 const winnerScreen = document.querySelector<HTMLElement>('.winner');
 const drawScreen = document.querySelector<HTMLElement>('.draw');
 
-const playButton = document.querySelector<HTMLButtonElement>('.home__play-button');
-const startButton = document.querySelector<HTMLButtonElement>('.settings__start');
-const preview = document.querySelector<HTMLImageElement>('.settings__preview');
+const playButton = document.querySelector<HTMLButtonElement>(
+  '.home__play-button'
+);
+const startButton = document.querySelector<HTMLButtonElement>(
+  '.settings__start'
+);
+const preview = document.querySelector<HTMLImageElement>(
+  '.settings__preview'
+);
 
-const selectedThemeElement = document.querySelector<HTMLElement>('#selected-theme');
-const selectedPlayerElement = document.querySelector<HTMLElement>('#selected-player');
-const selectedBoardSizeElement = document.querySelector<HTMLElement>('#selected-board-size');
+const selectedThemeElement = document.querySelector<HTMLElement>(
+  '#selected-theme'
+);
+const selectedPlayerElement = document.querySelector<HTMLElement>(
+  '#selected-player'
+);
+const selectedBoardSizeElement = document.querySelector<HTMLElement>(
+  '#selected-board-size'
+);
 
 const board = document.querySelector<HTMLElement>('.game__board');
-const blueScoreElement = document.querySelector<HTMLElement>('#score-blue');
-const orangeScoreElement = document.querySelector<HTMLElement>('#score-orange');
-const currentPlayerIcon = document.querySelector<HTMLImageElement>('.game__current-icon');
 
-const finalBlueScoreElement = document.querySelector<HTMLElement>('#final-score-blue');
-const finalOrangeScoreElement = document.querySelector<HTMLElement>('#final-score-orange');
+const blueScoreElement = document.querySelector<HTMLElement>('#score-blue');
+const orangeScoreElement = document.querySelector<HTMLElement>(
+  '#score-orange'
+);
+const currentPlayerIcon = document.querySelector<HTMLImageElement>(
+  '.game__current-icon'
+);
+
+const finalBlueScoreElement = document.querySelector<HTMLElement>(
+  '#final-score-blue'
+);
+const finalOrangeScoreElement = document.querySelector<HTMLElement>(
+  '#final-score-orange'
+);
 
 const winnerName = document.querySelector<HTMLElement>('#winner-name');
-const winnerPlayer = document.querySelector<HTMLImageElement>('#winner-player');
-const winnerBackButton = document.querySelector<HTMLButtonElement>('.winner__back');
-const drawBackButton = document.querySelector<HTMLButtonElement>('.draw__back');
+const winnerPlayer = document.querySelector<HTMLImageElement>(
+  '#winner-player'
+);
+const winnerBackButton = document.querySelector<HTMLButtonElement>(
+  '.winner__back'
+);
+const drawBackButton = document.querySelector<HTMLButtonElement>(
+  '.draw__back'
+);
 
 const exitButton = document.querySelector<HTMLButtonElement>('.game__exit');
 const exitModal = document.querySelector<HTMLElement>('#exit-modal');
-const backToGameButton = document.querySelector<HTMLButtonElement>('.exit-modal__back');
-const confirmExitButton = document.querySelector<HTMLButtonElement>('.exit-modal__confirm');
+const backToGameButton = document.querySelector<HTMLButtonElement>(
+  '.exit-modal__back'
+);
+const confirmExitButton = document.querySelector<HTMLButtonElement>(
+  '.exit-modal__confirm'
+);
 
 /* ==========================================
    KARTENMOTIVE
@@ -88,6 +119,7 @@ const gamingCardBack = '/src/assets/Property 1.svg';
 
 const blueIcon = '/src/assets/label 1.svg';
 const orangeIcon = '/src/assets/label.svg';
+
 const gamingBlueIcon = '/src/assets/chess_pawnblue.svg';
 const gamingOrangeIcon = '/src/assets/chesspawn.svg';
 
@@ -122,6 +154,71 @@ const EXIT_ANIMATION_DURATION = 450;
 let exitAnimationTimeout: number | undefined;
 
 /* ==========================================
+   GAMING THEME – EXIT-BUTTON-SYMBOLE
+========================================== */
+
+const exitButtonIcon = exitButton?.querySelector<HTMLImageElement>('img');
+const backToGameIcon = backToGameButton?.querySelector<HTMLImageElement>('img');
+const confirmExitIcon = confirmExitButton?.querySelector<HTMLImageElement>('img');
+function setupBackToGameButton() {
+  if (!backToGameButton) return;
+
+  const icon = backToGameButton.querySelector<HTMLImageElement>(
+    'img:not(.exit-modal__back-hover)'
+  );
+
+  if (!icon) return;
+
+  if (currentTheme === 'gaming') {
+    icon.className = 'exit-modal__back-default';
+    icon.src = '/src/assets/Propertyback.svg';
+
+    let hoverIcon =
+      backToGameButton.querySelector<HTMLImageElement>(
+        '.exit-modal__back-hover'
+      );
+
+    if (!hoverIcon) {
+      hoverIcon = document.createElement('img');
+      hoverIcon.className = 'exit-modal__back-hover';
+      hoverIcon.alt = '';
+      hoverIcon.setAttribute('aria-hidden', 'true');
+
+      backToGameButton.appendChild(hoverIcon);
+    }
+
+    hoverIcon.src = '/src/assets/Propertybackgame.svg';
+  } else {
+    icon.className = '';
+    icon.src = '/src/assets/back1.svg';
+
+    backToGameButton
+      .querySelector('.exit-modal__back-hover')
+      ?.remove();
+  }
+}
+
+function updateExitButtonIcon(isHovered = false) {
+  if (!exitButtonIcon) return;
+
+  if (currentTheme === 'gaming') {
+    exitButtonIcon.src = isHovered
+      ? '/src/assets/Propertyexit.svg'
+      : '/src/assets/gametheme.svg';
+  } else {
+    exitButtonIcon.src = '/src/assets/secondary button.svg';
+  }
+}
+
+function updateConfirmExitIcon() {
+  if (!confirmExitIcon) return;
+
+  confirmExitIcon.src =
+    currentTheme === 'gaming'
+      ? '/src/game theme.svg'
+      : '/src/assets/exit.svg';
+}
+/* ==========================================
    EINSTELLUNGEN AUSLESEN
 ========================================== */
 
@@ -155,11 +252,13 @@ function updateSettingsSummary() {
   const boardSize = getBoardSize();
 
   if (selectedThemeElement) {
-    selectedThemeElement.textContent = theme === 'gaming' ? 'Gaming' : 'Code vibes';
+    selectedThemeElement.textContent =
+      theme === 'gaming' ? 'Gaming' : 'Code vibes';
   }
 
   if (selectedPlayerElement) {
-    selectedPlayerElement.textContent = player === 'orange' ? 'Orange' : 'Blue';
+    selectedPlayerElement.textContent =
+      player === 'orange' ? 'Orange' : 'Blue';
   }
 
   if (selectedBoardSizeElement) {
@@ -167,11 +266,13 @@ function updateSettingsSummary() {
   }
 }
 
-document.querySelectorAll<HTMLInputElement>(
-  'input[name="theme"], input[name="player"], input[name="boardSize"]'
-).forEach((input) => {
-  input.addEventListener('change', updateSettingsSummary);
-});
+document
+  .querySelectorAll<HTMLInputElement>(
+    'input[name="theme"], input[name="player"], input[name="boardSize"]'
+  )
+  .forEach((input) => {
+    input.addEventListener('change', updateSettingsSummary);
+  });
 
 updateSettingsSummary();
 
@@ -193,23 +294,25 @@ function showThemePreview(theme: string) {
   }
 }
 
-document.querySelectorAll<HTMLInputElement>('input[name="theme"]').forEach((input) => {
-  input.addEventListener('change', () => {
-    if (input.checked) {
+document
+  .querySelectorAll<HTMLInputElement>('input[name="theme"]')
+  .forEach((input) => {
+    input.addEventListener('change', () => {
+      if (input.checked) {
+        showThemePreview(input.value);
+      }
+    });
+
+    const label = input.closest('label');
+
+    label?.addEventListener('mouseenter', () => {
       showThemePreview(input.value);
-    }
-  });
+    });
 
-  const label = input.closest('label');
-
-  label?.addEventListener('mouseenter', () => {
-    showThemePreview(input.value);
+    label?.addEventListener('mouseleave', () => {
+      showThemePreview(getTheme());
+    });
   });
-
-  label?.addEventListener('mouseleave', () => {
-    showThemePreview(getTheme());
-  });
-});
 
 /* ==========================================
    HOME UND SETTINGS
@@ -248,11 +351,17 @@ function shuffleCards(cardList: MemoryCard[]): MemoryCard[] {
   return shuffled;
 }
 
-function createCards(images: string[], cardCount: BoardSize): MemoryCard[] {
+function createCards(
+  images: string[],
+  cardCount: BoardSize
+): MemoryCard[] {
   const pairCount = cardCount / 2;
 
   if (images.length < pairCount) {
-    console.warn(`Benötigt: ${pairCount} Motive. Vorhanden: ${images.length}.`);
+    console.warn(
+      `Benötigt: ${pairCount} Motive. Vorhanden: ${images.length}.`
+    );
+
     return [];
   }
 
@@ -303,16 +412,19 @@ function updateScoreboard() {
   );
 
   if (blueScoreIcon) {
-    blueScoreIcon.src = isGamingTheme ? gamingBlueIcon : blueIcon;
+    blueScoreIcon.src = isGamingTheme
+      ? gamingBlueIcon
+      : blueIcon;
   }
 
   if (orangeScoreIcon) {
-    orangeScoreIcon.src = isGamingTheme ? gamingOrangeIcon : orangeIcon;
+    orangeScoreIcon.src = isGamingTheme
+      ? gamingOrangeIcon
+      : orangeIcon;
   }
 
   // Symbol des aktuellen Spielers
   if (currentPlayerIcon) {
-    // Hintergrundfarbe der Schachfigur
     currentPlayerIcon.classList.toggle(
       'game__current-icon--blue',
       isGamingTheme && currentPlayer === 'blue'
@@ -323,7 +435,6 @@ function updateScoreboard() {
       isGamingTheme && currentPlayer === 'orange'
     );
 
-    // Passendes Spielersymbol anzeigen
     if (currentPlayer === 'blue') {
       currentPlayerIcon.src = isGamingTheme
         ? gamingBlueIcon
@@ -342,6 +453,7 @@ function updateScoreboard() {
 
 function switchPlayer() {
   currentPlayer = currentPlayer === 'blue' ? 'orange' : 'blue';
+
   updateScoreboard();
 }
 
@@ -357,14 +469,20 @@ function renderBoard() {
   board.innerHTML = '';
   board.dataset.size = String(cards.length);
 
-  const cardBack = currentTheme === 'gaming' ? gamingCardBack : codeCardBack;
+  const cardBack =
+    currentTheme === 'gaming' ? gamingCardBack : codeCardBack;
 
   cards.forEach((card, index) => {
     const button = document.createElement('button');
+
     button.type = 'button';
     button.className = 'game__card';
     button.dataset.index = String(index);
-    button.setAttribute('aria-label', 'Verdeckte Memory-Karte');
+
+    button.setAttribute(
+      'aria-label',
+      'Verdeckte Memory-Karte'
+    );
 
     const inner = document.createElement('span');
     inner.className = 'game__card-inner';
@@ -391,7 +509,10 @@ function renderBoard() {
     inner.appendChild(front);
     button.appendChild(inner);
 
-    button.addEventListener('click', () => flipCard(index));
+    button.addEventListener('click', () => {
+      flipCard(index);
+    });
+
     board.appendChild(button);
   });
 }
@@ -406,9 +527,12 @@ function updateCard(index: number, revealed: boolean) {
   }
 
   button.classList.toggle('game__card--flipped', revealed);
+
   button.setAttribute(
     'aria-label',
-    revealed ? 'Aufgedeckte Memory-Karte' : 'Verdeckte Memory-Karte'
+    revealed
+      ? 'Aufgedeckte Memory-Karte'
+      : 'Verdeckte Memory-Karte'
   );
 }
 
@@ -446,6 +570,7 @@ function flipCard(index: number) {
   }
 
   const [firstIndex, secondIndex] = flippedCards;
+
   const firstCard = cards[firstIndex];
   const secondCard = cards[secondIndex];
 
@@ -471,6 +596,7 @@ function flipCard(index: number) {
     }
 
     updateScoreboard();
+
     flippedCards = [];
 
     if (cards.every((item) => item.matched)) {
@@ -560,12 +686,16 @@ function showWinner() {
 
   if (blueScore > orangeScore) {
     winnerName.textContent = 'BLUE PLAYER';
-    winnerName.className = 'winner__name winner__name--blue';
+    winnerName.className =
+      'winner__name winner__name--blue';
+
     winnerPlayer.src = '/src/assets/blueplayer.svg';
     winnerPlayer.alt = 'Blue player';
   } else {
     winnerName.textContent = 'ORANGE PLAYER';
-    winnerName.className = 'winner__name winner__name--orange';
+    winnerName.className =
+      'winner__name winner__name--orange';
+
     winnerPlayer.src = '/src/assets/orangeplayer.svg';
     winnerPlayer.alt = 'Orange player';
   }
@@ -653,24 +783,34 @@ startButton?.addEventListener('click', () => {
   const player = getStartingPlayer();
   const boardSize = getBoardSize();
 
-currentTheme = theme;
-currentPlayer = player;
-game.classList.toggle('game--gaming', currentTheme === 'gaming');
+  currentTheme = theme;
+  currentPlayer = player;
 
-const exitButtonIcon = document.querySelector<HTMLImageElement>(
-  '.game__exit img'
-);
-
-if (exitButtonIcon) {
-  exitButtonIcon.src =
+  // Gaming Theme nur beim Gaming-Spiel aktivieren
+  game.classList.toggle(
+    'game--gaming',
     currentTheme === 'gaming'
-      ? '/src/assets/gametheme.svg'
-      : '/src/assets/secondary button.svg';
-}
+  );
 
-const selectedCards = currentTheme === 'gaming' ? gamingCards : codeCards;
+  // Exit-Popup liegt außerhalb des Game-Containers.
+  // Deshalb bekommt es eine eigene Gaming-Klasse.
+  exitModal?.classList.toggle(
+    'exit-modal--gaming',
+    currentTheme === 'gaming'
+  );
+
+  // Richtige SVGs für die Buttons setzen
+  updateExitButtonIcon();
+  setupBackToGameButton();
+  updateConfirmExitIcon();
+
+
+
+  const selectedCards =
+    currentTheme === 'gaming' ? gamingCards : codeCards;
 
   gameSession++;
+
   cards = createCards(selectedCards, boardSize);
 
   if (cards.length === 0) {
@@ -680,6 +820,7 @@ const selectedCards = currentTheme === 'gaming' ? gamingCards : codeCards;
 
   blueScore = 0;
   orangeScore = 0;
+
   flippedCards = [];
   isChecking = false;
 
@@ -690,7 +831,11 @@ const selectedCards = currentTheme === 'gaming' ? gamingCards : codeCards;
 
   if (exitModal) {
     exitModal.hidden = true;
-    exitModal.classList.remove('is-entering', 'is-leaving');
+
+    exitModal.classList.remove(
+      'is-entering',
+      'is-leaving'
+    );
   }
 
   if (gameOver) {
@@ -765,10 +910,12 @@ function closeExitModal(leaveGame: boolean) {
       }
 
       gameSession++;
+
       game.hidden = true;
       settings.hidden = false;
 
       updateSettingsSummary();
+
       window.scrollTo(0, 0);
     } else {
       exitButton?.focus();
