@@ -70,4 +70,87 @@
 .game-over__score--orange {
   color: #ff913c;
 }
+/* ==========================================
+   GAMING THEME – GAME OVER
+   Code Vibes bleibt unverändert
+========================================== */
 
+.game-over--gaming {
+  background-color: #294f60;
+  color: #ffffff;
+
+  .game-over__content {
+    width: 100%;
+    max-width: 969px;
+    text-align: center;
+  }
+
+  .game-over__title {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .game-over__results {
+    width: 222px;
+    min-height: 120px;
+    margin: 104px auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .game-over__subtitle {
+    margin: 0;
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .game-over__scores {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 24px;
+
+    padding: 12px 16px;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+
+  .game-over__score {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 30px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .game-over__score img {
+    width: 26px;
+    height: 26px;
+  }
+
+  .game-over__score--orange {
+    color: #f56a00;
+  }
+
+  .game-over__score--blue {
+    color: #008bd2;
+  }
+}
+/* Gaming: Nur Spielersymbole und Punkte anzeigen */
+.game-over--gaming {
+  .game-over__score span {
+    font-size: 0;
+  }
+
+  .game-over__score strong {
+    font-size: 30px;
+  }
+}

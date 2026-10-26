@@ -666,6 +666,28 @@ function showGameOver() {
         ? '/src/assets/GAME OVER (1).svg'
         : '/src/assets/game over.svg';
   }
+  // Passende Spieler-Icons für das jeweilige Theme
+const blueIcon = gameOver.querySelector<HTMLImageElement>(
+  '.game-over__score--blue img'
+);
+
+const orangeIcon = gameOver.querySelector<HTMLImageElement>(
+  '.game-over__score--orange img'
+);
+
+if (blueIcon) {
+  blueIcon.src =
+    currentTheme === 'gaming'
+      ? '/src/assets/chess_pawnblue.svg'
+      : '/src/assets/label 1.svg';
+}
+
+if (orangeIcon) {
+  orangeIcon.src =
+    currentTheme === 'gaming'
+      ? '/src/assets/chesspawn.svg'
+      : '/src/assets/label.svg';
+}
 
   // Spielfeld ausblenden und GAME OVER anzeigen
   game.hidden = true;
@@ -689,7 +711,6 @@ function showGameOver() {
     }
   }, 3000);
 }
-
 /* ==========================================
    WINNER-SCREEN
 ========================================== */
@@ -704,20 +725,45 @@ function showWinner() {
     return;
   }
 
+  const isGaming = currentTheme === 'gaming';
+
+  // Gaming-Design nur beim Gaming-Theme aktivieren
+  winnerScreen.classList.toggle('winner--gaming', isGaming);
+
   if (blueScore > orangeScore) {
     winnerName.textContent = 'BLUE PLAYER';
     winnerName.className =
       'winner__name winner__name--blue';
 
-    winnerPlayer.src = '/src/assets/blueplayer.svg';
-    winnerPlayer.alt = 'Blue player';
+    winnerPlayer.src = isGaming
+      ? '/src/pockal 1.svg'
+      : '/src/assets/blueplayer.svg';
+
+    winnerPlayer.alt = isGaming
+      ? 'Winner trophy'
+      : 'Blue player';
   } else {
     winnerName.textContent = 'ORANGE PLAYER';
     winnerName.className =
       'winner__name winner__name--orange';
 
-    winnerPlayer.src = '/src/assets/orangeplayer.svg';
-    winnerPlayer.alt = 'Orange player';
+    winnerPlayer.src = isGaming
+      ? '/src/pockal 1.svg'
+      : '/src/assets/orangeplayer.svg';
+
+    winnerPlayer.alt = isGaming
+      ? 'Winner trophy'
+      : 'Orange player';
+  }
+
+  // Home-Button je nach Theme auswählen
+  const homeButtonIcon =
+    winnerScreen.querySelector<HTMLImageElement>('.winner__back img');
+
+  if (homeButtonIcon) {
+    homeButtonIcon.src = isGaming
+      ? '/src/home.svg'
+      : '/src/assets/backtostart.svg';
   }
 
   winnerPlayer.hidden = false;
@@ -734,7 +780,6 @@ function showWinner() {
     });
   });
 }
-
 /* ==========================================
    DRAW-SCREEN
 ========================================== */
@@ -743,6 +788,12 @@ function showDraw() {
   if (!gameOver || !drawScreen) {
     return;
   }
+
+  // Gaming-Design nur beim Gaming-Theme aktivieren
+  drawScreen.classList.toggle(
+    'draw--gaming',
+    currentTheme === 'gaming'
+  );
 
   gameOver.hidden = true;
 
@@ -757,7 +808,6 @@ function showDraw() {
     });
   });
 }
-
 /* ==========================================
    ZURÜCK ZUM START
 ========================================== */

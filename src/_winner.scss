@@ -117,4 +117,98 @@
   outline: 3px solid #39c9b5;
   outline-offset: 5px;
 }
+/* ==========================================
+   GAMING THEME – WINNER SCREEN
+   Code Vibes bleibt unverändert
+========================================== */
 
+.winner--gaming {
+  background-color: #294f60;
+
+  // Gaming kommt von unten nach oben
+  transform: translateY(100%);
+
+  &.winner--visible {
+    transform: translateY(0);
+  }
+
+  // Gaming hat keine Konfetti
+  .winner__confetti {
+    display: none;
+  }
+
+  // Hauptcontainer
+  .winner__content {
+    width: 100%;
+    max-width: 468px;
+    min-height: 639px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+  }
+
+  // THE WINNER IS
+  .winner__subtitle {
+    width: 100%;
+    margin: 0;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.07em;
+
+    color: #ffffff;
+  }
+
+  // BLUE PLAYER / ORANGE PLAYER
+  .winner__name {
+    width: 100%;
+    margin: 0;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(30px, 4.5vw, 64px);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: 0.07em;
+
+    text-transform: none;
+    white-space: nowrap;
+  }
+
+  .winner__name--blue {
+    color: #149cdd;
+  }
+
+  .winner__name--orange {
+    color: #ff913c;
+  }
+
+  // POKAL
+  .winner__player {
+    width: 288px;
+    max-width: 100%;
+    height: 344px;
+
+    margin-top: 64px;
+    object-fit: contain;
+  }
+
+  // HOME BUTTON
+  .winner__back {
+    margin-top: 64px;
+    padding: 0;
+    border: none;
+    background: transparent;
+  }
+
+  .winner__back img {
+    width: 107px;
+    height: 49px;
+    max-width: 100%;
+  }
+}
