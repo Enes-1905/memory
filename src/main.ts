@@ -632,7 +632,6 @@ function flipCard(index: number) {
     }, 1000);
   }
 }
-
 /* ==========================================
    GAME OVER
 ========================================== */
@@ -642,6 +641,7 @@ function showGameOver() {
     return;
   }
 
+  // Finale Punkte anzeigen
   if (finalBlueScoreElement) {
     finalBlueScoreElement.textContent = String(blueScore);
   }
@@ -650,13 +650,33 @@ function showGameOver() {
     finalOrangeScoreElement.textContent = String(orangeScore);
   }
 
+  // Gaming-Design nur beim Gaming-Theme aktivieren
+  gameOver.classList.toggle(
+    'game-over--gaming',
+    currentTheme === 'gaming'
+  );
+
+  // Passende GAME-OVER-Grafik auswählen
+  const gameOverTitle =
+    gameOver.querySelector<HTMLImageElement>('.game-over__title');
+
+  if (gameOverTitle) {
+    gameOverTitle.src =
+      currentTheme === 'gaming'
+        ? '/src/assets/GAME OVER (1).svg'
+        : '/src/assets/game over.svg';
+  }
+
+  // Spielfeld ausblenden und GAME OVER anzeigen
   game.hidden = true;
   gameOver.hidden = false;
 
   window.scrollTo(0, 0);
 
+  // Aktuelle Spielrunde merken
   const session = gameSession;
 
+  // Nach 3 Sekunden Gewinner oder Unentschieden anzeigen
   window.setTimeout(() => {
     if (session !== gameSession) {
       return;
