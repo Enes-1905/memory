@@ -359,18 +359,16 @@
 
   /* ==========================================
      GAMING – 16 KARTEN
-     FIGMA: 468 × 528 px
-     KARTE: 105 × 120 px
-     ABSTAND: 16 px
+     Enge Abstände + SVG-Ränder ausgleichen
   ========================================== */
 
   .game__board[data-size="16"] {
     display: grid;
     grid-template-columns: repeat(4, 105px);
     grid-template-rows: repeat(4, 120px);
-    column-gap: 16px;
-    row-gap: 16px;
-    width: 468px;
+    column-gap: 6px;
+    row-gap: 6px;
+    width: max-content;
     max-width: 100%;
     margin: 0 auto;
   }
@@ -381,11 +379,22 @@
     aspect-ratio: auto;
   }
 
-  .game__board[data-size="16"] .game__card img {
-    width: 100%;
-    height: 100%;
+  .game__board[data-size="16"] .game__card-back,
+  .game__board[data-size="16"] .game__card-front {
+    overflow: visible;
+  }
+
+  .game__board[data-size="16"] .game__card-back img,
+  .game__board[data-size="16"] .game__card-front img {
+    position: absolute;
+    left: -6px;
+    top: -6px;
+    width: 129px;
+    height: 144px;
+    max-width: none;
     object-fit: fill;
   }
+
 }
 /* ==========================================
    GAMING – EXIT BUTTON FIGMA
@@ -401,7 +410,6 @@
     border-radius: 10px;
     background: transparent;
     cursor: pointer;
-    overflow: hidden;
   }
 
   .game__exit img {
@@ -414,5 +422,158 @@
   .game__exit:hover {
     box-shadow: none;
     transform: none;
+  }
+}
+/* ==========================================
+   GAMING – 24 KARTEN
+   SVG-RÄNDER AUSGLEICHEN
+   CODE VIBES BLEIBT UNVERÄNDERT
+========================================== */
+
+.game--gaming {
+
+  .game__board[data-size="24"] {
+    grid-template-columns: repeat(6, 105px);
+    grid-template-rows: repeat(4, 120px);
+
+    column-gap: 6px;
+    row-gap: 6px;
+
+    width: max-content;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .game__board[data-size="24"] .game__card {
+    width: 105px;
+    height: 120px;
+    aspect-ratio: auto;
+  }
+
+  .game__board[data-size="24"] .game__card-back {
+    overflow: visible;
+  }
+
+  .game__board[data-size="24"] .game__card-back img {
+    width: 129px;
+    height: 144px;
+    max-width: none;
+    object-fit: fill;
+
+    position: absolute;
+    left: -6px;
+    top: -6px;
+  }
+
+  .game__board[data-size="24"] .game__card-front {
+    overflow: visible;
+  }
+
+  .game__board[data-size="24"] .game__card-front img {
+    width: 129px;
+    height: 144px;
+    max-width: none;
+    object-fit: fill;
+    position: absolute;
+    left: -6px;
+    top: -6px;
+  }
+}
+/* ==========================================
+   GAMING – 36 KARTEN
+   NUR GAMING – CODE VIBES UNVERÄNDERT
+========================================== */
+
+.game--gaming {
+
+  .game__board[data-size="36"] {
+    display: grid;
+
+    grid-template-columns: repeat(6, 105px);
+    grid-template-rows: repeat(6, 120px);
+
+    column-gap: 6px;
+    row-gap: 6px;
+
+    width: max-content;
+    max-width: 100%;
+    height: auto;
+
+    margin: 0 auto;
+  }
+
+  .game__board[data-size="36"] .game__card {
+    width: 105px;
+    height: 120px;
+    aspect-ratio: auto;
+  }
+
+  /* Rote Rückseite und weiße Vorderseite */
+  .game__board[data-size="36"] .game__card-back,
+  .game__board[data-size="36"] .game__card-front {
+    overflow: visible;
+  }
+
+  .game__board[data-size="36"] .game__card-back img,
+  .game__board[data-size="36"] .game__card-front img {
+    position: absolute;
+
+    left: -6px;
+    top: -6px;
+
+    width: 129px;
+    height: 144px;
+    max-width: none;
+
+    object-fit: fill;
+  }
+}
+/* ==========================================
+   GAMING – 36 KARTEN AN BILDSCHIRMHÖHE ANPASSEN
+   NUR GAMING – CODE VIBES UNVERÄNDERT
+   KEIN OVERFLOW HIDDEN
+========================================== */
+
+@media (min-width: 900px) and (max-height: 950px) {
+
+  .game--gaming:has(.game__board[data-size="36"]) {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .game--gaming:has(.game__board[data-size="36"]) .game__header {
+    min-height: 60px;
+    padding: 8px 20px;
+    margin-bottom: 12px;
+  }
+
+  .game--gaming .game__board[data-size="36"] {
+    --card-width: min(105px, calc((100dvh - 175px) * 105 / 750));
+    --card-height: calc(var(--card-width) * 120 / 105);
+    --card-gap: calc(var(--card-width) * 6 / 105);
+
+    grid-template-columns: repeat(6, var(--card-width));
+    grid-template-rows: repeat(6, var(--card-height));
+
+    column-gap: var(--card-gap);
+    row-gap: var(--card-gap);
+
+    width: max-content;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .game--gaming .game__board[data-size="36"] .game__card {
+    width: var(--card-width);
+    height: var(--card-height);
+  }
+
+  .game--gaming .game__board[data-size="36"] .game__card-back img,
+  .game--gaming .game__board[data-size="36"] .game__card-front img {
+    width: calc(var(--card-width) * 129 / 105);
+    height: calc(var(--card-height) * 144 / 120);
+
+    left: calc(var(--card-width) * -6 / 105);
+    top: calc(var(--card-height) * -6 / 120);
   }
 }

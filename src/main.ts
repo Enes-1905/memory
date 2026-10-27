@@ -158,7 +158,6 @@ let exitAnimationTimeout: number | undefined;
 ========================================== */
 
 const exitButtonIcon = exitButton?.querySelector<HTMLImageElement>('img');
-const backToGameIcon = backToGameButton?.querySelector<HTMLImageElement>('img');
 const confirmExitIcon = confirmExitButton?.querySelector<HTMLImageElement>('img');
 function setupBackToGameButton() {
   if (!backToGameButton) return;
