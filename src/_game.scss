@@ -125,11 +125,17 @@
 ========================================== */
 
 .game__board[data-size="36"] {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  grid-template-rows: auto;
-  width: 100%;
+  grid-template-columns: repeat(6, 120px);
+  grid-template-rows: repeat(6, 120px);
+
+  column-gap: 6px;
+  row-gap: 6px;
+
+  width: max-content;
+  max-width: 100%;
   height: auto;
-  gap: 6px;
+
+  margin: 0 auto;
 }
 
 .game__board[data-size="36"] .game__card {
@@ -366,8 +372,8 @@
     display: grid;
     grid-template-columns: repeat(4, 105px);
     grid-template-rows: repeat(4, 120px);
-    column-gap: 6px;
-    row-gap: 6px;
+    column-gap: 16px;
+    row-gap: 16px;
     width: max-content;
     max-width: 100%;
     margin: 0 auto;
