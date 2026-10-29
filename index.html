@@ -7,15 +7,13 @@
   </head>
 
   <body>
-    <!-- ==========================================
-         HOME SCREEN
-    ========================================== -->
+    <!--= HOME SCREEN =-->
 
     <main class="home">
       <div class="home__content">
         <img
           class="home__title"
-          src="/src/assets/Text.svg"
+          src="./src/assets/Text.svg"
           alt="Ready to play?"
         />
 
@@ -25,7 +23,7 @@
           aria-label="Play"
         >
           <img
-            src="/src/assets/Primary button.svg"
+            src="./src/assets/Primary button.svg"
             alt=""
           />
         </button>
@@ -33,33 +31,31 @@
 
       <img
         class="home__controller"
-        src="/src/assets/stadia_controller.svg"
+        src="./src/assets/stadia_controller.svg"
         alt=""
         aria-hidden="true"
       />
     </main>
 
-    <!-- ==========================================
-         SETTINGS SCREEN
-    ========================================== -->
+    <!--= SETTINGS SCREEN =-->
 
     <section class="settings" hidden>
       <div class="settings__container">
         <img
           class="settings__headline"
-          src="/src/assets/Headline.svg"
+          src="./src/assets/Headline.svg"
           alt="Settings"
         />
 
         <div class="settings__layout">
           <div class="settings__options">
 
-            <!-- GAME THEMES -->
+            <!--= GAME THEMES =-->
 
             <fieldset class="settings__group">
               <legend class="settings__group-title">
                 <img
-                  src="/src/assets/palette.svg"
+                  src="./src/assets/palette.svg"
                   alt=""
                 />
                 <span>Game themes</span>
@@ -85,12 +81,12 @@
               </label>
             </fieldset>
 
-           
+            <!--= CHOOSE PLAYER =-->
 
             <fieldset class="settings__group">
               <legend class="settings__group-title">
                 <img
-                  src="/src/assets/choose.svg"
+                  src="./src/assets/choose.svg"
                   alt=""
                 />
                 <span>Choose player</span>
@@ -116,12 +112,12 @@
               </label>
             </fieldset>
 
-           
+            <!--= BOARD SIZE =-->
 
             <fieldset class="settings__group">
               <legend class="settings__group-title">
                 <img
-                  src="/src/assets/board.svg"
+                  src="./src/assets/board.svg"
                   alt=""
                 />
                 <span>Board size</span>
@@ -158,126 +154,120 @@
           </div>
 
           <div class="settings__right">
-
-            
-
             <img
               class="settings__preview"
-              src="/src/assets/codetheme.svg"
+              src="./src/assets/codetheme.svg"
               alt="Vorschau: Code vibes theme"
             />
-            <!-- SETTINGS FOOTER -->
-<div class="settings__footer">
-  <span id="selected-theme">Code vibes</span>
 
-  <img
-    class="settings__divider"
-    src="/src/assets/Line 6.svg"
-    alt=""
-  />
+            <!--= SETTINGS FOOTER =-->
 
-  <span id="selected-player">Blue</span>
+            <div class="settings__footer">
+              <span id="selected-theme">Code vibes</span>
 
-  <img
-    class="settings__divider"
-    src="/src/assets/Line 6.svg"
-    alt=""
-  />
+              <img
+                class="settings__divider"
+                src="./src/assets/Line 6.svg"
+                alt=""
+              />
 
-  <span id="selected-board-size">16 cards</span>
+              <span id="selected-player">Blue</span>
 
-  <img
-    class="settings__divider"
-    src="/src/assets/Line 6.svg"
-    alt=""
-  />
+              <img
+                class="settings__divider"
+                src="./src/assets/Line 6.svg"
+                alt=""
+              />
 
-  <button
-    class="settings__start"
-    type="button"
-    aria-label="Start game"
-  >
-    <img
-      src="/src/assets/start.svg"
-      alt=""
-    />
-  </button>
-</div>
+              <span id="selected-board-size">16 cards</span>
+
+              <img
+                class="settings__divider"
+                src="./src/assets/Line 6.svg"
+                alt=""
+              />
+
+              <button
+                class="settings__start"
+                type="button"
+                aria-label="Start game"
+              >
+                <img
+                  src="./src/assets/start.svg"
+                  alt=""
+                />
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==========================================
-         MEMORY GAME
-    ========================================== -->
+    <!--= MEMORY GAME =-->
 
     <section class="game" hidden>
       <header class="game__header">
 
-       <!-- PUNKTEANZEIGE -->
+        <!--= PUNKTEANZEIGE =-->
 
-<div class="game__scores">
-  <div class="game__score game__score--blue">
-    <img
-      class="game__score-icon--blue"
-      src="/src/assets/label 1.svg"
-      alt=""
-    />
+        <div class="game__scores">
+          <div class="game__score game__score--blue">
+            <img
+              class="game__score-icon--blue"
+              src="./src/assets/label 1.svg"
+              alt=""
+            />
 
-    <span>
-      <span class="game__score-name">Blue</span>
-      <strong id="score-blue">0</strong>
-    </span>
-  </div>
+            <span>
+              <span class="game__score-name">Blue</span>
+              <strong id="score-blue">0</strong>
+            </span>
+          </div>
 
-  <div class="game__score game__score--orange">
-    <img
-      class="game__score-icon--orange"
-      src="/src/assets/label.svg"
-      alt=""
-    />
+          <div class="game__score game__score--orange">
+            <img
+              class="game__score-icon--orange"
+              src="./src/assets/label.svg"
+              alt=""
+            />
 
-    <span>
-      <span class="game__score-name">Orange</span>
-      <strong id="score-orange">0</strong>
-    </span>
-  </div>
-</div>
-        
-<div class="game__current-player">
-  <span>Current player:</span>
+            <span>
+              <span class="game__score-name">Orange</span>
+              <strong id="score-orange">0</strong>
+            </span>
+          </div>
+        </div>
 
-  <span class="game__current-icon-bg">
-    <img
-      class="game__current-icon"
-      src="/src/assets/label 1.svg"
-      alt="Blue"
-    />
-  </span>
-</div>
+        <div class="game__current-player">
+          <span>Current player:</span>
 
-      
+          <span class="game__current-icon-bg">
+            <img
+              class="game__current-icon"
+              src="./src/assets/label 1.svg"
+              alt="Blue"
+            />
+          </span>
+        </div>
+
         <button
           class="game__exit"
           type="button"
           aria-label="Exit game"
         >
           <img
-            src="/src/assets/secondary button.svg"
+            src="./src/assets/secondary button.svg"
             alt=""
           />
         </button>
       </header>
 
-      <!-- MEMORY SPIELFELD -->
+      <!--= MEMORY SPIELFELD =-->
 
       <div class="game__board"></div>
     </section>
 
-    <!-- ==========================================
-         EXIT GAME POPUP
-    ========================================== -->
+    <!--= EXIT GAME POPUP =-->
 
     <div
       class="exit-modal"
@@ -297,7 +287,7 @@
 
         <div class="exit-modal__buttons">
 
-          <!-- BACK TO GAME -->
+          <!--= BACK TO GAME =-->
 
           <button
             class="exit-modal__back"
@@ -305,12 +295,12 @@
             aria-label="Back to game"
           >
             <img
-              src="/src/assets/back1.svg"
+              src="./src/assets/back1.svg"
               alt=""
             />
           </button>
 
-          <!-- EXIT GAME BESTÄTIGEN -->
+          <!--= EXIT GAME BESTÄTIGEN =-->
 
           <button
             class="exit-modal__confirm"
@@ -318,7 +308,7 @@
             aria-label="Exit game"
           >
             <img
-              src="/src/assets/exit.svg"
+              src="./src/assets/exit.svg"
               alt=""
             />
           </button>
@@ -326,22 +316,20 @@
       </div>
     </div>
 
-    <!-- ==========================================
-         GAME OVER SCREEN
-    ========================================== -->
+    <!--= GAME OVER SCREEN =-->
 
     <section class="game-over" hidden>
       <div class="game-over__content">
 
-        <!-- GAME OVER ÜBERSCHRIFT -->
+        <!--= GAME OVER ÜBERSCHRIFT =-->
 
         <img
           class="game-over__title"
-          src="/src/assets/game over.svg"
+          src="./src/assets/game over.svg"
           alt="Game over"
         />
 
-        <!-- FINALE PUNKTEANZEIGE -->
+        <!--= FINALE PUNKTEANZEIGE =-->
 
         <div class="game-over__results">
           <p class="game-over__subtitle">
@@ -351,7 +339,7 @@
           <div class="game-over__scores">
             <div class="game-over__score game-over__score--blue">
               <img
-                src="/src/assets/label 1.svg"
+                src="./src/assets/label 1.svg"
                 alt=""
               />
 
@@ -362,7 +350,7 @@
 
             <div class="game-over__score game-over__score--orange">
               <img
-                src="/src/assets/label.svg"
+                src="./src/assets/label.svg"
                 alt=""
               />
 
@@ -375,29 +363,24 @@
       </div>
     </section>
 
-    <!-- ==========================================
-         WINNER SCREEN
-    ========================================== -->
+    <!--= WINNER SCREEN =-->
 
     <section class="winner" hidden>
-
-
       <img
         class="winner__confetti"
-        src="/src/assets/Confetti.svg"
+        src="./src/assets/Confetti.svg"
         alt=""
         aria-hidden="true"
       />
 
       <div class="winner__content">
 
-        <!-- GEWINNER ÜBERSCHRIFT -->
+        <!--= GEWINNER ÜBERSCHRIFT =-->
 
         <p class="winner__subtitle">
           The winner is
         </p>
 
-      
         <h1
           class="winner__name"
           id="winner-name"
@@ -408,11 +391,11 @@
         <img
           class="winner__player"
           id="winner-player"
-          src="/src/assets/orangeplayer.svg"
+          src="./src/assets/orangeplayer.svg"
           alt="Orange player"
         />
 
-        <!-- BACK TO START -->
+        <!--= BACK TO START =-->
 
         <button
           class="winner__back"
@@ -420,35 +403,32 @@
           aria-label="Back to start"
         >
           <img
-            src="/src/assets/backtostart.svg"
+            src="./src/assets/backtostart.svg"
             alt=""
           />
         </button>
       </div>
     </section>
 
-        <!-- ==========================================
-         DRAW SCREEN
-    ========================================== -->
+    <!--= DRAW SCREEN =-->
 
     <section class="draw" hidden>
       <div class="draw__content">
-
         <img
-  class="draw__gaming-image"
-  src="/src/assets/Content.svg"
-  alt="It's a draw"
-/>
+          class="draw__gaming-image"
+          src="./src/assets/Content.svg"
+          alt="It's a draw"
+        />
 
         <img
           class="draw__title"
-          src="/src/assets/draw.svg"
+          src="./src/assets/draw.svg"
           alt="It's a draw"
         />
 
         <img
           class="draw__icon"
-          src="/src/assets/drawicon.svg"
+          src="./src/assets/drawicon.svg"
           alt=""
           aria-hidden="true"
         />
@@ -459,16 +439,14 @@
           aria-label="Back to start"
         >
           <img
-            src="/src/assets/backtostart.svg"
+            src="./src/assets/backtostart.svg"
             alt=""
           />
         </button>
-
       </div>
     </section>
-     <!-- ==========================================
-         TYPESCRIPT
-    ========================================== -->
+
+    <!--= TYPESCRIPT =-->
 
     <script
       type="module"

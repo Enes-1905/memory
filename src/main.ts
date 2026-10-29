@@ -1,5 +1,18 @@
 import './style.scss';
 
+// SVG-Dateien werden von Vite für den Build korrekt eingebunden.
+const svgAssets = import.meta.glob('/src/**/*.svg', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+}) as Record<string, string>;
+
+function assetUrl(path: string): string {
+  const url = svgAssets[path];
+  if (!url) throw new Error(`SVG-Datei nicht gefunden: ${path}`);
+  return url;
+}
+
 /*= HTML-ELEMENTE =*/
 
 const home = document.querySelector<HTMLElement>('.home');
@@ -69,55 +82,55 @@ const confirmExitButton = document.querySelector<HTMLButtonElement>(
 /*= KARTENMOTIVE =*/
 
 const codeCards = [
-  '/src/assets/Property 26.svg',
-  '/src/assets/Property 19.svg',
-  '/src/assets/Front (2).svg',
-  '/src/assets/Front.svg',
-  '/src/assets/Property 221.svg',
-  '/src/assets/Property 22.svg',
-  '/src/assets/Property 20.svg',
-  '/src/assets/Property 21.svg',
-  '/src/assets/Property 23.svg',
-  '/src/assets/Property 24.svg',
-  '/src/assets/Property 25.svg',
-  '/src/assets/Front (1).svg',
-  '/src/assets/Front (3).svg',
-  '/src/assets/Front (4).svg',
-  '/src/assets/Front (5).svg',
-  '/src/assets/Front (6).svg',
-  '/src/assets/Front (7).svg',
-  '/src/assets/Front (8).svg',
+  assetUrl('/src/assets/Property 26.svg'),
+  assetUrl('/src/assets/Property 19.svg'),
+  assetUrl('/src/assets/Front (2).svg'),
+  assetUrl('/src/assets/Front.svg'),
+  assetUrl('/src/assets/Property 221.svg'),
+  assetUrl('/src/assets/Property 22.svg'),
+  assetUrl('/src/assets/Property 20.svg'),
+  assetUrl('/src/assets/Property 21.svg'),
+  assetUrl('/src/assets/Property 23.svg'),
+  assetUrl('/src/assets/Property 24.svg'),
+  assetUrl('/src/assets/Property 25.svg'),
+  assetUrl('/src/assets/Front (1).svg'),
+  assetUrl('/src/assets/Front (3).svg'),
+  assetUrl('/src/assets/Front (4).svg'),
+  assetUrl('/src/assets/Front (5).svg'),
+  assetUrl('/src/assets/Front (6).svg'),
+  assetUrl('/src/assets/Front (7).svg'),
+  assetUrl('/src/assets/Front (8).svg'),
 ];
 
 const gamingCards = [
-  '/src/assets/Component 2.svg',
-  '/src/assets/Property 1=Component 2 (17).svg',
-  '/src/assets/Property 2.svg',
-  '/src/assets/Property 3.svg',
-  '/src/assets/Property 4.svg',
-  '/src/assets/Property 5.svg',
-  '/src/assets/Front (11).svg',
-  '/src/assets/Property 6.svg',
-  '/src/assets/Property 7.svg',
-  '/src/assets/Property 8.svg',
-  '/src/assets/Property 9.svg',
-  '/src/assets/Property 10.svg',
-  '/src/assets/Property 11.svg',
-  '/src/assets/Property 12.svg',
-  '/src/assets/Property 13.svg',
-  '/src/assets/Property 14.svg',
-  '/src/assets/Property 15.svg',
-  '/src/assets/Property 16.svg',
+  assetUrl('/src/assets/Component 2.svg'),
+  assetUrl('/src/assets/Property 1=Component 2 (17).svg'),
+  assetUrl('/src/assets/Property 2.svg'),
+  assetUrl('/src/assets/Property 3.svg'),
+  assetUrl('/src/assets/Property 4.svg'),
+  assetUrl('/src/assets/Property 5.svg'),
+  assetUrl('/src/assets/Front (11).svg'),
+  assetUrl('/src/assets/Property 6.svg'),
+  assetUrl('/src/assets/Property 7.svg'),
+  assetUrl('/src/assets/Property 8.svg'),
+  assetUrl('/src/assets/Property 9.svg'),
+  assetUrl('/src/assets/Property 10.svg'),
+  assetUrl('/src/assets/Property 11.svg'),
+  assetUrl('/src/assets/Property 12.svg'),
+  assetUrl('/src/assets/Property 13.svg'),
+  assetUrl('/src/assets/Property 14.svg'),
+  assetUrl('/src/assets/Property 15.svg'),
+  assetUrl('/src/assets/Property 16.svg'),
 ];
 
-const codeCardBack = '/src/assets/Property 18.svg';
-const gamingCardBack = '/src/assets/Property 1.svg';
+const codeCardBack = assetUrl('/src/assets/Property 18.svg');
+const gamingCardBack = assetUrl('/src/assets/Property 1.svg');
 
-const blueIcon = '/src/assets/label 1.svg';
-const orangeIcon = '/src/assets/label.svg';
+const blueIcon = assetUrl('/src/assets/label 1.svg');
+const orangeIcon = assetUrl('/src/assets/label.svg');
 
-const gamingBlueIcon = '/src/assets/chess_pawnblue.svg';
-const gamingOrangeIcon = '/src/assets/chesspawn.svg';
+const gamingBlueIcon = assetUrl('/src/assets/chess_pawnblue.svg');
+const gamingOrangeIcon = assetUrl('/src/assets/chesspawn.svg');
 
 /*= TYPEN UND SPIELVARIABLEN =*/
 
@@ -162,7 +175,7 @@ function setupBackToGameButton() {
 
   if (currentTheme === 'gaming') {
     icon.className = 'exit-modal__back-default';
-    icon.src = '/src/assets/Propertyback.svg';
+    icon.src = assetUrl('/src/assets/Propertyback.svg');
 
     let hoverIcon =
       backToGameButton.querySelector<HTMLImageElement>(
@@ -178,10 +191,10 @@ function setupBackToGameButton() {
       backToGameButton.appendChild(hoverIcon);
     }
 
-    hoverIcon.src = '/src/assets/Propertybackgame.svg';
+    hoverIcon.src = assetUrl('/src/assets/Propertybackgame.svg');
   } else {
     icon.className = '';
-    icon.src = '/src/assets/back1.svg';
+    icon.src = assetUrl('/src/assets/back1.svg');
 
     backToGameButton
       .querySelector('.exit-modal__back-hover')
@@ -194,10 +207,10 @@ function updateExitButtonIcon(isHovered = false) {
 
   if (currentTheme === 'gaming') {
     exitButtonIcon.src = isHovered
-      ? '/src/assets/Propertyexit.svg'
-      : '/src/assets/gametheme.svg';
+      ? assetUrl('/src/assets/Propertyexit.svg')
+      : assetUrl('/src/assets/gametheme.svg');
   } else {
-    exitButtonIcon.src = '/src/assets/secondary button.svg';
+    exitButtonIcon.src = assetUrl('/src/assets/secondary button.svg');
   }
 }
 
@@ -206,8 +219,8 @@ function updateConfirmExitIcon() {
 
   confirmExitIcon.src =
     currentTheme === 'gaming'
-      ? '/src/game theme.svg'
-      : '/src/assets/exit.svg';
+      ? assetUrl('/src/game theme.svg')
+      : assetUrl('/src/assets/exit.svg');
 }
 /*= EINSTELLUNGEN AUSLESEN =*/
 
@@ -271,10 +284,10 @@ function showThemePreview(theme: string) {
   }
 
   if (theme === 'gaming') {
-    preview.src = '/src/assets/gamintheme.svg';
+    preview.src = assetUrl('/src/assets/gamintheme.svg');
     preview.alt = 'Vorschau: Gaming theme';
   } else {
-    preview.src = '/src/assets/codetheme.svg';
+    preview.src = assetUrl('/src/assets/codetheme.svg');
     preview.alt = 'Vorschau: Code vibes theme';
   }
 }
@@ -631,8 +644,8 @@ function showGameOver() {
   if (gameOverTitle) {
     gameOverTitle.src =
       currentTheme === 'gaming'
-        ? '/src/assets/GAME OVER (1).svg'
-        : '/src/assets/game over.svg';
+        ? assetUrl('/src/assets/GAME OVER (1).svg')
+        : assetUrl('/src/assets/game over.svg');
   }
 const blueIcon = gameOver.querySelector<HTMLImageElement>(
   '.game-over__score--blue img'
@@ -645,15 +658,15 @@ const orangeIcon = gameOver.querySelector<HTMLImageElement>(
 if (blueIcon) {
   blueIcon.src =
     currentTheme === 'gaming'
-      ? '/src/assets/chess_pawnblue.svg'
-      : '/src/assets/label 1.svg';
+      ? assetUrl('/src/assets/chess_pawnblue.svg')
+      : assetUrl('/src/assets/label 1.svg');
 }
 
 if (orangeIcon) {
   orangeIcon.src =
     currentTheme === 'gaming'
-      ? '/src/assets/chesspawn.svg'
-      : '/src/assets/label.svg';
+      ? assetUrl('/src/assets/chesspawn.svg')
+      : assetUrl('/src/assets/label.svg');
 }
 
   game.hidden = true;
@@ -697,8 +710,8 @@ function showWinner() {
       'winner__name winner__name--blue';
 
     winnerPlayer.src = isGaming
-      ? '/src/pockal 1.svg'
-      : '/src/assets/blueplayer.svg';
+      ? assetUrl('/src/pockal 1.svg')
+      : assetUrl('/src/assets/blueplayer.svg');
 
     winnerPlayer.alt = isGaming
       ? 'Winner trophy'
@@ -709,8 +722,8 @@ function showWinner() {
       'winner__name winner__name--orange';
 
     winnerPlayer.src = isGaming
-      ? '/src/pockal 1.svg'
-      : '/src/assets/orangeplayer.svg';
+      ? assetUrl('/src/pockal 1.svg')
+      : assetUrl('/src/assets/orangeplayer.svg');
 
     winnerPlayer.alt = isGaming
       ? 'Winner trophy'
@@ -722,8 +735,8 @@ function showWinner() {
 
   if (homeButtonIcon) {
     homeButtonIcon.src = isGaming
-      ? '/src/home.svg'
-      : '/src/assets/backtostart.svg';
+      ? assetUrl('/src/home.svg')
+      : assetUrl('/src/assets/backtostart.svg');
   }
 
   winnerPlayer.hidden = false;
