@@ -1,6 +1,4 @@
-/* ==========================================
-   GAME OVER SCREEN
-========================================== */
+/*= GAME OVER SCREEN =*/
 
 .game-over {
   display: flex;
@@ -70,10 +68,8 @@
 .game-over__score--orange {
   color: #ff913c;
 }
-/* ==========================================
-   GAMING THEME – GAME OVER
-   Code Vibes bleibt unverändert
-========================================== */
+
+/*= GAMING THEME – GAME OVER =*/
 
 .game-over--gaming {
   background-color: #294f60;
@@ -144,7 +140,9 @@
     color: #008bd2;
   }
 }
-/* Gaming: Nur Spielersymbole und Punkte anzeigen */
+
+/*= GAMING – SPIELERSYMBOLE UND PUNKTE =*/
+
 .game-over--gaming {
   .game-over__score span {
     font-size: 0;

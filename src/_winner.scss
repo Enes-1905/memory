@@ -1,6 +1,4 @@
-/* ==========================================
-   WINNER SCREEN
-========================================== */
+/*= WINNER SCREEN =*/
 
 .winner {
   position: relative;
@@ -17,13 +15,13 @@
   transition: transform 0.6s ease-in-out;
 }
 
-/* WINNER SLIDE-IN ANIMATION */
+/*= WINNER SLIDE-IN ANIMATION =*/
 
 .winner--visible {
   transform: translateY(0);
 }
 
-/* KONFETTI */
+/*= KONFETTI =*/
 
 .winner__confetti {
   position: absolute;
@@ -36,7 +34,7 @@
   pointer-events: none;
 }
 
-/* WINNER INHALT */
+/*= WINNER INHALT =*/
 
 .winner__content {
   position: relative;
@@ -49,7 +47,7 @@
   text-align: center;
 }
 
-/* THE WINNER IS */
+/*= THE WINNER IS =*/
 
 .winner__subtitle {
   margin: 0 0 18px;
@@ -57,7 +55,7 @@
   font-weight: 400;
 }
 
-/* GEWINNER NAME */
+/*= GEWINNER NAME =*/
 
 .winner__name {
   margin: 0;
@@ -79,7 +77,7 @@
   color: #ffffff;
 }
 
-/* GEWINNER SYMBOL */
+/*= GEWINNER SYMBOL =*/
 
 .winner__player {
   display: block;
@@ -90,7 +88,7 @@
   object-fit: contain;
 }
 
-/* BACK TO START BUTTON */
+/*= BACK TO START BUTTON =*/
 
 .winner__back {
   display: block;
@@ -117,27 +115,22 @@
   outline: 3px solid #39c9b5;
   outline-offset: 5px;
 }
-/* ==========================================
-   GAMING THEME – WINNER SCREEN
-   Code Vibes bleibt unverändert
-========================================== */
+
+/*= GAMING THEME – WINNER SCREEN =*/
 
 .winner--gaming {
   background-color: #294f60;
 
-  // Gaming kommt von unten nach oben
   transform: translateY(100%);
 
   &.winner--visible {
     transform: translateY(0);
   }
 
-  // Gaming hat keine Konfetti
   .winner__confetti {
     display: none;
   }
 
-  // Hauptcontainer
   .winner__content {
     width: 100%;
     max-width: 468px;
@@ -151,7 +144,6 @@
     text-align: center;
   }
 
-  // THE WINNER IS
   .winner__subtitle {
     width: 100%;
     margin: 0;
@@ -165,7 +157,6 @@
     color: #ffffff;
   }
 
-  // BLUE PLAYER / ORANGE PLAYER
   .winner__name {
     width: 100%;
     margin: 0;
@@ -188,7 +179,6 @@
     color: #ff913c;
   }
 
-  // POKAL
   .winner__player {
     width: 288px;
     max-width: 100%;
@@ -198,7 +188,6 @@
     object-fit: contain;
   }
 
-  // HOME BUTTON
   .winner__back {
     margin-top: 64px;
     padding: 0;
@@ -210,5 +199,14 @@
     width: 107px;
     height: 49px;
     max-width: 100%;
+  }
+}
+
+/*= CODE VIBES – WIDESCREEN AB 1440 PX =*/
+
+@media (min-width: 1440px) {
+  .winner:not(.winner--gaming) .winner__confetti {
+    content: url('./assets/Confetti (1).svg');
+    max-width: none;
   }
 }

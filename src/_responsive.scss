@@ -1,6 +1,4 @@
-/* ==========================================
-   RESPONSIVE – KLEINE DESKTOPS
-========================================== */
+/*= RESPONSIVE – KLEINE DESKTOPS =*/
 
 @media (max-height: 700px) and (min-width: 769px) {
   .game {
@@ -12,16 +10,13 @@
     margin-bottom: 20px;
   }
 
-  /* Nur das 16er-Spielfeld verkleinern. */
   .game__board[data-size="16"] {
     width: min(100%, 440px);
     gap: 10px;
   }
 }
 
-/* ==========================================
-   RESPONSIVE – TABLETS
-========================================== */
+/*= RESPONSIVE – TABLETS =*/
 
 @media (max-width: 900px) {
   .settings {
@@ -58,12 +53,11 @@
   }
 }
 
-/* ==========================================
-   RESPONSIVE – SMARTPHONES
-========================================== */
+/*= RESPONSIVE – SMARTPHONES =*/
 
 @media (max-width: 768px) {
-  /* HOME */
+
+  /*= HOME =*/
 
   .home__content {
     margin-left: 8%;
@@ -89,7 +83,7 @@
     width: 300px;
   }
 
-  /* SETTINGS */
+  /*= SETTINGS =*/
 
   .settings__headline {
     width: 220px;
@@ -117,7 +111,7 @@
     width: 110px;
   }
 
-  /* MEMORY GAME */
+  /*= MEMORY GAME =*/
 
   .game {
     padding: 24px 12px;
@@ -157,7 +151,7 @@
     width: 145px;
   }
 
-  /* 16 KARTEN */
+  /*= 16 KARTEN =*/
 
   .game__board[data-size="16"] {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -165,7 +159,7 @@
     gap: 8px;
   }
 
-  /* 24 KARTEN */
+  /*= 24 KARTEN =*/
 
   .game__board[data-size="24"] {
     grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -173,7 +167,7 @@
     gap: 6px;
   }
 
-  /* 36 KARTEN */
+  /*= 36 KARTEN =*/
 
   .game__board[data-size="36"] {
     grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -187,7 +181,7 @@
     aspect-ratio: 1;
   }
 
-  /* GAME OVER */
+  /*= GAME OVER =*/
 
   .game-over {
     padding: 48px 20px;
@@ -216,7 +210,7 @@
     height: 22px;
   }
 
-  /* EXIT-POPUP */
+  /*= EXIT-POPUP =*/
 
   .exit-modal__content {
     min-height: auto;
@@ -239,7 +233,7 @@
     height: 45px;
   }
 
-  /* WINNER SCREEN */
+  /*= WINNER SCREEN =*/
 
   .winner {
     padding: 100px 20px 40px;
@@ -272,7 +266,7 @@
     width: 160px;
   }
 
-  /* DRAW SCREEN */
+  /*= DRAW SCREEN =*/
 
   .draw {
     padding: 70px 20px 40px;
@@ -296,9 +290,7 @@
   }
 }
 
-/* ==========================================
-   VERSTECKTE SEITEN
-========================================== */
+/*= VERSTECKTE SEITEN =*/
 
 .home[hidden],
 .settings[hidden],

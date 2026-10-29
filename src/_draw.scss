@@ -1,6 +1,4 @@
-/* ==========================================
-   DRAW SCREEN
-========================================== */
+/*= DRAW SCREEN =*/
 
 .draw {
   position: relative;
@@ -13,20 +11,18 @@
   overflow: hidden;
   background-color: #303131;
 
-  // DRAW startet oberhalb des Bildschirms.
   transform: translateY(-100%);
 
-  // Slide-in-Animation: 600 ms.
   transition: transform 0.6s ease-in-out;
 }
 
-/* DRAW SLIDE-IN ANIMATION */
+/*= DRAW SLIDE-IN ANIMATION =*/
 
 .draw--visible {
   transform: translateY(0);
 }
 
-/* DRAW INHALT */
+/*= DRAW INHALT =*/
 
 .draw__content {
   display: flex;
@@ -40,7 +36,7 @@
   text-align: center;
 }
 
-/* IT'S A DRAW SCHRIFTZUG */
+/*= IT'S A DRAW SCHRIFTZUG =*/
 
 .draw__title {
   display: block;
@@ -50,7 +46,7 @@
   object-fit: contain;
 }
 
-/* TÜRKISE WAAGE */
+/*= TÜRKISE WAAGE =*/
 
 .draw__icon {
   display: block;
@@ -60,7 +56,7 @@
   object-fit: contain;
 }
 
-/* BACK TO START BUTTON */
+/*= BACK TO START BUTTON =*/
 
 .draw__back {
   display: block;
@@ -86,10 +82,8 @@
   outline: 3px solid #39c9b5;
   outline-offset: 5px;
 }
-/* ==========================================
-   GAMING THEME – DRAW SCREEN
-   Code Vibes bleibt unverändert
-========================================== */
+
+/*= GAMING THEME – DRAW SCREEN =*/
 
 .draw__gaming-image {
   display: none;
@@ -98,7 +92,6 @@
 .draw--gaming {
   background-color: #294f60;
 
-  // Gaming fährt von unten nach oben
   transform: translateY(100%);
 
   &.draw--visible {
@@ -114,20 +107,17 @@
     display: block;
   }
 
-  // Komplette Gaming-Grafik
   .draw__gaming-image {
     display: block;
     width: 100%;
     height: auto;
   }
 
-  // Bisherige Code-Vibes-Grafiken nur bei Gaming verstecken
   .draw__title,
   .draw__icon {
     display: none;
   }
 
-  // Unsichtbarer, klickbarer Button über dem Home-Button der SVG
   .draw__back {
     position: absolute;
     left: 50%;

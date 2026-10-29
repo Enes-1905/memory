@@ -1,6 +1,4 @@
-/* ==========================================
-   MEMORY GAME
-========================================== */
+/*= MEMORY GAME =*/
 
 .game {
   width: 100%;
@@ -10,9 +8,7 @@
   color: #ffffff;
 }
 
-/* ==========================================
-   GAME HEADER
-========================================== */
+/*= GAME HEADER =*/
 
 .game__header {
   display: flex;
@@ -90,9 +86,7 @@
     0 0 22px rgba(223, 229, 104, 0.45);
 }
 
-/* ==========================================
-   MEMORY BOARD – ALLE SPIELFELDGRÖSSEN
-========================================== */
+/*= MEMORY BOARD – ALLE SPIELFELDGRÖSSEN =*/
 
 .game__board {
   display: grid;
@@ -100,9 +94,7 @@
   margin: 0 auto;
 }
 
-/* ==========================================
-   16 KARTEN – 4 SPALTEN × 4 ZEILEN
-========================================== */
+/*= 16 KARTEN – 4 SPALTEN × 4 ZEILEN =*/
 
 .game__board[data-size="16"] {
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -110,9 +102,7 @@
   width: min(100%, 528px);
 }
 
-/* ==========================================
-   24 KARTEN – 6 SPALTEN × 4 ZEILEN
-========================================== */
+/*= 24 KARTEN – 6 SPALTEN × 4 ZEILEN =*/
 
 .game__board[data-size="24"] {
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -120,9 +110,7 @@
   width: min(100%, 750.35px);
 }
 
-/* ==========================================
-   36 KARTEN – FIGMA DESIGN
-========================================== */
+/*= 36 KARTEN – FIGMA DESIGN =*/
 
 .game__board[data-size="36"] {
   grid-template-columns: repeat(6, 120px);
@@ -143,9 +131,7 @@
   aspect-ratio: 105 / 120;
 }
 
-/* ==========================================
-   MEMORY CARD – 3D FLIP
-========================================== */
+/*= MEMORY CARD – 3D FLIP =*/
 
 .game__card {
   position: relative;
@@ -224,22 +210,15 @@
   outline-offset: 3px;
 }
 
-/* ==========================================
-   GAMING THEME – FIGMA DESIGN
-   Nur aktiv bei .game--gaming
-========================================== */
+/*= GAMING THEME – FIGMA DESIGN =*/
 
 .game--gaming {
 
-  /* ==========================================
-     GAMING – HINTERGRUND
-  ========================================== */
+  /*= GAMING – HINTERGRUND =*/
 
   background-color: #294e60;
 
-  /* ==========================================
-     GAMING – HEADER
-  ========================================== */
+  /*= GAMING – HEADER =*/
 
   .game__header {
     width: 100%;
@@ -251,9 +230,7 @@
     border-radius: 8px;
   }
 
-  /* ==========================================
-     GAMING – PUNKTEANZEIGE
-  ========================================== */
+  /*= GAMING – PUNKTEANZEIGE =*/
 
   .game__scores {
     display: flex;
@@ -264,7 +241,6 @@
     border-radius: 6px;
   }
 
-  // Spielernamen nur im Gaming Theme ausblenden
   .game__score-name {
     display: none;
   }
@@ -280,7 +256,6 @@
     height: 28px;
   }
 
-  // Orange links, Blau rechts
   .game__score--orange {
     order: 1;
     color: #ff6b00;
@@ -291,9 +266,7 @@
     color: #008cff;
   }
 
-  /* ==========================================
-     GAMING – CURRENT PLAYER
-  ========================================== */
+  /*= GAMING – CURRENT PLAYER =*/
 
   .game__current-player {
     display: flex;
@@ -303,7 +276,6 @@
     font-weight: 500;
   }
 
-  // Farbiger Hintergrund hinter der Schachfigur
   .game__current-icon-bg {
     display: flex;
     align-items: center;
@@ -313,7 +285,6 @@
     border-radius: 3px;
   }
 
-  // Schachfigur selbst weiß färben
   .game__current-icon {
     display: block;
     width: 28px;
@@ -323,19 +294,15 @@
     filter: brightness(0) invert(1);
   }
 
-  // Blau ist dran
   .game__current-icon-bg:has(.game__current-icon--blue) {
     background-color: #008cff;
   }
 
-  // Orange ist dran
   .game__current-icon-bg:has(.game__current-icon--orange) {
     background-color: #ff6b00;
   }
 
-  /* ==========================================
-     GAMING – EXIT BUTTON
-  ========================================== */
+  /*= GAMING – EXIT BUTTON =*/
 
   .game__exit {
     padding: 0;
@@ -356,17 +323,13 @@
     box-shadow: none;
   }
 
-  // Exit-SVG beim Hover rot einfärben
   .game__exit:hover img {
     filter: brightness(0) saturate(100%)
       invert(18%) sepia(100%) saturate(6500%)
       hue-rotate(355deg) brightness(115%);
   }
 
-  /* ==========================================
-     GAMING – 16 KARTEN
-     Enge Abstände + SVG-Ränder ausgleichen
-  ========================================== */
+  /*= GAMING – 16 KARTEN =*/
 
   .game__board[data-size="16"] {
     display: grid;
@@ -402,9 +365,7 @@
   }
 
 }
-/* ==========================================
-   GAMING – EXIT BUTTON FIGMA
-========================================== */
+/*= GAMING – EXIT BUTTON FIGMA =*/
 
 .game--gaming {
 
@@ -430,11 +391,7 @@
     transform: none;
   }
 }
-/* ==========================================
-   GAMING – 24 KARTEN
-   SVG-RÄNDER AUSGLEICHEN
-   CODE VIBES BLEIBT UNVERÄNDERT
-========================================== */
+/*= GAMING – 24 KARTEN =*/
 
 .game--gaming {
 
@@ -485,10 +442,7 @@
     top: -6px;
   }
 }
-/* ==========================================
-   GAMING – 36 KARTEN
-   NUR GAMING – CODE VIBES UNVERÄNDERT
-========================================== */
+/*= GAMING – 36 KARTEN =*/
 
 .game--gaming {
 
@@ -514,7 +468,7 @@
     aspect-ratio: auto;
   }
 
-  /* Rote Rückseite und weiße Vorderseite */
+  
   .game__board[data-size="36"] .game__card-back,
   .game__board[data-size="36"] .game__card-front {
     overflow: visible;
@@ -534,11 +488,7 @@
     object-fit: fill;
   }
 }
-/* ==========================================
-   GAMING – 36 KARTEN AN BILDSCHIRMHÖHE ANPASSEN
-   NUR GAMING – CODE VIBES UNVERÄNDERT
-   KEIN OVERFLOW HIDDEN
-========================================== */
+/*= GAMING – 36 KARTEN AN BILDSCHIRMHÖHE ANPASSEN =*/
 
 @media (min-width: 900px) and (max-height: 950px) {
 

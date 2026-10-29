@@ -1,8 +1,6 @@
 import './style.scss';
 
-/* ==========================================
-   HTML-ELEMENTE
-========================================== */
+/*= HTML-ELEMENTE =*/
 
 const home = document.querySelector<HTMLElement>('.home');
 const settings = document.querySelector<HTMLElement>('.settings');
@@ -68,9 +66,7 @@ const confirmExitButton = document.querySelector<HTMLButtonElement>(
   '.exit-modal__confirm'
 );
 
-/* ==========================================
-   KARTENMOTIVE
-========================================== */
+/*= KARTENMOTIVE =*/
 
 const codeCards = [
   '/src/assets/Property 26.svg',
@@ -123,9 +119,7 @@ const orangeIcon = '/src/assets/label.svg';
 const gamingBlueIcon = '/src/assets/chess_pawnblue.svg';
 const gamingOrangeIcon = '/src/assets/chesspawn.svg';
 
-/* ==========================================
-   TYPEN UND SPIELVARIABLEN
-========================================== */
+/*= TYPEN UND SPIELVARIABLEN =*/
 
 type Player = 'blue' | 'orange';
 type Theme = 'code' | 'gaming';
@@ -153,9 +147,7 @@ let gameSession = 0;
 const EXIT_ANIMATION_DURATION = 450;
 let exitAnimationTimeout: number | undefined;
 
-/* ==========================================
-   GAMING THEME – EXIT-BUTTON-SYMBOLE
-========================================== */
+/*= GAMING THEME – EXIT-BUTTON-SYMBOLE =*/
 
 const exitButtonIcon = exitButton?.querySelector<HTMLImageElement>('img');
 const confirmExitIcon = confirmExitButton?.querySelector<HTMLImageElement>('img');
@@ -217,9 +209,7 @@ function updateConfirmExitIcon() {
       ? '/src/game theme.svg'
       : '/src/assets/exit.svg';
 }
-/* ==========================================
-   EINSTELLUNGEN AUSLESEN
-========================================== */
+/*= EINSTELLUNGEN AUSLESEN =*/
 
 function getSelectedValue(name: string): string | undefined {
   return document.querySelector<HTMLInputElement>(
@@ -241,9 +231,7 @@ function getStartingPlayer(): Player {
   return getSelectedValue('player') === 'orange' ? 'orange' : 'blue';
 }
 
-/* ==========================================
-   DYNAMISCHE SETTINGS-LEISTE
-========================================== */
+/*= DYNAMISCHE SETTINGS-LEISTE =*/
 
 function updateSettingsSummary() {
   const theme = getTheme();
@@ -275,9 +263,7 @@ document
 
 updateSettingsSummary();
 
-/* ==========================================
-   THEME-VORSCHAU
-========================================== */
+/*= THEME-VORSCHAU =*/
 
 function showThemePreview(theme: string) {
   if (!preview) {
@@ -313,9 +299,7 @@ document
     });
   });
 
-/* ==========================================
-   HOME UND SETTINGS
-========================================== */
+/*= HOME UND SETTINGS =*/
 
 playButton?.addEventListener('click', () => {
   if (!home || !settings) {
@@ -331,9 +315,7 @@ playButton?.addEventListener('click', () => {
   window.scrollTo(0, 0);
 });
 
-/* ==========================================
-   KARTEN MISCHEN UND ERSTELLEN
-========================================== */
+/*= KARTEN MISCHEN UND ERSTELLEN =*/
 
 function shuffleCards(cardList: MemoryCard[]): MemoryCard[] {
   const shuffled = [...cardList];
@@ -386,9 +368,7 @@ function createCards(
   return shuffleCards(cardPairs);
 }
 
-/* ==========================================
-   PUNKTE UND SPIELERWECHSEL
-========================================== */
+/*= PUNKTE UND SPIELERWECHSEL =*/
 
 function updateScoreboard() {
   if (blueScoreElement) {
@@ -401,7 +381,6 @@ function updateScoreboard() {
 
   const isGamingTheme = currentTheme === 'gaming';
 
-  // Symbole in der Punkteanzeige
   const blueScoreIcon = document.querySelector<HTMLImageElement>(
     '.game__score-icon--blue'
   );
@@ -422,7 +401,6 @@ function updateScoreboard() {
       : orangeIcon;
   }
 
-  // Symbol des aktuellen Spielers
   if (currentPlayerIcon) {
     currentPlayerIcon.classList.toggle(
       'game__current-icon--blue',
@@ -456,9 +434,7 @@ function switchPlayer() {
   updateScoreboard();
 }
 
-/* ==========================================
-   SPIELFELD ERSTELLEN
-========================================== */
+/*= SPIELFELD ERSTELLEN =*/
 
 function renderBoard() {
   if (!board) {
@@ -535,9 +511,7 @@ function updateCard(index: number, revealed: boolean) {
   );
 }
 
-/* ==========================================
-   MEMORY-SPIELLOGIK
-========================================== */
+/*= MEMORY-SPIELLOGIK =*/
 
 function flipCard(index: number) {
   if (
@@ -631,16 +605,13 @@ function flipCard(index: number) {
     }, 1000);
   }
 }
-/* ==========================================
-   GAME OVER
-========================================== */
+/*= GAME OVER =*/
 
 function showGameOver() {
   if (!game || !gameOver) {
     return;
   }
 
-  // Finale Punkte anzeigen
   if (finalBlueScoreElement) {
     finalBlueScoreElement.textContent = String(blueScore);
   }
@@ -649,13 +620,11 @@ function showGameOver() {
     finalOrangeScoreElement.textContent = String(orangeScore);
   }
 
-  // Gaming-Design nur beim Gaming-Theme aktivieren
   gameOver.classList.toggle(
     'game-over--gaming',
     currentTheme === 'gaming'
   );
 
-  // Passende GAME-OVER-Grafik auswählen
   const gameOverTitle =
     gameOver.querySelector<HTMLImageElement>('.game-over__title');
 
@@ -665,7 +634,6 @@ function showGameOver() {
         ? '/src/assets/GAME OVER (1).svg'
         : '/src/assets/game over.svg';
   }
-  // Passende Spieler-Icons für das jeweilige Theme
 const blueIcon = gameOver.querySelector<HTMLImageElement>(
   '.game-over__score--blue img'
 );
@@ -688,16 +656,13 @@ if (orangeIcon) {
       : '/src/assets/label.svg';
 }
 
-  // Spielfeld ausblenden und GAME OVER anzeigen
   game.hidden = true;
   gameOver.hidden = false;
 
   window.scrollTo(0, 0);
 
-  // Aktuelle Spielrunde merken
   const session = gameSession;
 
-  // Nach 3 Sekunden Gewinner oder Unentschieden anzeigen
   window.setTimeout(() => {
     if (session !== gameSession) {
       return;
@@ -710,9 +675,7 @@ if (orangeIcon) {
     }
   }, 3000);
 }
-/* ==========================================
-   WINNER-SCREEN
-========================================== */
+/*= WINNER-SCREEN =*/
 
 function showWinner() {
   if (
@@ -726,7 +689,6 @@ function showWinner() {
 
   const isGaming = currentTheme === 'gaming';
 
-  // Gaming-Design nur beim Gaming-Theme aktivieren
   winnerScreen.classList.toggle('winner--gaming', isGaming);
 
   if (blueScore > orangeScore) {
@@ -755,7 +717,6 @@ function showWinner() {
       : 'Orange player';
   }
 
-  // Home-Button je nach Theme auswählen
   const homeButtonIcon =
     winnerScreen.querySelector<HTMLImageElement>('.winner__back img');
 
@@ -779,16 +740,13 @@ function showWinner() {
     });
   });
 }
-/* ==========================================
-   DRAW-SCREEN
-========================================== */
+/*= DRAW-SCREEN =*/
 
 function showDraw() {
   if (!gameOver || !drawScreen) {
     return;
   }
 
-  // Gaming-Design nur beim Gaming-Theme aktivieren
   drawScreen.classList.toggle(
     'draw--gaming',
     currentTheme === 'gaming'
@@ -807,9 +765,7 @@ function showDraw() {
     });
   });
 }
-/* ==========================================
-   ZURÜCK ZUM START
-========================================== */
+/*= ZURÜCK ZUM START =*/
 
 function backToStart() {
   if (!home || !settings || !game || !gameOver) {
@@ -839,9 +795,7 @@ function backToStart() {
 winnerBackButton?.addEventListener('click', backToStart);
 drawBackButton?.addEventListener('click', backToStart);
 
-/* ==========================================
-   SPIEL STARTEN
-========================================== */
+/*= SPIEL STARTEN =*/
 
 startButton?.addEventListener('click', () => {
   if (!settings || !game || !board) {
@@ -855,20 +809,16 @@ startButton?.addEventListener('click', () => {
   currentTheme = theme;
   currentPlayer = player;
 
-  // Gaming Theme nur beim Gaming-Spiel aktivieren
   game.classList.toggle(
     'game--gaming',
     currentTheme === 'gaming'
   );
 
-  // Exit-Popup liegt außerhalb des Game-Containers.
-  // Deshalb bekommt es eine eigene Gaming-Klasse.
   exitModal?.classList.toggle(
     'exit-modal--gaming',
     currentTheme === 'gaming'
   );
 
-  // Richtige SVGs für die Buttons setzen
   updateExitButtonIcon();
   setupBackToGameButton();
   updateConfirmExitIcon();
@@ -935,9 +885,7 @@ startButton?.addEventListener('click', () => {
   });
 });
 
-/* ==========================================
-   EXIT-POPUP
-========================================== */
+/*= EXIT-POPUP =*/
 
 function openExitModal() {
   if (!exitModal || !exitModal.hidden) {

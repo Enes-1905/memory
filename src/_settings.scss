@@ -1,6 +1,4 @@
-/* ==========================================
-   SETTINGS SCREEN
-========================================== */
+/*= SETTINGS SCREEN =*/
 
 .settings {
   min-height: 100vh;
@@ -30,7 +28,7 @@
   align-items: start;
 }
 
-/* SETTINGS – LINKE SEITE */
+/*= SETTINGS – LINKE SEITE =*/
 
 .settings__options {
   display: flex;
@@ -82,7 +80,7 @@
   font-weight: 700;
 }
 
-/* SETTINGS – RECHTE SEITE */
+/*= SETTINGS – RECHTE SEITE =*/
 
 .settings__right {
   display: flex;
@@ -140,4 +138,3 @@
 .settings__start:hover {
   transform: scale(1.05);
 }
-

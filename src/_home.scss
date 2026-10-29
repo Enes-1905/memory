@@ -1,12 +1,9 @@
-/* ==========================================
-   HOME SCREEN
-========================================== */
+/*= HOME SCREEN =*/
 
 .home {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  overflow: hidden;
   background-color: #303131;
   color: #ffffff;
 }
@@ -16,7 +13,7 @@
   z-index: 2;
   width: fit-content;
   max-width: calc(100% - 32px);
-  margin-left: 225px;
+  margin: 0 auto;
   padding-top: 339px;
 }
 
@@ -56,10 +53,9 @@
   position: absolute;
   z-index: 1;
   left: -88px;
-  bottom: -100px;
+  bottom: 0;
   width: 414.31px;
   height: auto;
   opacity: 0.05;
   pointer-events: none;
 }
-
