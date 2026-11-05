@@ -63,6 +63,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  width: fit-content;
   margin: 0 0 12px 40px;
   font-size: 19px;
   cursor: pointer;
@@ -74,6 +75,31 @@
   margin: 0;
   accent-color: #303131;
   cursor: pointer;
+}
+
+.settings__option span {
+  position: relative;
+  display: inline-block;
+}
+
+.settings__option span::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 8px);
+  width: 46px;
+  height: 14px;
+  background-image: url("/src/assets/Line%203.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 46px 14px;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.settings__option:hover span::after,
+.settings__option:has(input:checked) span::after {
+  opacity: 1;
 }
 
 .settings__option:has(input:checked) span {

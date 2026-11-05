@@ -1,11 +1,12 @@
+
 <!doctype html>
 <html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Memory</title>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
 
   <body>
     <!--= HOME SCREEN =-->
@@ -80,7 +81,6 @@
                   type="radio"
                   name="theme"
                   value="code"
-                  checked
                 />
                 <span>Code vibes theme</span>
               </label>
@@ -111,7 +111,6 @@
                   type="radio"
                   name="player"
                   value="blue"
-                  checked
                 />
                 <span>Blue</span>
               </label>
@@ -142,7 +141,6 @@
                   type="radio"
                   name="boardSize"
                   value="16"
-                  checked
                 />
                 <span>16 cards</span>
               </label>
@@ -152,7 +150,6 @@
                   type="radio"
                   name="boardSize"
                   value="24"
-                  checked
                 />
                 <span>24 cards</span>
               </label>
@@ -178,7 +175,7 @@
             <!--= SETTINGS FOOTER =-->
 
             <div class="settings__footer">
-              <span id="selected-theme">Code vibes</span>
+              <span id="selected-theme">Select theme</span>
 
               <img
                 class="settings__divider"
@@ -186,7 +183,7 @@
                 alt=""
               />
 
-              <span id="selected-player">Blue</span>
+              <span id="selected-player">Select player</span>
 
               <img
                 class="settings__divider"
@@ -194,7 +191,7 @@
                 alt=""
               />
 
-              <span id="selected-board-size">16 cards</span>
+              <span id="selected-board-size">Select cards</span>
 
               <img
                 class="settings__divider"
@@ -206,6 +203,7 @@
                 class="settings__start"
                 type="button"
                 aria-label="Start game"
+                disabled
               >
                 <img
                   src="./src/assets/start.svg"
@@ -469,3 +467,4 @@
     ></script>
   </body>
 </html>
+```
