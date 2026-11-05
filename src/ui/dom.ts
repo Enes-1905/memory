@@ -1,4 +1,4 @@
-/** References to the existing HTML elements; no markup changes required. */
+/** Stores references to the DOM elements used by the game. */
 export const dom = {
   home: document.querySelector<HTMLElement>('.home'),
   settings: document.querySelector<HTMLElement>('.settings'),

@@ -4,7 +4,13 @@ const svgAssets = import.meta.glob('/src/**/*.svg', {
   import: 'default',
 }) as Record<string, string>;
 
-/** Resolves an SVG path to its Vite-generated asset URL. */
+/**
+ * Resolves an SVG asset path to its Vite-generated URL.
+ *
+ * @param path - Absolute source path of the SVG asset.
+ * @returns The resolved asset URL.
+ * @throws Error if the SVG asset cannot be found.
+ */
 export function assetUrl(path: string): string {
   const url = svgAssets[path];
   if (!url) throw new Error(`SVG asset not found: ${path}`);

@@ -129,13 +129,10 @@ function bindThemePreview(input: HTMLInputElement): void {
   input.addEventListener('change', () => {
     if (input.checked) showThemePreview(input.value);
   });
-
   const label = input.closest('label');
-
   label?.addEventListener('mouseenter', () => {
     showThemePreview(input.value);
   });
-
   label?.addEventListener('mouseleave', () => {
     showThemePreview(selectedValue('theme') ?? 'code');
   });
