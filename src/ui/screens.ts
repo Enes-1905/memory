@@ -75,9 +75,9 @@ function updateWinnerGraphics(): void {
   const gaming = state.theme === 'gaming';
   dom.winnerName.textContent = `${winner.toUpperCase()} PLAYER`;
   dom.winnerName.className = `winner__name winner__name--${winner}`;
-  dom.winnerPlayer.src = assetUrl(gaming ? '/src/pockal 1.svg' : `/src/assets/${winner}player.svg`);
+  dom.winnerPlayer.src = assetUrl(gaming ? '/src/assets/pockal 1.svg' : `/src/assets/${winner}player.svg`);
   dom.winnerPlayer.alt = gaming ? 'Winner trophy' : `${winner === 'blue' ? 'Blue' : 'Orange'} player`;
-  setImage('.winner__back img', assetUrl(gaming ? '/src/home.svg' : '/src/assets/backtostart.svg'));
+  setImage('.winner__back img', assetUrl(gaming ? '/src/assets/home.svg' : '/src/assets/backtostart.svg'));
 }
 
 /** Displays the draw screen using the active theme. */

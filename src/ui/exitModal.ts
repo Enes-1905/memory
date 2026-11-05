@@ -13,7 +13,7 @@ export function updateExitIcons(): void {
   updateExitButtonIcon();
   updateBackToGameIcon();
   const confirm = dom.confirmExit?.querySelector<HTMLImageElement>('img');
-  if (confirm) confirm.src = assetUrl(gaming ? '/src/game theme.svg' : '/src/assets/exit.svg');
+  if (confirm) confirm.src = assetUrl(gaming ? '/src/assets/game theme.svg' : '/src/assets/exit.svg');
 }
 
 /** Switches the exit button image, including its hover variant. */
