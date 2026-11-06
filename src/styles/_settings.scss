@@ -146,13 +146,15 @@
   object-fit: contain;
 }
 
+/* Start button */
+
 .settings__start {
   display: block;
   padding: 0;
   border: none;
   background: transparent;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .settings__start img {
@@ -161,6 +163,20 @@
   height: auto;
 }
 
-.settings__start:hover {
+/* Active button */
+
+.settings__start:not(:disabled):hover {
   transform: scale(1.05);
+}
+
+/* Disabled button */
+
+.settings__start:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.settings__start:disabled img {
+  filter: grayscale(100%);
 }
