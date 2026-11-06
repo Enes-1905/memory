@@ -1,6 +1,8 @@
 import type { MemoryCard, Player, Theme } from '../types/game';
 
-/** Shared state for the currently active game session. */
+/**
+ * Stores the shared state of the currently active game session.
+ */
 export const state: {
   cards: MemoryCard[];
   flipped: number[];
@@ -14,12 +16,19 @@ export const state: {
   scores: { blue: 0, orange: 0 }, checking: false, session: 0,
 };
 
-/** Invalidates pending card and screen transition callbacks. */
+/**
+ * Invalidates pending callbacks from previous game sessions.
+ */
 export function invalidateSession(): void {
   state.session++;
 }
 
-/** Runs a callback only if the active game has not changed. */
+/**
+ * Schedules a callback that runs only if the game session is still active.
+ *
+ * @param callback - The function to execute after the specified delay.
+ * @param delay - The delay in milliseconds before executing the callback.
+ */
 export function scheduleForSession(callback: () => void, delay: number): void {
   const session = state.session;
   window.setTimeout(() => {

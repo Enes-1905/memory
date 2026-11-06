@@ -2,30 +2,51 @@ import type { BoardSize, Player, Theme } from '../types/game';
 import { assetUrl } from '../utils/assets';
 import { dom } from './dom';
 
-/** Reads the currently selected value of a radio group. */
+/**
+ * Reads the currently selected value of a radio button group.
+ *
+ * @param name - The name attribute of the radio button group.
+ * @returns The selected radio button value or undefined if none is selected.
+ */
 function selectedValue(name: string): string | undefined {
   return document.querySelector<HTMLInputElement>(
     `input[name="${name}"]:checked`
   )?.value;
 }
 
-/** Returns the selected theme, defaulting to the code theme. */
+/**
+ * Gets the selected game theme.
+ *
+ * @returns The selected theme or 'code' if no theme is selected.
+ */
 export function getTheme(): Theme {
   return selectedValue('theme') === 'gaming' ? 'gaming' : 'code';
 }
 
-/** Returns the selected player, defaulting to blue. */
+/**
+ * Gets the selected starting player.
+ *
+ * @returns The selected player or 'blue' if no player is selected.
+ */
 export function getStartingPlayer(): Player {
   return selectedValue('player') === 'orange' ? 'orange' : 'blue';
 }
 
-/** Returns the selected supported board size. */
+/**
+ * Gets the selected board size.
+ *
+ * @returns The selected board size or 16 if no valid size is selected.
+ */
 export function getBoardSize(): BoardSize {
   const size = Number(selectedValue('boardSize') ?? '16');
   return size === 16 || size === 24 || size === 36 ? size : 16;
 }
 
-/** Checks whether all required game settings have been selected. */
+/**
+ * Checks whether all required game settings have been selected.
+ *
+ * @returns True if theme, player, and board size are selected; otherwise false.
+ */
 function areSettingsComplete(): boolean {
   return Boolean(
     selectedValue('theme') &&
@@ -34,7 +55,10 @@ function areSettingsComplete(): boolean {
   );
 }
 
-/** Updates the theme label based on the current selection. */
+/**
+ * Updates the theme label to reflect the selected theme.
+ * Displays a placeholder when no theme is selected.
+ */
 function updateThemeLabel(): void {
   if (!dom.selectedTheme) return;
 
@@ -44,7 +68,10 @@ function updateThemeLabel(): void {
     : 'Select theme';
 }
 
-/** Updates the player label based on the current selection. */
+/**
+ * Updates the player label to reflect the selected starting player.
+ * Displays a placeholder when no player is selected.
+ */
 function updatePlayerLabel(): void {
   if (!dom.selectedPlayer) return;
 
@@ -54,7 +81,10 @@ function updatePlayerLabel(): void {
     : 'Select player';
 }
 
-/** Updates the board-size label based on the current selection. */
+/**
+ * Updates the board-size label to reflect the selected number of cards.
+ * Displays a placeholder when no board size is selected.
+ */
 function updateBoardSizeLabel(): void {
   if (!dom.selectedBoardSize) return;
 
@@ -64,7 +94,10 @@ function updateBoardSizeLabel(): void {
     : 'Select cards';
 }
 
-/** Enables the start button only when all settings are complete. */
+/**
+ * Enables the start button only when all required settings are selected.
+ * Disables the button when at least one selection is missing.
+ */
 function updateStartButton(): void {
   const startButton = document.querySelector<HTMLButtonElement>(
     '.settings__start'
@@ -75,7 +108,9 @@ function updateStartButton(): void {
   }
 }
 
-/** Updates the selected settings and start-button state. */
+/**
+ * Updates the settings summary and the start button state.
+ */
 export function updateSettingsSummary(): void {
   updateThemeLabel();
   updatePlayerLabel();
@@ -84,9 +119,9 @@ export function updateSettingsSummary(): void {
 }
 
 /**
- * Displays a preview for the supplied theme.
+ * Displays a preview image for the specified game theme.
  *
- * @param theme - Theme to display in the preview.
+ * @param theme - The theme whose preview image should be displayed.
  */
 export function showThemePreview(theme: string): void {
   if (!dom.preview) return;
@@ -102,7 +137,10 @@ export function showThemePreview(theme: string): void {
     : 'Preview: Code vibes theme';
 }
 
-/** Registers the settings interactions. */
+/**
+ * Initializes the settings screen interactions.
+ * Registers radio button changes, theme previews, and navigation events.
+ */
 export function initSettings(): void {
   const selector =
     'input[name="theme"], input[name="player"], input[name="boardSize"]';
@@ -121,9 +159,9 @@ export function initSettings(): void {
 }
 
 /**
- * Connects selection and hover previews to a theme option.
+ * Registers selection and hover events for a theme radio button.
  *
- * @param input - Radio input belonging to the theme option.
+ * @param input - The theme radio button used to update the preview.
  */
 function bindThemePreview(input: HTMLInputElement): void {
   input.addEventListener('change', () => {
@@ -138,7 +176,10 @@ function bindThemePreview(input: HTMLInputElement): void {
   });
 }
 
-/** Opens the settings screen from the home screen. */
+/**
+ * Opens the settings screen from the home screen.
+ * Updates the selected settings and displays the current theme preview.
+ */
 function openSettings(): void {
   if (!dom.home || !dom.settings) return;
 

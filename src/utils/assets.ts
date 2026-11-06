@@ -1,3 +1,6 @@
+/**
+ * Maps SVG source paths to their Vite-generated asset URLs.
+ */
 const svgAssets = import.meta.glob('/src/**/*.svg', {
   eager: true,
   query: '?url',
@@ -17,6 +20,9 @@ export function assetUrl(path: string): string {
   return url;
 }
 
+/**
+ * Contains the image URLs used for the code-themed memory cards.
+ */
 export const codeCards = [
   'Property 26.svg', 'Property 19.svg', 'Front (2).svg', 'Front.svg',
   'Property 221.svg', 'Property 22.svg', 'Property 20.svg', 'Property 21.svg',
@@ -25,6 +31,9 @@ export const codeCards = [
   'Front (7).svg', 'Front (8).svg',
 ].map((name) => assetUrl(`/src/assets/${name}`));
 
+/**
+ * Contains the image URLs used for the gaming-themed memory cards.
+ */
 export const gamingCards = [
   'Component 2.svg', 'Property 1=Component 2 (17).svg', 'Property 2.svg',
   'Property 3.svg', 'Property 4.svg', 'Property 5.svg', 'Front (11).svg',
@@ -33,11 +42,17 @@ export const gamingCards = [
   'Property 14.svg', 'Property 15.svg', 'Property 16.svg',
 ].map((name) => assetUrl(`/src/assets/${name}`));
 
+/**
+ * Stores the back image URL for each available game theme.
+ */
 export const cardBacks = {
   code: assetUrl('/src/assets/Property 18.svg'),
   gaming: assetUrl('/src/assets/Property 1.svg'),
 };
 
+/**
+ * Stores the player icon URLs for both themes and players.
+ */
 export const playerIcons = {
   code: {
     blue: assetUrl('/src/assets/label 1.svg'),

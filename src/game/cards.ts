@@ -3,7 +3,12 @@ import { cardBacks } from '../utils/assets';
 import { dom } from '../ui/dom';
 import { state } from './state';
 
-/** Shuffles a copy of the cards using Fisher-Yates. */
+/**
+ * Shuffles a copy of the cards using the Fisher-Yates algorithm.
+ *
+ * @param cards - The array of memory cards to shuffle.
+ * @returns A new array containing the shuffled cards.
+ */
 function shuffleCards(cards: MemoryCard[]): MemoryCard[] {
   const result = [...cards];
   for (let index = result.length - 1; index > 0; index--) {
@@ -13,7 +18,13 @@ function shuffleCards(cards: MemoryCard[]): MemoryCard[] {
   return result;
 }
 
-/** Creates the requested number of paired cards. */
+/**
+ * Creates the requested number of paired memory cards.
+ *
+ * @param images - The image URLs used for the card pairs.
+ * @param count - The total number of cards on the board.
+ * @returns An array of shuffled memory cards or an empty array if there are not enough images.
+ */
 export function createCards(images: string[], count: BoardSize): MemoryCard[] {
   const pairCount = count / 2;
   if (images.length < pairCount) return [];
@@ -24,7 +35,11 @@ export function createCards(images: string[], count: BoardSize): MemoryCard[] {
   return shuffleCards(pairs);
 }
 
-/** Renders the board with the same HTML classes as the original game. */
+/**
+ * Renders the memory board using the existing HTML classes.
+ *
+ * @param onFlip - Callback executed with the card index when a card is clicked.
+ */
 export function renderBoard(onFlip: (index: number) => void): void {
   if (!dom.board) return;
   dom.board.replaceChildren();
@@ -34,7 +49,14 @@ export function renderBoard(onFlip: (index: number) => void): void {
   });
 }
 
-/** Creates a clickable card with front and back faces. */
+/**
+ * Creates a clickable memory card with front and back faces.
+ *
+ * @param card - The memory card data used to create the element.
+ * @param index - The position of the card on the board.
+ * @param onFlip - Callback executed with the card index when the card is clicked.
+ * @returns The button element representing the memory card.
+ */
 function createCardElement(card: MemoryCard, index: number, onFlip: (index: number) => void): HTMLButtonElement {
   const button = document.createElement('button');
   button.type = 'button';
@@ -49,7 +71,13 @@ function createCardElement(card: MemoryCard, index: number, onFlip: (index: numb
   return button;
 }
 
-/** Creates one image-bearing face of a memory card. */
+/**
+ * Creates an image-bearing face for a memory card.
+ *
+ * @param side - Specifies whether the face is the front or back of the card.
+ * @param imageUrl - The URL of the image displayed on the card face.
+ * @returns The span element containing the card face image.
+ */
 function createCardFace(side: 'front' | 'back', imageUrl: string): HTMLSpanElement {
   const face = document.createElement('span');
   face.className = `game__card-${side}`;
@@ -60,7 +88,12 @@ function createCardFace(side: 'front' | 'back', imageUrl: string): HTMLSpanEleme
   return face;
 }
 
-/** Sets a card's revealed state and accessible label. */
+/**
+ * Updates the revealed state and accessible label of a memory card.
+ *
+ * @param index - The position of the card on the board.
+ * @param revealed - Whether the card should be displayed face up.
+ */
 export function updateCard(index: number, revealed: boolean): void {
   const button = getCardButton(index);
   if (!button) return;
@@ -68,12 +101,22 @@ export function updateCard(index: number, revealed: boolean): void {
   button.setAttribute('aria-label', revealed ? 'Aufgedeckte Memory-Karte' : 'Verdeckte Memory-Karte');
 }
 
-/** Finds the button corresponding to a card index. */
+/**
+ * Finds the button element associated with a memory card index.
+ *
+ * @param index - The position of the card on the board.
+ * @returns The matching card button or null if it does not exist.
+ */
 function getCardButton(index: number): HTMLButtonElement | null {
   return dom.board?.querySelector<HTMLButtonElement>(`.game__card[data-index="${index}"]`) ?? null;
 }
 
-/** Marks both cards of a found pair as matched. */
+/**
+ * Marks two memory cards as a successfully matched pair.
+ *
+ * @param first - The index of the first matching card.
+ * @param second - The index of the second matching card.
+ */
 export function markPairMatched(first: number, second: number): void {
   getCardButton(first)?.classList.add('game__card--matched');
   getCardButton(second)?.classList.add('game__card--matched');

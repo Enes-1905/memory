@@ -5,7 +5,11 @@ import { initResultNavigation } from './ui/screens';
 import { dom } from './ui/dom';
 import { startGame } from './game/logic';
 
-/** Connects the game's existing HTML controls to their handlers. */
+/**
+ * Initializes the memory game application.
+ * Registers settings, exit modal, and result screen interactions.
+ * Connects the start button to the game initialization handler.
+ */
 function initializeApp(): void {
   initSettings();
   initExitModal();

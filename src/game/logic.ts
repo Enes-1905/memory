@@ -6,7 +6,9 @@ import { hideResultScreens, showGameOver, updateScoreboard } from '../ui/screens
 import { createCards, markPairMatched, renderBoard, updateCard } from './cards';
 import { invalidateSession, scheduleForSession, state } from './state';
 
-/** Starts a game with the selected settings. */
+/**
+ * Starts a new memory game using the selected settings.
+ */
 export function startGame(): void {
   if (!dom.settings || !dom.game || !dom.board) return;
   applyGameSettings();
@@ -20,7 +22,9 @@ export function startGame(): void {
   window.scrollTo(0, 0);
 }
 
-/** Applies the selected theme and starting player. */
+/**
+ * Applies the selected theme and starting player to the game state.
+ */
 function applyGameSettings(): void {
   state.theme = getTheme();
   state.player = getStartingPlayer();
@@ -29,7 +33,12 @@ function applyGameSettings(): void {
   updateExitIcons();
 }
 
-/** Creates a shuffled deck and reports missing card images. */
+/**
+ * Creates a shuffled deck of memory cards for the selected board size.
+ * Displays an alert if there are not enough card images available.
+ *
+ * @returns True if the cards were created successfully, otherwise false.
+ */
 function prepareGameCards(): boolean {
   const images = state.theme === 'gaming' ? gamingCards : codeCards;
   invalidateSession();
@@ -39,7 +48,9 @@ function prepareGameCards(): boolean {
   return false;
 }
 
-/** Clears the previous game state and renders the new board. */
+/**
+ * Resets player scores and card states before rendering a new board.
+ */
 function resetScoresAndCards(): void {
   state.scores.blue = 0;
   state.scores.orange = 0;
@@ -49,7 +60,11 @@ function resetScoresAndCards(): void {
   renderBoard(flipCard);
 }
 
-/** Reveals a card and checks whether a pair was selected. */
+/**
+ * Reveals the selected card and checks whether two cards are flipped.
+ *
+ * @param index - The index of the card selected by the player.
+ */
 function flipCard(index: number): void {
   if (!canFlip(index)) return;
   state.flipped.push(index);
@@ -58,7 +73,12 @@ function flipCard(index: number): void {
   checkPair();
 }
 
-/** Validates whether the chosen card may be revealed. */
+/**
+ * Checks whether a selected card is allowed to be revealed.
+ *
+ * @param index - The index of the card to validate.
+ * @returns True if the card can be flipped, otherwise false.
+ */
 function canFlip(index: number): boolean {
   if (state.checking || (dom.exitModal && !dom.exitModal.hidden)) return false;
   const card = state.cards[index];
@@ -66,7 +86,9 @@ function canFlip(index: number): boolean {
   return state.flipped.length < 2;
 }
 
-/** Resolves the two selected cards as a match or mismatch. */
+/**
+ * Compares the two flipped cards and handles a match or mismatch.
+ */
 function checkPair(): void {
   const [first, second] = state.flipped;
   if (state.cards[first].pairId === state.cards[second].pairId) {
@@ -77,7 +99,12 @@ function checkPair(): void {
   }
 }
 
-/** Awards a point and checks whether the game is finished. */
+/**
+ * Marks a matching pair, awards a point, and checks for game completion.
+ *
+ * @param first - The index of the first matching card.
+ * @param second - The index of the second matching card.
+ */
 function resolveMatch(first: number, second: number): void {
   state.cards[first].matched = true;
   state.cards[second].matched = true;
@@ -91,7 +118,12 @@ function resolveMatch(first: number, second: number): void {
   }
 }
 
-/** Turns unmatched cards back and switches the active player. */
+/**
+ * Hides two unmatched cards and switches to the other player.
+ *
+ * @param first - The index of the first unmatched card.
+ * @param second - The index of the second unmatched card.
+ */
 function resolveMismatch(first: number, second: number): void {
   updateCard(first, false);
   updateCard(second, false);

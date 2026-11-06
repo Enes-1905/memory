@@ -1,4 +1,11 @@
-/** Stores references to the DOM elements used by the game. */
+/**
+ * Stores references to the DOM elements used throughout the memory game.
+ *
+ * Each property contains the matching HTML element or null if the element
+ * cannot be found in the document.
+ *
+ * These references are shared across the game, settings, and screen modules.
+ */
 export const dom = {
   home: document.querySelector<HTMLElement>('.home'),
   settings: document.querySelector<HTMLElement>('.settings'),

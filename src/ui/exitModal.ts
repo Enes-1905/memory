@@ -6,7 +6,9 @@ import { updateSettingsSummary } from './settings';
 const EXIT_ANIMATION_DURATION = 450;
 let exitAnimationTimeout: number | undefined;
 
-/** Updates exit controls to match the selected theme. */
+/**
+ * Updates the exit controls and their icons to match the selected theme.
+ */
 export function updateExitIcons(): void {
   const gaming = state.theme === 'gaming';
   dom.exitModal?.classList.toggle('exit-modal--gaming', gaming);
@@ -16,7 +18,11 @@ export function updateExitIcons(): void {
   if (confirm) confirm.src = assetUrl(gaming ? '/src/assets/game theme.svg' : '/src/assets/exit.svg');
 }
 
-/** Switches the exit button image, including its hover variant. */
+/**
+ * Updates the exit button icon based on the selected theme and hover state.
+ *
+ * @param hovered - Whether the mouse is currently hovering over the exit button.
+ */
 function updateExitButtonIcon(hovered = false): void {
   const icon = dom.exitButton?.querySelector<HTMLImageElement>('img');
   if (!icon) return;
@@ -25,7 +31,10 @@ function updateExitButtonIcon(hovered = false): void {
   icon.src = assetUrl(path);
 }
 
-/** Updates the back button and its optional gaming hover image. */
+/**
+ * Updates the back-to-game button icon for the selected theme.
+ * Removes the gaming hover image when switching to the code theme.
+ */
 function updateBackToGameIcon(): void {
   const button = dom.backToGame;
   const icon = button?.querySelector<HTMLImageElement>('img:not(.exit-modal__back-hover)');
@@ -38,7 +47,13 @@ function updateBackToGameIcon(): void {
   }
 }
 
-/** Creates or reuses the gaming back button hover image. */
+/**
+ * Configures the default and hover images of the gaming back button.
+ * Creates the hover image element if it does not already exist.
+ *
+ * @param button - The back-to-game button element.
+ * @param icon - The default image element inside the button.
+ */
 function configureGamingBackIcon(button: HTMLButtonElement, icon: HTMLImageElement): void {
   icon.className = 'exit-modal__back-default';
   icon.src = assetUrl('/src/assets/Propertyback.svg');
@@ -53,7 +68,10 @@ function configureGamingBackIcon(button: HTMLButtonElement, icon: HTMLImageEleme
   hover.src = assetUrl('/src/assets/Propertybackgame.svg');
 }
 
-/** Opens the animated exit confirmation modal. */
+/**
+ * Opens the exit confirmation modal with its entrance animation.
+ * Moves keyboard focus to the back-to-game button.
+ */
 function openExitModal(): void {
   if (!dom.exitModal || !dom.exitModal.hidden) return;
   window.clearTimeout(exitAnimationTimeout);
@@ -64,7 +82,12 @@ function openExitModal(): void {
   dom.backToGame?.focus();
 }
 
-/** Closes the exit confirmation modal and optionally exits the game. */
+/**
+ * Closes the exit confirmation modal with an animation.
+ * Optionally returns the player to the settings screen.
+ *
+ * @param leaveGame - Whether to leave the current game after closing the modal.
+ */
 export function closeExitModal(leaveGame: boolean): void {
   if (!dom.exitModal || dom.exitModal.hidden) return;
   window.clearTimeout(exitAnimationTimeout);
@@ -73,7 +96,11 @@ export function closeExitModal(leaveGame: boolean): void {
   exitAnimationTimeout = window.setTimeout(() => finishClosingModal(leaveGame), EXIT_ANIMATION_DURATION);
 }
 
-/** Completes the exit transition after its CSS animation. */
+/**
+ * Completes the modal closing process after the exit animation.
+ *
+ * @param leaveGame - Whether to return to settings or continue the current game.
+ */
 function finishClosingModal(leaveGame: boolean): void {
   if (!dom.exitModal) return;
   dom.exitModal.hidden = true;
@@ -82,7 +109,10 @@ function finishClosingModal(leaveGame: boolean): void {
   else dom.exitButton?.focus();
 }
 
-/** Returns from the active game to its settings screen. */
+/**
+ * Leaves the current game and returns to the settings screen.
+ * Invalidates pending callbacks from the previous game session.
+ */
 function returnToSettings(): void {
   if (!dom.settings || !dom.game) return;
   invalidateSession();
@@ -92,7 +122,10 @@ function returnToSettings(): void {
   window.scrollTo(0, 0);
 }
 
-/** Resets the exit modal before starting another game. */
+/**
+ * Resets the exit modal to its initial hidden state.
+ * Cancels any pending exit animation timeout.
+ */
 export function resetExitModal(): void {
   window.clearTimeout(exitAnimationTimeout);
   if (!dom.exitModal) return;
@@ -100,7 +133,10 @@ export function resetExitModal(): void {
   dom.exitModal.classList.remove('is-entering', 'is-leaving');
 }
 
-/** Registers exit, return, hover, and Escape interactions. */
+/**
+ * Registers event listeners for the exit modal controls.
+ * Handles button clicks, hover effects, and the Escape key.
+ */
 export function initExitModal(): void {
   dom.exitButton?.addEventListener('click', openExitModal);
   dom.exitButton?.addEventListener('mouseenter', () => updateExitButtonIcon(true));
@@ -110,7 +146,11 @@ export function initExitModal(): void {
   document.addEventListener('keydown', onEscape);
 }
 
-/** Closes the open exit modal when Escape is pressed. */
+/**
+ * Closes the exit confirmation modal when the Escape key is pressed.
+ *
+ * @param event - The keyboard event triggered by the user.
+ */
 function onEscape(event: KeyboardEvent): void {
   if (event.key === 'Escape' && dom.exitModal && !dom.exitModal.hidden) closeExitModal(false);
 }

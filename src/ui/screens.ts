@@ -2,7 +2,9 @@ import { assetUrl, playerIcons } from '../utils/assets';
 import { dom } from './dom';
 import { invalidateSession, scheduleForSession, state } from '../game/state';
 
-/** Updates score values and theme-specific player icons. */
+/**
+ * Updates the scoreboard values and player icons for the selected theme.
+ */
 export function updateScoreboard(): void {
   if (dom.blueScore) dom.blueScore.textContent = String(state.scores.blue);
   if (dom.orangeScore) dom.orangeScore.textContent = String(state.scores.orange);
@@ -11,13 +13,20 @@ export function updateScoreboard(): void {
   updateCurrentPlayerIcon();
 }
 
-/** Updates a single image found by its selector. */
+/**
+ * Updates the source of an image element found in the document.
+ *
+ * @param selector - The CSS selector used to find the image element.
+ * @param url - The URL of the image to display.
+ */
 function setImage(selector: string, url: string): void {
   const image = document.querySelector<HTMLImageElement>(selector);
   if (image) image.src = url;
 }
 
-/** Displays the icon and accessibility label of the current player. */
+/**
+ * Updates the icon and accessibility label of the current player.
+ */
 function updateCurrentPlayerIcon(): void {
   const icon = dom.currentIcon;
   if (!icon) return;
@@ -28,7 +37,9 @@ function updateCurrentPlayerIcon(): void {
   icon.alt = state.player === 'blue' ? 'Blue' : 'Orange';
 }
 
-/** Shows final scores before displaying the winner or a draw. */
+/**
+ * Displays the final scores before showing the winner or draw screen.
+ */
 export function showGameOver(): void {
   if (!dom.game || !dom.gameOver) return;
   if (dom.finalBlueScore) dom.finalBlueScore.textContent = String(state.scores.blue);
@@ -40,7 +51,9 @@ export function showGameOver(): void {
   scheduleForSession(showResult, 3000);
 }
 
-/** Sets the correct game-over title and score icons. */
+/**
+ * Updates the game-over title and score icons based on the selected theme.
+ */
 function updateGameOverGraphics(): void {
   const screen = dom.gameOver;
   if (!screen) return;
@@ -51,13 +64,18 @@ function updateGameOverGraphics(): void {
   setImage('.game-over__score--orange img', playerIcons[state.theme].orange);
 }
 
-/** Chooses the result screen after the game-over delay. */
+/**
+ * Determines whether the game ended with a winner or a draw.
+ * Displays the corresponding result screen.
+ */
 function showResult(): void {
   if (state.scores.blue === state.scores.orange) showDraw();
   else showWinner();
 }
 
-/** Displays the winner screen using the active theme. */
+/**
+ * Displays the winner screen using the selected visual theme.
+ */
 function showWinner(): void {
   if (!dom.gameOver || !dom.winner || !dom.winnerName || !dom.winnerPlayer) return;
   const gaming = state.theme === 'gaming';
@@ -68,7 +86,9 @@ function showWinner(): void {
   revealScreen(dom.winner, 'winner--visible');
 }
 
-/** Selects the winner name, picture, and home button. */
+/**
+ * Updates the winner name, player image, and home button icon.
+ */
 function updateWinnerGraphics(): void {
   if (!dom.winnerName || !dom.winnerPlayer) return;
   const winner = state.scores.blue > state.scores.orange ? 'blue' : 'orange';
@@ -80,7 +100,9 @@ function updateWinnerGraphics(): void {
   setImage('.winner__back img', assetUrl(gaming ? '/src/assets/home.svg' : '/src/assets/backtostart.svg'));
 }
 
-/** Displays the draw screen using the active theme. */
+/**
+ * Displays the draw screen using the selected visual theme.
+ */
 function showDraw(): void {
   if (!dom.gameOver || !dom.draw) return;
   dom.draw.classList.toggle('draw--gaming', state.theme === 'gaming');
@@ -88,7 +110,12 @@ function showDraw(): void {
   revealScreen(dom.draw, 'draw--visible');
 }
 
-/** Reveals a result screen with its existing CSS transition. */
+/**
+ * Reveals a result screen using its existing CSS transition.
+ *
+ * @param screen - The HTML element representing the result screen.
+ * @param visibleClass - The CSS class that triggers the screen's entrance animation.
+ */
 function revealScreen(screen: HTMLElement, visibleClass: string): void {
   screen.classList.remove(visibleClass);
   screen.hidden = false;
@@ -96,7 +123,9 @@ function revealScreen(screen: HTMLElement, visibleClass: string): void {
   requestAnimationFrame(() => requestAnimationFrame(() => screen.classList.add(visibleClass)));
 }
 
-/** Hides result screens and returns to the home screen. */
+/**
+ * Returns to the home screen and invalidates the current game session.
+ */
 export function backToStart(): void {
   if (!dom.home || !dom.settings || !dom.game || !dom.gameOver) return;
   invalidateSession();
@@ -108,7 +137,9 @@ export function backToStart(): void {
   window.scrollTo(0, 0);
 }
 
-/** Resets visibility and animation classes on both result screens. */
+/**
+ * Hides both result screens and removes their animation classes.
+ */
 export function hideResultScreens(): void {
   if (dom.winner) {
     dom.winner.hidden = true;
@@ -120,7 +151,9 @@ export function hideResultScreens(): void {
   }
 }
 
-/** Registers the home navigation buttons on result screens. */
+/**
+ * Registers click event listeners for returning home from result screens.
+ */
 export function initResultNavigation(): void {
   dom.winnerBack?.addEventListener('click', backToStart);
   dom.drawBack?.addEventListener('click', backToStart);
